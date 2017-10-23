@@ -12,4 +12,15 @@ public class HabitEvent {
     private Date date;
     //location stuff
     private String comment;
+
+    public HabitEvent(Habit habit) {
+        this.habit = habit;
+        this.date = new Date();
+    }
+    public HabitEvent(Habit habit, String comment) {
+        this.habit = habit;
+        this.date = new Date();
+        this.comment = comment;
+    }
+
 }
