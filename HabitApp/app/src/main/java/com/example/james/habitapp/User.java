@@ -15,8 +15,14 @@ public class User {
     private FollowAdapter followerAdapter;
     private FollowAdapter followAdapter;
 
+    public User (String username){
+        this.username = username;
+
+    }
+
     public void sendFollowRequest(String username) {
 
     }
+
 }
 
