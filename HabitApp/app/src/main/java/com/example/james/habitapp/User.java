@@ -10,10 +10,10 @@ public class User {
 
     private String username;
     private Image profilePicture;
-    private HabitAdapter habitAdapter;
-    private HabitEventAdapter habitEventAdapter;
-    private FollowAdapter followerAdapter;
-    private FollowAdapter followAdapter;
+    //private HabitAdapter habitAdapter;
+    //private HabitEventAdapter habitEventAdapter;
+    //private FollowAdapter followerAdapter;
+    //private FollowAdapter followAdapter;
 
     public User (String username){
         this.username = username;
