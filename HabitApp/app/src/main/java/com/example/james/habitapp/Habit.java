@@ -35,4 +35,32 @@ public class Habit {
     public void editSchedule(boolean[] schedule){
 
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public boolean[] getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(boolean[] schedule) {
+        this.schedule = schedule;
+    }
 }

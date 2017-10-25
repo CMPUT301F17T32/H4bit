@@ -23,4 +23,19 @@ public class HabitEvent {
         this.comment = comment;
     }
 
+    public Habit getHabit() {
+        return habit;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }
