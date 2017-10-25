@@ -23,6 +23,7 @@ public class User {
     public void sendFollowRequest(String username) {
 
     }
+    public String getUsername(){return username;}
 
 }
 
