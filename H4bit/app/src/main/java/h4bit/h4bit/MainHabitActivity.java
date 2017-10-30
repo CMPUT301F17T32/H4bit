@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 /**
  * habitsButton, socialButton, historyButton, addButton, habitsList
+ * I suggest the habits button do nothing because it will only take us to the
+ * screen we are already on (this one)
  */
 public class MainHabitActivity extends AppCompatActivity {
 
