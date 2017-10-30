@@ -1,6 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="61dp" />
+
+    <EditText
+        android:id="@+id/startCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="119dp" />
+
+    <EditText
+        android:id="@+id/reasonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="366dp" />
+
+    <ToggleButton
+        android:id="@+id/sundayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/mondayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/tuesdayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/wednesdayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/thursdayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="208dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/fridayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <ToggleButton
+        android:id="@+id/saturdayButton"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        tools:layout_editor_absoluteX="274dp"
+        tools:layout_editor_absoluteY="188dp" />
 
 </android.support.constraint.ConstraintLayout>
