@@ -16,6 +16,9 @@ import android.widget.EditText;
  * we plan for this screen to have dual functionality, so the crealog button should
  * either show create or login depending on whether they are
  * creating an account or logging in with an existing account
+ *
+ * Should there be an offline mode button? Should it just skip
+ * the login screen when someone is offline?
  */
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -56,7 +59,16 @@ public class CreateAccountActivity extends AppCompatActivity {
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
-        
+        // Attempt to login
+        // Send user/pass keypair to elasticsearch
+        // check if keypair matches a user account
+        // elasticsearch returns user object
 
+    }
+
+    public void signup(){
+
+        EditText usernameText = (EditText) findViewById(R.id.usernameText);
+        EditText passwordText = (EditText) findViewById(R.id.passwordText);
     }
 }
