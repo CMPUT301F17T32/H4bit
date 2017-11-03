@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
+ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
 MERGED from [com.android.support:appcompat-v7:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/ddfd6f40806c5314b33bcd41a7924f9f/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4bd709751f145797efaf7242ff22672a/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-25.3.1.aar/434b5d110d807359b8a59faba37d3c8b/AndroidManifest.xml:17:1-28:12
@@ -14,25 +14,25 @@ MERGED from [com.android.support:support-media-compat:25.3.1] /cshome/bhlewka/.g
 MERGED from [com.android.support:support-core-utils:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/support-core-utils-25.3.1.aar/a3a36bddcf2d4f61530cd67c7e8ee508/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-core-ui:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/support-core-ui-25.3.1.aar/170c97749c4e89921e5a7812d670cfb0/AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/support-compat-25.3.1.aar/cc59ee25449341a7382b366963746d94/AndroidManifest.xml:17:1-31:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
+INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
 	package
 		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:3:5-26
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
-		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
+		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
-		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-21:12
+		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:1-22:12
 		INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:2:11-69
 application
-ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:5:5-19:19
+ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:5:5-20:19
 MERGED from [com.android.support:appcompat-v7:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/ddfd6f40806c5314b33bcd41a7924f9f/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:appcompat-v7:25.3.1] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/ddfd6f40806c5314b33bcd41a7924f9f/AndroidManifest.xml:29:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /cshome/bhlewka/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4bd709751f145797efaf7242ff22672a/AndroidManifest.xml:9:5-20
@@ -79,6 +79,10 @@ category#android.intent.category.LAUNCHER
 ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:16:17-77
 	android:name
 		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:16:27-74
+activity#h4bit.h4bit.CreateAccountActivity2
+ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:19:9-69
+	android:name
+		ADDED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml:19:19-57
 uses-sdk
 INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /cshome/bhlewka/301/H4bit/H4bit/app/src/main/AndroidManifest.xml
