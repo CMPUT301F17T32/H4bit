@@ -13,7 +13,7 @@
         android:label="Tests for h4bit.h4bit"
         android:targetPackage="h4bit.h4bit" />
 
-    <application>
+    <application android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
     </application>
 

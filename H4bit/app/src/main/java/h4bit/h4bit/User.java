@@ -10,6 +10,8 @@ public class User {
 
     private String username;
     private Image profilePicture;
+    private HabitList habitList;
+    private HabitEventList habitEventList;
     //private HabitAdapter habitAdapter;
     //private HabitEventAdapter habitEventAdapter;
     //private FollowAdapter followerAdapter;
@@ -26,5 +28,9 @@ public class User {
     public String getUsername(){return username;}
 
     public String getRequests(){return "fix me";}
+
+    public void addHabit(Habit habit){
+        this.habitList.addHabit(habit);
+    }
 }
 
