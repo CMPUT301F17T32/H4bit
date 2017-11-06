@@ -2489,7 +2489,7 @@ public final class R {
     public static final int habitsButton2=0x7f070032;
     public static final int habitsList=0x7f070033;
     public static final int historyButton=0x7f070034;
-    public static final int historyButton2=0x7f070035;
+    public static final int historyButton =0x7f070035;
     public static final int home=0x7f070036;
     public static final int homeAsUp=0x7f070037;
     public static final int icon=0x7f070038;
