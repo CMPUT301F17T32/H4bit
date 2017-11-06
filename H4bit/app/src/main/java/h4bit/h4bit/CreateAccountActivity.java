@@ -30,10 +30,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button signupButton = (Button) findViewById(R.id.signupButton);
-        Button crealogButton = (Button) findViewById(R.id.crealogButton);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        Button signupButton = (Button) findViewById(R.id.signupButton);
+        Button crealogButton = (Button) findViewById(R.id.crealogButton);
 
         // This will be the listener for the signup button
         signupButton.setOnClickListener(new View.OnClickListener(){
@@ -71,7 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainHabitActivity.class);
         startActivity(intent);
-        finish();
+//        finish();
     }
 
 
