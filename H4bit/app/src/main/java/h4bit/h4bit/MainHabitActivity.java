@@ -40,4 +40,11 @@ public class MainHabitActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HabitHistoryActivity.class);
         startActivity(intent);
     }
+
+    public void socialTab(){
+        Intent intent = new Intent(this, SocialActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 }

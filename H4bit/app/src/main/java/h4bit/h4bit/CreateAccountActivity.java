@@ -4,6 +4,7 @@ package h4bit.h4bit;
  * Created by benhl on 2017-10-29.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -52,7 +53,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // This should log in the user and take us to the main todays habits screen screen
-    public void login(){
+    public void login() {
 
         // Get the entered username and password text
         // Its probably good practice to compare the users pass with a stored
@@ -66,7 +67,14 @@ public class CreateAccountActivity extends AppCompatActivity {
         // check if keypair matches a user account
         // elasticsearch returns user object
 
+        // Right now this will just take us to the new screen
+
+        Intent intent = new Intent(this, MainHabitActivity.class);
+        startActivity(intent);
+        finish();
     }
+
+
 
     public void signup(){
 
