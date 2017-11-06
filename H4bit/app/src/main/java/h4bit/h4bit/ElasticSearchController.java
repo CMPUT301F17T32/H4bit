@@ -34,8 +34,25 @@ public class ElasticSearchController {
         @Override
         protected Void doInBackground(Habit... habits) {
             verifySettings();
+
+            Index index = new Index.Builder(habit).index("t32_h4bit").type("Habit").build();
+
+            try {
+                // where is the client?
+                DocumentResult result = client.execute(index);
+
+                if (result.isSucceeded()) {
+                    habit.setId(result.getId());
+                } else {
+                    Log.i("Error","Elasticsearch was not able to add the mood");
+                }
+
+            }
+            catch (Exception e) {
+                Log.i("Error", "The application failed to build and send the habits");
+            }
             // figure out how all this works
-            for (Habit habit : habits) {
+            /**for (Habit habit : habits) {
                 Index index = new Index.Builder(habit).index("t32").type("Habit").build();
 
                 try {
@@ -53,28 +70,30 @@ public class ElasticSearchController {
                     Log.i("Error", "The application failed to build and send the habits");
                 }
 
-            }
+            }**/
             return null;
         }
     }
 
     // TODO we need a function which gets tweets from elastic search
-    public static class GetTweetsTask extends AsyncTask<String, Void, ArrayList<NormalTweet>> {
+    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
         @Override
-        protected ArrayList<NormalTweet> doInBackground(String... search_parameters) {
+        protected ArrayList<Habit> doInBackground(String... search_parameters) {
             verifySettings();
 
-            ArrayList<NormalTweet> tweets = new ArrayList<NormalTweet>();
+            ArrayList<Habit> habits = new ArrayList<Habit>();
 
             // TODO Build the query
-            Search search = new Search.Builder(search_parameters[0]) .addIndex("testing").addType("tweet").build();
+            Search query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
+            Search search = new Search.Builder(query)
+                    .addIndex("t32_h4bit").addType("Habit").build();
             try {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
 
                 if (result.isSucceeded()) {
-                    List<NormalTweet> foundTweet = result.getSourceAsObjectList(NormalTweet.class);
-                    tweets.addAll(foundTweet);
+                    List<Habit> foundHabit = result.getSourceAsObjectList(Habit.class);
+                    habits.addAll(foundHabit);
                 } else {
                     Log.i("Error","Something went wrong when we tried to communicate with the server");
                 }
@@ -83,7 +102,7 @@ public class ElasticSearchController {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
             }
 
-            return tweets;
+            return habits;
         }
     }
 
