@@ -38,12 +38,14 @@ public class CreateAccountActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 // Signup the user, put them into the system
+                signup();
             }
         });
 
         crealogButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 // Log the user in
+                login();
             }
         });
 

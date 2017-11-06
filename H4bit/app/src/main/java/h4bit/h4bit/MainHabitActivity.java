@@ -1,5 +1,6 @@
 package h4bit.h4bit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,9 +27,17 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // This is the listener for the historyButton press
         //
-        newCounter.setOnClickListener(new View.OnClickListener(){
+        historyButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
+                historyTab();
+            }
+        });
+    }
 
+    public void historyTab(){
+        // This should start an activity
 
+        Intent intent = new Intent(this, HabitHistoryActivity.class);
+        startActivity(intent);
     }
 }
