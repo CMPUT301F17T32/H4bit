@@ -67,6 +67,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         if (username.isEmpty()) {
             Log.i("Login", "Please enter a username");
+        } else if (username.matches("[a-zA-Z]+")){  // do we want the username to only include a-z/A-Z?
+            // elastic search
         }
 
         // Attempt to login
