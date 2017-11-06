@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
+ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
 MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\e4f6e201973d0e52311d85c1f3f235f7\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\9a18dd8ebdb5ae9fffe312c9417eb502\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\3c79c5d8fa2c3285f6da0b5f50009300\AndroidManifest.xml:17:1-28:12
@@ -14,25 +14,25 @@ MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\benhl\.gr
 MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\a990eda456845292477beb6bb6503396\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\a0ed2eed836ec578f218373395f1f1fc\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\9f07f8cfedea41410f86c80fe871e648\AndroidManifest.xml:17:1-31:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
 	package
 		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:3:5-26
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
+		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-24:12
+		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:1-33:12
 		INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:5:5-22:19
+ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:5:5-31:19
 MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\e4f6e201973d0e52311d85c1f3f235f7\AndroidManifest.xml:29:5-20
 MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\e4f6e201973d0e52311d85c1f3f235f7\AndroidManifest.xml:29:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\benhl\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\9a18dd8ebdb5ae9fffe312c9417eb502\AndroidManifest.xml:9:5-20
@@ -83,6 +83,18 @@ activity#h4bit.h4bit.MainHabitActivity
 ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:19:9-21:20
 	android:name
 		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:19:19-52
+activity#h4bit.h4bit.HabitHistoryActivity
+ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:22:9-24:20
+	android:name
+		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:22:19-55
+activity#h4bit.h4bit.SocialActivity
+ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:25:9-27:20
+	android:name
+		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:25:19-49
+activity#h4bit.h4bit.ViewProfileActivity
+ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:28:9-30:20
+	android:name
+		ADDED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml:28:19-54
 uses-sdk
 INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\benhl\Documents\301\H4bit\H4bit\app\src\main\AndroidManifest.xml

@@ -72,7 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainHabitActivity.class);
         startActivity(intent);
-//        finish();
+        finish();
     }
 
 
