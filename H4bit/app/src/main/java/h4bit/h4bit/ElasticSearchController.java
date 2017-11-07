@@ -44,7 +44,7 @@ public class ElasticSearchController {
                 if (result.isSucceeded()) {
                     habit.setId(result.getId());
                 } else {
-                    Log.i("Error","Elasticsearch was not able to add the mood");
+                    Log.i("Error","Elasticsearch was not able to add the habit");
                 }
 
             }
@@ -62,7 +62,7 @@ public class ElasticSearchController {
                     if (result.isSucceeded()) {
                         habit.setId(result.getId());
                     } else {
-                        Log.i("Error","Elasticsearch was not able to add the mood");
+                        Log.i("Error","Elasticsearch was not able to add the habit");
                     }
 
                 }
