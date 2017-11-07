@@ -18,6 +18,9 @@ import android.widget.EditText;
 
 public class HabitHistoryActivity extends AppCompatActivity{
 
+    private User user;
+    private static final String FILENAME = "localsave.sav";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
