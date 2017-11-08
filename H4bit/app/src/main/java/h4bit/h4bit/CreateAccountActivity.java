@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,6 +73,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
+
+        String username = usernameText.getText().toString();
+        String password = passwordText.getText().toString();
+
+        if (username.isEmpty()) {
+            Log.i("Login", "Please enter a username");
+        } else if (username.matches("[a-zA-Z]+")){  // do we want the username to only include a-z/A-Z?
+            // elastic search
+        }
 
         // Attempt to login
         // Send user/pass keypair to elasticsearch

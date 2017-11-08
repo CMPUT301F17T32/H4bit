@@ -24,7 +24,6 @@ public class CreateHabitActivity extends AppCompatActivity {
 
     private User user;
     private String savefile;
-    private boolean[] dateArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
     }
 
+    // Bad, we need a habit controller for this!
     public void createHabit(){
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
