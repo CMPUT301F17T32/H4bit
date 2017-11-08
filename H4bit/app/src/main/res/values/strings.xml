@@ -16,4 +16,5 @@
     <string name="sundayToggle">Sunday</string>
     <string name="habitComment">Comment</string>
     <string name="habitStartDate">Start Date</string>
+    <string name="habitDate">Date</string>
 </resources>
