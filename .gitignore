@@ -6,4 +6,8 @@
 .DS_Store
 /build
 /captures
+<<<<<<< HEAD
 .externalNativeBuild
+=======
+.externalNativeBuild
+>>>>>>> origin

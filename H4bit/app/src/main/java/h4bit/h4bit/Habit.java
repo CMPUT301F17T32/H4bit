@@ -7,10 +7,13 @@ import java.util.Date;
  */
 
 public class Habit {
+
     private Date date;
     private String name;
     private String comment;
     private boolean[] schedule;
+    private boolean doneToday;
+    private int missed, completed;
 
     public Habit(String name, String comment, boolean[] schedule) {
 
@@ -18,22 +21,30 @@ public class Habit {
         this.name = name;
         this.comment = comment;
         this.schedule = schedule;
+        this.missed = 0;
+        this.completed = 0;
+        this.doneToday = false;
+
     }
 
     public double getCompletionRate() {
-        return 0.0;
+        return getCompleted() / (getMissed() + getCompleted());
     }
 
-    public void doHabit(String comment) {
-
+    public void doHabit(String comment, HabitEventList habitEventList) {
+        setCompleted(getCompleted() + 1);
+        setDoneToday();
+        habitEventList.addHabitEvent(new HabitEvent(this, comment));
     }
 
-    public void doHabit() {
-
+    public void doHabit(HabitEventList habitEventList) {
+        setCompleted(getCompleted() + 1);
+        setDoneToday();
+        habitEventList.addHabitEvent(new HabitEvent(this));
     }
 
     public void editSchedule(boolean[] schedule){
-
+        setSchedule(schedule);
     }
 
     public Date getDate() {
@@ -63,4 +74,29 @@ public class Habit {
     public void setSchedule(boolean[] schedule) {
         this.schedule = schedule;
     }
+
+    public int getMissed() {
+        return missed;
+    }
+
+    public void setMissed(int missed) {
+        this.missed = missed;
+    }
+
+    public int getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(int completed) {
+        this.completed = completed;
+    }
+
+    public boolean getDoneToday(){
+        return this.doneToday;
+    }
+
+    public void setDoneToday(){
+            this.doneToday = true;
+    }
+
 }
