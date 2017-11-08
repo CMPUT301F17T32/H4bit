@@ -19,6 +19,8 @@ public class User {
 
     public User (String username){
         this.username = username;
+        this.habitEventList = new HabitEventList();
+        this.habitList = new HabitList();
 
     }
 
