@@ -11,4 +11,9 @@
     <string name="passwordHint">Password</string>
     <string name="searchNameHint">Habit Name</string>
     <string name="searchComment">Habit Comment</string>
+    <string name="createButton">Create</string>
+    <string name="mondayToggle">Monday</string>
+    <string name="sundayToggle">Sunday</string>
+    <string name="habitComment">Comment</string>
+    <string name="habitStartDate">Start Date</string>
 </resources>

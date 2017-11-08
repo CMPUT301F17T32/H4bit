@@ -27,14 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="h4bit.h4bit.MainHabitActivity" >
-        </activity>
-        <activity android:name="h4bit.h4bit.HabitHistoryActivity" >
-        </activity>
-        <activity android:name="h4bit.h4bit.SocialActivity" >
-        </activity>
-        <activity android:name="h4bit.h4bit.ViewProfileActivity" >
-        </activity>
+        <activity android:name="h4bit.h4bit.MainHabitActivity" />
+        <activity android:name="h4bit.h4bit.HabitHistoryActivity" />
+        <activity android:name="h4bit.h4bit.SocialActivity" />
+        <activity android:name="h4bit.h4bit.ViewProfileActivity" />
+        <activity android:name="h4bit.h4bit.CreateHabitActivity" />
     </application>
 
 </manifest>

@@ -37,8 +37,6 @@ import java.io.OutputStreamWriter;
 public class CreateAccountActivity extends AppCompatActivity {
 
     private User user;
-    // We will store the user locally
-    private static final String FILENAME = "localsave.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +79,10 @@ public class CreateAccountActivity extends AppCompatActivity {
         // elasticsearch returns user object
 
         // Right now this will just take us to the new screen
+        // Obviously we need checks to make sure its a legit account
 
         Intent intent = new Intent(this, MainHabitActivity.class);
+        intent.putExtra("savefile", usernameText+".sav");
         startActivity(intent);
         finish();
     }
@@ -108,7 +108,6 @@ public class CreateAccountActivity extends AppCompatActivity {
             this.user = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             user = new User("test");
         }
     }
@@ -127,10 +126,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
