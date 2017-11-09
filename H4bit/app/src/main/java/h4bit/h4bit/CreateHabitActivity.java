@@ -44,6 +44,9 @@ public class CreateHabitActivity extends AppCompatActivity {
         // init the habit controller
         this.habitController = new HabitController();
 
+        // Init the boolean schedule array
+        this.schedule = new boolean[6];
+
         Button createButton = (Button) findViewById(R.id.createButton);
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
         ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
@@ -61,7 +64,8 @@ public class CreateHabitActivity extends AppCompatActivity {
             }
         });
 
-        // This might work, no idea
+        // This is the listener for each toggleable button
+        toggleButton(sundayToggle, 0);
         toggleButton(mondayToggle, 1);
         toggleButton(tuesdayToggle, 2);
         toggleButton(wednesdayToggle, 3);
@@ -70,21 +74,6 @@ public class CreateHabitActivity extends AppCompatActivity {
         toggleButton(saturdayToggle, 6);
 
 
-        // Could a method be made that reduces the amount of copypasting???
-        // Currently the on click listener will not update the schedule
-        // Should we create a method to update the schedule?
-        sundayToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    updateSchedule(true, 0);
-                } else {
-                    // The toggle is disabled
-                    updateSchedule(false, 0);
-                    schedule[0] = false;
-                }
-            }
-        });
 
         //ToDo test to make sure the togglebutton method actually works
 
@@ -99,10 +88,10 @@ public class CreateHabitActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-                    schedule[day] = true;
+                    schedule[day] = isChecked;
                 } else {
                     // The toggle is disabled
-                    schedule[day] = false;
+                    schedule[day] = isChecked;
                 }
             }
         });

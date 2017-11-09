@@ -55,12 +55,13 @@ public class MainHabitActivity extends AppCompatActivity {
         // Again, clumsy but serving a basic purpose mostly right now
         // This will display all the users habits, not the ones due today
         adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
+        habitListView = (ListView) findViewById(R.id.habitsList);
         habitListView.setAdapter(adapter);
 
         // Initializing the buttons and shit
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
-        final Button addButton = (Button) findViewById(R.id.addButton);
+        Button addButton = (Button) findViewById(R.id.addButton);
 
         // The habitsButton should do nothing on this screen
         // (Because it takes us to where we already are)
@@ -106,6 +107,12 @@ public class MainHabitActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateHabitActivity.class);
         intent.putExtra("savefile",this.savefile);
         startActivity(intent);
+
+        // So when we get to here a new habit was added to the users list and saved
+        // do we have to reload the user from the save file then notify the adapter?
+        // or will we have to reload the listview as well?
+        loadFromFile();
+        adapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
         // TODO add backbutton to xml
     }

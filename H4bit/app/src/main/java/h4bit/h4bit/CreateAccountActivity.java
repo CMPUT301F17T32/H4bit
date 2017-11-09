@@ -92,7 +92,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         // Obviously we need checks to make sure its a legit account
 
         Intent intent = new Intent(this, MainHabitActivity.class);
-        intent.putExtra("savefile", usernameText+".sav");
+        intent.putExtra("savefile", username+".sav");
         startActivity(intent);
         finish();
     }
