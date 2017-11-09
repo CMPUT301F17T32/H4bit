@@ -14,6 +14,7 @@ public class Habit {
     private boolean[] schedule;
     private boolean doneToday;
     private int missed, completed;
+    // We need a start date ???
 
     public Habit(String name, String comment, boolean[] schedule) {
 

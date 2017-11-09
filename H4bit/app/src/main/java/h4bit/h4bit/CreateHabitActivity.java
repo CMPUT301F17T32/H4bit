@@ -25,22 +25,32 @@ public class CreateHabitActivity extends AppCompatActivity {
 
     private User user;
     private String savefile;
+    private HabitController habitController;
+    private boolean[] schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_habit);
 
+        // Get the savefile name from intent
         this.savefile = getIntent().getStringExtra("savefile");
 
-        Button createButton = (Button) findViewById(R.id.createButton);
+        // load the user from the savefile
+        loadFromFile();
 
+        // init the habit controller
+        this.habitController = new HabitController();
+
+        Button createButton = (Button) findViewById(R.id.createButton);
 
         createButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 createHabit();
             }
         });
+
+        //ToDo create listeners for each toggle button, set them to modify the boolean array
 
 
 
@@ -52,10 +62,22 @@ public class CreateHabitActivity extends AppCompatActivity {
         EditText commentText = (EditText) findViewById(R.id.commentText);
         EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 
+        // This will create the habit object using the controller
+        Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
 
+        // If the habit constraints aren't met we could throw a toast notification here
+        // We also won't finish the activity
+        if (habit == null)
+            return;
 
-        // TODO ensure habit information is valid
-//        Habit habit = new Habit(nameText, commentText, //schedule)
+        // Add the valid habit to the user
+        this.user.addHabit(habit);
+
+        // Save the new user to the user save file
+        saveInFile();
+
+        // Finish the activity and take us back to the main habit screen
+        finish();
     }
 
 
