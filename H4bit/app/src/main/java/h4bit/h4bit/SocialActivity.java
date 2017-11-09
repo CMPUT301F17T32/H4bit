@@ -39,13 +39,13 @@ public class SocialActivity extends AppCompatActivity {
     }
 
     public void habitsTab(){
-        Intent intent = new Intent(this, HabitHistoryActivity.class);
+        Intent intent = new Intent(this, MainHabitActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void historyTab(){
-        Intent intent = new Intent(this, SocialActivity.class);
+        Intent intent = new Intent(this, HabitHistoryActivity.class);
         startActivity(intent);
         finish();
     }

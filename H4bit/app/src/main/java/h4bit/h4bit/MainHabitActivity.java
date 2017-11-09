@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 
@@ -33,6 +35,10 @@ public class MainHabitActivity extends AppCompatActivity {
     private User user;
     private String savefile;
 
+    // This is just a placeholder to see if I can figure out how to list everything again
+    private ListView habitListView;
+    private ArrayAdapter<Habit> adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,15 @@ public class MainHabitActivity extends AppCompatActivity {
         // This should probably be done in every activity
         this.savefile = getIntent().getStringExtra("savefile");
 
+        // Loads the user
+        loadFromFile();
 
+        // Again, clumsy but serving a basic purpose mostly right now
+        // This will display all the users habits, not the ones due today
+        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
+        habitListView.setAdapter(adapter);
+
+        // Initializing the buttons and shit
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         final Button addButton = (Button) findViewById(R.id.addButton);

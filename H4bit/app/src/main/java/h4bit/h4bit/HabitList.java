@@ -33,4 +33,10 @@ public class HabitList {
         return habitArrayList.get(i);
     }
 
+    // This is a bad function that should probably be deleted
+    // I dont know how to make adapters so Im making this just for prototype convenience
+    public ArrayList<Habit> getRawList(){
+        return habitArrayList;
+    }
+
 }

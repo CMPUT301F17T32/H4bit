@@ -34,5 +34,9 @@ public class User {
     public void addHabit(Habit habit){
         this.habitList.addHabit(habit);
     }
+
+    public HabitList getHabitList(){
+        return this.habitList;
+    }
 }
 
