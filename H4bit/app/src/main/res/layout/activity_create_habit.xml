@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dateCalendar" />
 
     <ToggleButton
-        android:id="@+id/thrusdayToggle"
+        android:id="@+id/thursdayToggle"
         android:layout_width="53dp"
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
@@ -73,7 +73,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:text="ToggleButton"
-        app:layout_constraintStart_toEndOf="@+id/thrusdayToggle"
+        app:layout_constraintStart_toEndOf="@+id/thursdayToggle"
         app:layout_constraintTop_toBottomOf="@+id/dateCalendar" />
 
     <ToggleButton

@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 
@@ -43,17 +45,60 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.habitController = new HabitController();
 
         Button createButton = (Button) findViewById(R.id.createButton);
+        ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
+        ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
+        ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
+        ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
+        ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.thursdayToggle);
+        ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
+        ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
 
+
+        // This is what happens when you hit the create button at the bottom of the screen
         createButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 createHabit();
             }
         });
 
+        // This might work, no idea
+        toggleButton(mondayToggle, 1);
+        toggleButton(tuesdayToggle, 2);
+        toggleButton(wednesdayToggle, 3);
+        toggleButton(thursdayToggle, 4);
+        toggleButton(fridayToggle, 5);
+        toggleButton(saturdayToggle, 6);
+
+
+        // Could a method be made that reduces the amount of copypasting???
+        sundayToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    schedule[0] = true;
+                } else {
+                    // The toggle is disabled
+                    schedule[0] = false;
+                }
+            }
+        });
+
         //ToDo create listeners for each toggle button, set them to modify the boolean array
 
+    }
 
-
+    public void toggleButton(ToggleButton button, final Integer day){
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    schedule[day] = true;
+                } else {
+                    // The toggle is disabled
+                    schedule[day] = false;
+                }
+            }
+        });
     }
 
     // Bad, we need a habit controller for this!
