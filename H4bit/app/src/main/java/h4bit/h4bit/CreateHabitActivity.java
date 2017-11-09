@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 // createButton, nameText, commentText, mondayToggle, etc.
+// test
 
 public class CreateHabitActivity extends AppCompatActivity {
 
