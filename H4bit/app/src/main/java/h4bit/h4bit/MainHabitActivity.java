@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.util.Calendar;
 
 
 /**
@@ -30,6 +31,7 @@ public class MainHabitActivity extends AppCompatActivity {
     // So we will store the serialized user, and upload it online
     // as well as store it locally
     private User user;
+    private String savefile;
 
 
     @Override
@@ -37,17 +39,35 @@ public class MainHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_habit);
 
+        // get filename from intent which is required to save/load
+        // This should probably be done in every activity
+        this.savefile = getIntent().getStringExtra("savefile");
+
+
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        final Button addButton = (Button) findViewById(R.id.addButton);
 
         // The habitsButton should do nothing on this screen
         // (Because it takes us to where we already are)
 
         // This is the listener for the historyButton press
         //
+        addButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View view){
+                newHabit();
+            }
+        });
+
         historyButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 historyTab();
+            }
+        });
+
+        socialButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View view){
+                socialTab();
             }
         });
     }
@@ -66,9 +86,19 @@ public class MainHabitActivity extends AppCompatActivity {
         finish();
 
     }
-    private void loadFromFile(String username) {
+
+    // This should take us to the create habit activity
+    public void newHabit() {
+        Intent intent = new Intent(this, CreateHabitActivity.class);
+        intent.putExtra("savefile",this.savefile);
+        startActivity(intent);
+        // Do not finish, as the user is allowed to back out of creating a habit
+        // TODO add backbutton to xml
+    }
+
+    private void loadFromFile() {
         try {
-            FileInputStream fis = openFileInput(username+".sav");
+            FileInputStream fis = openFileInput(savefile);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
@@ -79,16 +109,14 @@ public class MainHabitActivity extends AppCompatActivity {
             this.user = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             user = new User("test");
         }
     }
 
-    // This is the code form the lonelyTwitter lab exercise
-    private void saveInFile(String username) {
+    // This is the code from the lonelyTwitter lab exercise
+    private void saveInFile() {
         try {
-            FileOutputStream fos = openFileOutput(username+"sav",
-                    Context.MODE_PRIVATE);
+            FileOutputStream fos = openFileOutput(savefile, Context.MODE_PRIVATE);
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
@@ -98,10 +126,8 @@ public class MainHabitActivity extends AppCompatActivity {
 
             fos.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
