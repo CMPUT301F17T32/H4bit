@@ -71,20 +71,27 @@ public class CreateHabitActivity extends AppCompatActivity {
 
 
         // Could a method be made that reduces the amount of copypasting???
+        // Currently the on click listener will not update the schedule
+        // Should we create a method to update the schedule?
         sundayToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-                    schedule[0] = true;
+                    updateSchedule(true, 0);
                 } else {
                     // The toggle is disabled
+                    updateSchedule(false, 0);
                     schedule[0] = false;
                 }
             }
         });
 
-        //ToDo create listeners for each toggle button, set them to modify the boolean array
+        //ToDo test to make sure the togglebutton method actually works
 
+    }
+
+    public void updateSchedule(boolean bool, Integer day){
+        this.schedule[day] = bool;
     }
 
     public void toggleButton(ToggleButton button, final Integer day){

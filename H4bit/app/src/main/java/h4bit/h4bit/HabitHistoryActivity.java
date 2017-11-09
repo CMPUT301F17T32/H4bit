@@ -19,8 +19,7 @@ import android.widget.EditText;
 public class HabitHistoryActivity extends AppCompatActivity{
 
     private User user;
-    private static final String FILENAME = "localsave.sav";
-
+    private String savefile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,7 @@ public class HabitHistoryActivity extends AppCompatActivity{
     // This takes us back to the habitsTab activity, should finish the current activity as
     // to not create a huge stacking stack of tab activites
     public void habitsTab(){
-        Intent intent = new Intent(this, HabitHistoryActivity.class);
+        Intent intent = new Intent(this, MainHabitActivity.class);
         startActivity(intent);
         finish();
     }
