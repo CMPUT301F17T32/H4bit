@@ -1,8 +1,22 @@
 package h4bit.h4bit;
 
-/**
- * Created by benhl on 2017-10-29.
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class ViewFollowListActivity {
+import java.util.ArrayList;
+
+public class ViewFollowListActivity extends AppCompatActivity {
+
+    private ArrayList<Habit> habitsArrayList;
+    private ArrayAdapter<Habit> adapter;
+    private ListView habitList;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_follow_list);
+        habitList = (ListView) findViewById(R.id.followerList);
+
+    }
 }
