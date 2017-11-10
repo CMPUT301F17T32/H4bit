@@ -17,4 +17,5 @@
     <string name="habitComment">Comment</string>
     <string name="habitStartDate">Start Date</string>
     <string name="habitDate">Date</string>
+    <string name="n_a">N/A</string>
 </resources>

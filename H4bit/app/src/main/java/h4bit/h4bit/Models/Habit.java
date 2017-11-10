@@ -29,7 +29,11 @@ public class Habit {
     }
 
     public double getCompletionRate() {
-        return getCompleted() / (getMissed() + getCompleted());
+        if(getCompleted() + getMissed() == 0){
+            return -1;
+        } else {
+            return (getCompleted() / (getMissed() + getCompleted())) * 100;
+        }
     }
 
     public void doHabit(String comment, HabitEventList habitEventList) {
