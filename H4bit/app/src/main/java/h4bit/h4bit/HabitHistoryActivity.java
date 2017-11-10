@@ -30,6 +30,10 @@ public class HabitHistoryActivity extends AppCompatActivity{
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button searchButton = (Button) findViewById(R.id.searchButton);
 
+        // get savefile
+        this.savefile = getIntent().getStringExtra("savefile");
+
+
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 habitsTab();
@@ -66,12 +70,14 @@ public class HabitHistoryActivity extends AppCompatActivity{
     // to not create a huge stacking stack of tab activites
     public void habitsTab(){
         Intent intent = new Intent(this, MainHabitActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
     }
 
     public void socialTab(){
         Intent intent = new Intent(this, SocialActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
 

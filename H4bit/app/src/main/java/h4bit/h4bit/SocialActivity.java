@@ -13,13 +13,15 @@ import android.widget.Button;
 public class SocialActivity extends AppCompatActivity {
 
     private User user;
-    private static final String FILENAME = "localsave.sav";
-
+    private String savefile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
         // this can just hang because it isnt a goal for part4
+
+        // get savefile and user
+        this.savefile = getIntent().getStringExtra("savefile");
 
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
@@ -40,12 +42,14 @@ public class SocialActivity extends AppCompatActivity {
 
     public void habitsTab(){
         Intent intent = new Intent(this, MainHabitActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
     }
 
     public void historyTab(){
         Intent intent = new Intent(this, HabitHistoryActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
     }

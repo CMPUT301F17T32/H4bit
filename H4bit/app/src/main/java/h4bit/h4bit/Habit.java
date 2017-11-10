@@ -100,4 +100,8 @@ public class Habit {
             this.doneToday = true;
     }
 
+    public String toString(){
+        return this.name;
+    }
+
 }

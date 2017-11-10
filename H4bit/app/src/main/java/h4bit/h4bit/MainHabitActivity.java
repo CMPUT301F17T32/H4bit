@@ -41,8 +41,8 @@ public class MainHabitActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onStart(){//Bundle savedInstanceState) {
+        super.onStart();//savedInstanceState);
         setContentView(R.layout.activity_main_habit);
 
         // get filename from intent which is required to save/load
@@ -71,6 +71,8 @@ public class MainHabitActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 newHabit();
+//                loadFromFile();
+//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -87,16 +89,26 @@ public class MainHabitActivity extends AppCompatActivity {
         });
     }
 
+//    @Override
+    protected void onResume(){
+        super.onResume();
+        loadFromFile();
+        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
+        adapter.notifyDataSetChanged();
+    }
+
     public void historyTab(){
         // This should start an activity
 
         Intent intent = new Intent(this, HabitHistoryActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
     }
 
     public void socialTab(){
         Intent intent = new Intent(this, SocialActivity.class);
+        intent.putExtra("savefile", savefile);
         startActivity(intent);
         finish();
 
