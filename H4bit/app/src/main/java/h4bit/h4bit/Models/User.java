@@ -1,4 +1,4 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Models;
 
 import android.media.Image;
 

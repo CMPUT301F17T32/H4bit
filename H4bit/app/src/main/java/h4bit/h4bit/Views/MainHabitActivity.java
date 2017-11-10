@@ -1,9 +1,8 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Views;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,8 +19,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
-import java.util.Calendar;
+import java.util.ArrayList;
+
+import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.R;
+import h4bit.h4bit.Models.User;
 
 
 /**
@@ -55,9 +57,16 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // Again, clumsy but serving a basic purpose mostly right now
         // This will display all the users habits, not the ones due today
-        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
+
+        // list adapter init
+        ArrayList<Habit> habitArrayList = user.getHabitList().getRawList();
+        HabitAdapter habitAdapter = new HabitAdapter(this, habitArrayList);
+        ListView listView = (ListView)findViewById(R.id.habitsList);
+        listView.setAdapter(habitAdapter);
+
+        /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
         habitListView = (ListView) findViewById(R.id.habitsList);
-        habitListView.setAdapter(adapter);
+        habitListView.setAdapter(adapter); */
 
         // Initializing the buttons and shit
         Button historyButton = (Button) findViewById(R.id.historyButton);

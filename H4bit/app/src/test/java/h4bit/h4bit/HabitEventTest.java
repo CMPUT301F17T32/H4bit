@@ -2,6 +2,9 @@ package h4bit.h4bit;
 import java.util.Arrays;
 import org.junit.Test;
 
+import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitEvent;
+
 import static org.junit.Assert.*;
 
 /**

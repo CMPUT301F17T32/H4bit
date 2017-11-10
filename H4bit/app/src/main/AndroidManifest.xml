@@ -9,19 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateAccountActivity">
+        <activity
+            android:name=".Views.CreateAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainHabitActivity" />
-        <activity android:name=".HabitHistoryActivity" />
-        <activity android:name=".SocialActivity" />
-        <activity android:name=".ViewProfileActivity" />
-        <activity android:name=".CreateHabitActivity" />
-        <activity android:name=".EditHabitActivity"></activity>
+        <activity
+            android:name=".Views.MainHabitActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Views.HabitHistoryActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Views.SocialActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Views.ViewProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Views.CreateHabitActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Views.ViewFollowListActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

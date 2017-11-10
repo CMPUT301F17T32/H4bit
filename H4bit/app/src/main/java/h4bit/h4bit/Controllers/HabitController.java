@@ -1,4 +1,6 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Controllers;
+
+import h4bit.h4bit.Models.Habit;
 
 /**
  * Created by benhl on 2017-11-09.
