@@ -71,7 +71,7 @@ public class MainHabitActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 // Start the edit habit activity
-                editHabit();
+                editHabit(v, position);
             }
         };
 
@@ -139,7 +139,7 @@ public class MainHabitActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EditHabitActivity.class);
         intent.putExtra("savefile", this.savefile);
         intent.putExtra("position", position);
-        startActionMode(intent);
+        startActivity(intent);
     }
 
     private void loadFromFile() {
