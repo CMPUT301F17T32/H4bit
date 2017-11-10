@@ -1,4 +1,4 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Views;
 
 /**
  * Created by benhl on 2017-10-29.
@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import h4bit.h4bit.R;
+import h4bit.h4bit.Models.User;
 
 /**
  * habitsButton, socialButton, historyButton, searchNameText, searchCommentText, searchButton, eventsList

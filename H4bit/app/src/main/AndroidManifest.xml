@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CreateAccountActivity"
+            android:name=".Views.CreateAccountActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,22 +19,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainHabitActivity"
+            android:name=".Views.MainHabitActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".HabitHistoryActivity"
+            android:name=".Views.HabitHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".SocialActivity"
+            android:name=".Views.SocialActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ViewProfileActivity"
+            android:name=".Views.ViewProfileActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".CreateHabitActivity"
+            android:name=".Views.CreateHabitActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ViewFollowListActivity"
+            android:name=".Views.ViewFollowListActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

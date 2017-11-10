@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/H4bit.iml" filepath="$PROJECT_DIR$/H4bit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Alex\Documents\301Project\H4bit\H4bit\app\app.iml" filepath="C:\Users\Alex\Documents\301Project\H4bit\H4bit\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Views;
 
 /**
  * Created by benhl on 2017-10-29.
@@ -23,6 +23,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+
+import h4bit.h4bit.R;
+import h4bit.h4bit.Models.User;
 
 /**
  * usernameText, passwordText, signupButton, crealogButton

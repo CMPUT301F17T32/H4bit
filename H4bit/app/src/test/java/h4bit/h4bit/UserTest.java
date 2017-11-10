@@ -1,8 +1,9 @@
 package h4bit.h4bit;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import org.junit.Test;
+
+import h4bit.h4bit.Models.User;
+
 import static org.junit.Assert.*;
 /**
  * Created by Vlad Kravchnko on 10/22/2017.

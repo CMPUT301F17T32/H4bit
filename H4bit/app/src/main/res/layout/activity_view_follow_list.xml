@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="h4bit.h4bit.ViewFollowListActivity">
+    tools:context="h4bit.h4bit.Views.ViewFollowListActivity">
 
     <ListView
         android:id="@+id/followerList"

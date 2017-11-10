@@ -1,10 +1,13 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import h4bit.h4bit.R;
+import h4bit.h4bit.Models.User;
 
 /**
  * Created by bhlewka on 11/6/17.

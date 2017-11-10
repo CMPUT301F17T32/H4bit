@@ -4,6 +4,10 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.Arrays;
 
+import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitList;
+import h4bit.h4bit.Views.MainHabitActivity;
+
 /**
  * Created by Vlad Kravchnko on 10/21/2017.
  */
