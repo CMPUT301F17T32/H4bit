@@ -16,11 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainHabitActivity"></activity>
-        <activity android:name=".HabitHistoryActivity"></activity>
-        <activity android:name=".SocialActivity"></activity>
-        <activity android:name=".ViewProfileActivity"></activity>
-        <activity android:name=".CreateHabitActivity"></activity>
+        <activity android:name=".MainHabitActivity" />
+        <activity android:name=".HabitHistoryActivity" />
+        <activity android:name=".SocialActivity" />
+        <activity android:name=".ViewProfileActivity" />
+        <activity android:name=".CreateHabitActivity" />
+        <activity android:name=".EditHabitActivity"></activity>
     </application>
 
 </manifest>
