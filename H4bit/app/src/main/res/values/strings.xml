@@ -18,4 +18,10 @@
     <string name="habitStartDate">Start Date</string>
     <string name="habitDate">Date</string>
     <string name="n_a">N/A</string>
+    <string name="edit_icon">edit_icon</string>
+    <string name="missed">Missed</string>
+    <string name="completed">Completed</string>
+    <string name="next_date">Next Date</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>

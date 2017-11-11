@@ -38,9 +38,10 @@ public class MainHabitActivity extends AppCompatActivity {
     private String savefile;
 
     // This is just a placeholder to see if I can figure out how to list everything again
-    private ListView habitListView;
-    private ArrayAdapter<Habit> adapter;
-
+    //private ArrayAdapter<Habit> adapter;
+    private ArrayList<Habit> habitArrayList;
+    private HabitAdapter habitAdapter;
+    private ListView listView;
 
     @Override
     protected void onStart(){//Bundle savedInstanceState) {
@@ -58,10 +59,11 @@ public class MainHabitActivity extends AppCompatActivity {
         // This will display all the users habits, not the ones due today
 
         // list adapter init
-        ArrayList<Habit> habitArrayList = user.getHabitList().getRawList();
-        HabitAdapter habitAdapter = new HabitAdapter(this, habitArrayList);
-        ListView listView = (ListView)findViewById(R.id.habitsList);
+        habitArrayList = user.getHabitList().getRawList();
+        habitAdapter = new HabitAdapter(this, habitArrayList);
+        listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
+
 
         /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
         habitListView = (ListView) findViewById(R.id.habitsList);
@@ -102,8 +104,11 @@ public class MainHabitActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         loadFromFile();
-        adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
-        adapter.notifyDataSetChanged();
+        habitArrayList = user.getHabitList().getRawList();
+        habitAdapter = new HabitAdapter(this, habitArrayList);
+        listView = (ListView)findViewById(R.id.habitsList);
+        listView.setAdapter(habitAdapter);
+        habitAdapter.notifyDataSetChanged();
     }
 
     public void historyTab(){
@@ -133,7 +138,7 @@ public class MainHabitActivity extends AppCompatActivity {
         // do we have to reload the user from the save file then notify the adapter?
         // or will we have to reload the listview as well?
         loadFromFile();
-        adapter.notifyDataSetChanged();
+        habitAdapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
         // TODO add backbutton to xml
     }

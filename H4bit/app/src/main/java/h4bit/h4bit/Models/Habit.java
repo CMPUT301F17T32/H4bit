@@ -1,5 +1,6 @@
 package h4bit.h4bit.Models;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -46,6 +47,28 @@ public class Habit {
         setCompleted(getCompleted() + 1);
         setDoneToday();
         habitEventList.addHabitEvent(new HabitEvent(this));
+    }
+
+    public int getNextDate(int dayNumber){
+        int next = 0;
+
+        if(!doneToday && this.getSchedule()[dayNumber]){
+            return next;
+        }
+        next++;
+        dayNumber++;
+
+        for(int i = 0; i < 6; i++){
+            if(this.getSchedule()[dayNumber]) {
+                return next;
+            }
+            dayNumber++;
+            if(dayNumber > 6){
+                dayNumber -= 7;
+            }
+            next++;
+        }
+        return next;
     }
 
     public void editSchedule(boolean[] schedule){
