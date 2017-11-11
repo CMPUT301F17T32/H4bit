@@ -1,6 +1,9 @@
 package h4bit.h4bit.Controllers;
 
+import android.content.Intent;
+
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Views.CreateHabitActivity;
 
 /**
  * Created by benhl on 2017-11-09.
@@ -22,6 +25,10 @@ public class HabitController {
         // Return null habit if constraints not met
         Habit habit = null;
         return new Habit(name, comment, schedule);
+    }
+
+    public void editHabit(){
+        // @ben
     }
 
 }

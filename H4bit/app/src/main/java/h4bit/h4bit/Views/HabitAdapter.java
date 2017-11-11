@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.R;
 
@@ -24,10 +27,12 @@ public class HabitAdapter extends BaseAdapter {
 
     private ArrayList<Habit> habitArrayList;
     private Context context;
+    private HabitController habitController;
 
     public HabitAdapter(Context context, ArrayList<Habit> habits) {
         this.habitArrayList = habits;
         this.context = context;
+        this.habitController = new HabitController();
     }
 
     @Override
@@ -45,6 +50,13 @@ public class HabitAdapter extends BaseAdapter {
         TextView completed = (TextView) view.findViewById(R.id.completed);
         TextView missed = (TextView) view.findViewById(R.id.missed);
         TextView nextDate = (TextView) view.findViewById(R.id.nextDate);
+        ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
+
+        editButton.setOnClickListener(new View.OnClickListener(){
+           public void onClick(View view){
+               habitController.editHabit(); // @ben
+           }
+        });
 
         habitName.setText(theHabit.getName());
 

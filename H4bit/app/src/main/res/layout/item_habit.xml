@@ -99,7 +99,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/editButton"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_weight="1"
