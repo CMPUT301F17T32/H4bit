@@ -82,8 +82,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (username.isEmpty()) {
-            Log.i("Login", "Please enter a username");
-            Toast.makeText(CreateAccountActivity.this, "Enter a name noob", Toast.LENGTH_SHORT).show();
+            //Log.i("Login", "Please enter a username");
+            Toast.makeText(CreateAccountActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {  // need + so it doesn't only compare 1 letter
             // elastic search
 
@@ -99,6 +99,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             intent.putExtra("savefile", username + ".sav");
             startActivity(intent);
             finish();
+        } else {
+            Toast.makeText(CreateAccountActivity.this, "Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
         }
     }
 
