@@ -24,4 +24,15 @@ public class HabitController {
         return new Habit(name, comment, schedule);
     }
 
+    // This should take a habit as an argument, as well as all the values that should be updated
+    public Habit editHabit(Habit habit, String name, String comment, boolean[] schedule){
+        //todo set constraints
+        // does this perform the edits by value?
+        habit.setComment(comment);
+        habit.setName(name);
+        habit.setSchedule(schedule);
+
+        return habit;
+    }
+
 }

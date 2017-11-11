@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import h4bit.h4bit.EditHabitActivity;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;

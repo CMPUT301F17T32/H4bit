@@ -34,6 +34,7 @@ public class CreateHabitActivity extends AppCompatActivity {
     private String savefile;
     private HabitController habitController;
     private boolean[] schedule;
+    private Integer mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,10 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // Get the savefile name from intent
         this.savefile = getIntent().getStringExtra("savefile");
+
+        // Get the mode for creating/editing
+        //this.mode = getIntent().getStringExtra("mode");
+
 
         // load the user from the savefile
         loadFromFile();
@@ -82,10 +87,6 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         //ToDo test to make sure the togglebutton method actually works
 
-    }
-
-    public void updateSchedule(boolean bool, Integer day){
-        this.schedule[day] = bool;
     }
 
     public void toggleButton(ToggleButton button, final Integer day){

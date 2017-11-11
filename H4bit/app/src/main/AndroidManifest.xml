@@ -35,7 +35,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Views.ViewFollowListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Views.EditHabitActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
