@@ -55,7 +55,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.habitController = new HabitController();
 
         // Init the boolean schedule array
-        this.schedule = new boolean[6];
+        this.schedule = new boolean[7];
 
         Button createButton = (Button) findViewById(R.id.createButton);
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);

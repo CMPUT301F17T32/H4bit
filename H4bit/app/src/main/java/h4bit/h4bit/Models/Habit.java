@@ -1,20 +1,24 @@
 package h4bit.h4bit.Models;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import h4bit.h4bit.R;
 
 /**
  * Created by James on 2017-10-20.
  */
 
-public class Habit {
+public class Habit implements Comparable<Habit> {
 
     private Date date;
     private String name;
     private String comment;
     private boolean[] schedule;
     private boolean doneToday;
-    private int missed, completed;
-    // We need a start date ???
+    private int missed, completed, nextDate;
+
 
     public Habit(String name, String comment, boolean[] schedule) {
 
@@ -46,6 +50,62 @@ public class Habit {
         setCompleted(getCompleted() + 1);
         setDoneToday();
         habitEventList.addHabitEvent(new HabitEvent(this));
+    }
+
+    public int setNextDate(){
+        Date currentDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        this.nextDate = 0;
+
+        if(!doneToday && this.getSchedule()[dayNumber]){
+            return this.nextDate;
+        }
+        this.nextDate++;
+        dayNumber++;
+        if(dayNumber > 6){
+            dayNumber -= 7;
+        }
+
+        for(int i = 0; i < 6; i++){
+            if(this.getSchedule()[dayNumber]) {
+                return this.nextDate;
+            }
+            dayNumber++;
+            if(dayNumber > 6){
+                dayNumber -= 7;
+            }
+            this.nextDate++;
+        }
+        return this.nextDate;
+    }
+
+    public String getNextDayString(){
+        Date currentDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+
+        int theNext = setNextDate();
+        if(theNext == 0){
+            return "Today";
+        } else if (theNext == 1){
+            return "Tomorrow";
+        } else {
+            theNext = ((dayNumber + theNext) % 7) + 1;
+            calendar.add(Calendar.DATE, theNext);
+            return (new SimpleDateFormat("EEEE").format(calendar.getTime()));
+        }
+    }
+
+    @Override
+    public int compareTo(Habit compareHabit) {
+
+        int compareQuantity = compareHabit.getNextDate();
+        //ascending order
+        return this.getNextDate() - compareQuantity;
+
     }
 
     public void editSchedule(boolean[] schedule){
@@ -102,6 +162,10 @@ public class Habit {
 
     public void setDoneToday(){
             this.doneToday = true;
+    }
+
+    public int getNextDate(){
+        return this.nextDate;
     }
 
     public String toString(){

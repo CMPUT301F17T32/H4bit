@@ -1,6 +1,7 @@
 package h4bit.h4bit.Models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Alex on 2017-10-24.
@@ -37,6 +38,13 @@ public class HabitList {
     // I dont know how to make adapters so Im making this just for prototype convenience
     public ArrayList<Habit> getRawList(){
         return habitArrayList;
+    }
+
+    public void sortByNextDate(){
+        for(int i = 0; i < habitArrayList.size(); i++){
+            habitArrayList.get(i).setNextDate();
+        }
+        Collections.sort(habitArrayList);
     }
 
 }

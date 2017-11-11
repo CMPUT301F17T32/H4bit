@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -82,22 +83,23 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         if (username.isEmpty()) {
             Log.i("Login", "Please enter a username");
-        } else if (username.matches("[a-zA-Z]+")){  // do we want the username to only include a-z/A-Z?
+            Toast.makeText(CreateAccountActivity.this, "Enter a name noob", Toast.LENGTH_SHORT).show();
+        } else if (username.matches("[a-zA-Z0-9]+")) {  // need + so it doesn't only compare 1 letter
             // elastic search
+
+            // Attempt to login
+            // Send user/pass keypair to elasticsearch
+            // check if keypair matches a user account
+            // elasticsearch returns user object
+
+            // Right now this will just take us to the new screen
+            // Obviously we need checks to make sure its a legit account
+
+            Intent intent = new Intent(this, MainHabitActivity.class);
+            intent.putExtra("savefile", username + ".sav");
+            startActivity(intent);
+            finish();
         }
-
-        // Attempt to login
-        // Send user/pass keypair to elasticsearch
-        // check if keypair matches a user account
-        // elasticsearch returns user object
-
-        // Right now this will just take us to the new screen
-        // Obviously we need checks to make sure its a legit account
-
-        Intent intent = new Intent(this, MainHabitActivity.class);
-        intent.putExtra("savefile", username+".sav");
-        startActivity(intent);
-        finish();
     }
 
 

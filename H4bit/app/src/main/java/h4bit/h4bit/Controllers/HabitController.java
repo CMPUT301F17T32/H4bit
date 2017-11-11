@@ -1,6 +1,9 @@
 package h4bit.h4bit.Controllers;
 
+import android.content.Intent;
+
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Views.CreateHabitActivity;
 
 /**
  * Created by benhl on 2017-11-09.
@@ -25,7 +28,7 @@ public class HabitController {
     }
 
     // This should take a habit as an argument, as well as all the values that should be updated
-    public Habit editHabit(Habit habit, String name, String comment, boolean[] schedule){
+    public Habit editHabit(Habit habit, String name, String comment, boolean[] schedule) {
         //todo set constraints
         // does this perform the edits by value?
         habit.setComment(comment);
@@ -33,6 +36,10 @@ public class HabitController {
         habit.setSchedule(schedule);
 
         return habit;
+    }
+
+    public void doHabit(){
+
     }
 
 }
