@@ -58,6 +58,15 @@ public class HabitAdapter extends BaseAdapter {
            }
         });
 
+        view.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view){
+                habitController.doHabit();
+            }
+
+        });
+
         habitName.setText(theHabit.getName());
 
         if(theHabit.getCompletionRate() == -1){

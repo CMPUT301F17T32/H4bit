@@ -31,4 +31,8 @@ public class HabitController {
         // @ben
     }
 
+    public void doHabit(){
+
+    }
+
 }
