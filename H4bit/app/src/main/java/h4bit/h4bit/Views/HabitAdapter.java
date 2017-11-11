@@ -56,23 +56,8 @@ public class HabitAdapter extends BaseAdapter {
 
         completed.setText(String.valueOf(theHabit.getCompleted()));
         missed.setText(String.valueOf(theHabit.getMissed()));
+        nextDate.setText(theHabit.getNextDayString());
 
-        Date currentDate = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-
-        int nextDateInt = theHabit.getNextDate(dayNumber);
-        if(nextDateInt == 0){
-            nextDate.setText(R.string.today);
-        } else if (nextDateInt == 1){
-            nextDate.setText(R.string.tomorrow);
-        } else {
-            nextDateInt = ((dayNumber + nextDateInt) % 7) + 1;
-            calendar.add(Calendar.DATE, nextDateInt);
-            nextDate.setText(new SimpleDateFormat("EEEE").format(calendar.getTime()));
-        }
 
 
         return view;

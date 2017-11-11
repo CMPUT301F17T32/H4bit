@@ -21,6 +21,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -63,7 +64,7 @@ public class MainHabitActivity extends AppCompatActivity {
         habitAdapter = new HabitAdapter(this, habitArrayList);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
-
+        user.getHabitList().sortByNextDate();
 
         /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
         habitListView = (ListView) findViewById(R.id.habitsList);
@@ -108,6 +109,7 @@ public class MainHabitActivity extends AppCompatActivity {
         habitAdapter = new HabitAdapter(this, habitArrayList);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
+        user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
     }
 
