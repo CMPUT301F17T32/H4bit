@@ -1,6 +1,8 @@
 package h4bit.h4bit.Views;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +30,13 @@ public class HabitAdapter extends BaseAdapter {
     private ArrayList<Habit> habitArrayList;
     private Context context;
     private HabitController habitController;
+    private String savefile;
 
-    public HabitAdapter(Context context, ArrayList<Habit> habits) {
+    public HabitAdapter(Context context, ArrayList<Habit> habits, String savefile) {
         this.habitArrayList = habits;
         this.context = context;
         this.habitController = new HabitController();
+        this.savefile = savefile;
     }
 
     @Override
@@ -54,7 +58,13 @@ public class HabitAdapter extends BaseAdapter {
 
         editButton.setOnClickListener(new View.OnClickListener(){
            public void onClick(View view){
-               habitController.editHabit(); // @ben
+               // This will take us to the edit habit activity
+               Intent intent = new Intent(context, CreateHabitActivity.class);
+               intent.putExtra("savefile", savefile);
+               intent.putExtra("mode", "edit");
+               intent.putExtra("position", position);
+               context.startActivity(intent);
+               //habitController.editHabit(savefile); // @ben
            }
         });
 
@@ -78,8 +88,6 @@ public class HabitAdapter extends BaseAdapter {
         completed.setText(String.valueOf(theHabit.getCompleted()));
         missed.setText(String.valueOf(theHabit.getMissed()));
         nextDate.setText(theHabit.getNextDayString());
-
-
 
         return view;
     }

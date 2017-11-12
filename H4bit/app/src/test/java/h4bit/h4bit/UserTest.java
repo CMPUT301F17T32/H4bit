@@ -22,9 +22,9 @@ public class UserTest{
         User user2 = new User ("user2");
         user1.sendFollowRequest("user2");
         boolean request = false;
-        if (user2.getRequests() == "user1"){
-            request = true;
-        }
+//        if (user2.getRequests() == "user1"){
+//            request = true;
+//        }
         assertTrue(request);
     }
 

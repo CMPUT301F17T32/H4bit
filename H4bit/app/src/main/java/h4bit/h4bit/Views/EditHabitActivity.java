@@ -1,4 +1,4 @@
-package h4bit.h4bit;
+package h4bit.h4bit.Views;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import java.io.OutputStreamWriter;
 
 import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Models.User;
+import h4bit.h4bit.R;
 
 public class EditHabitActivity extends AppCompatActivity {
 
