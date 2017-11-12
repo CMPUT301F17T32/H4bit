@@ -64,7 +64,6 @@ public class HabitAdapter extends BaseAdapter {
                intent.putExtra("mode", "edit");
                intent.putExtra("position", position);
                context.startActivity(intent);
-               //habitController.editHabit(savefile); // @ben
            }
         });
 
@@ -72,7 +71,10 @@ public class HabitAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view){
-                habitController.doHabit();
+                Intent intent = new Intent(context, DoHabitActivity.class);
+                intent.putExtra("savefile", savefile);
+                intent.putExtra("position", position);
+                context.startActivity(intent);
             }
 
         });
