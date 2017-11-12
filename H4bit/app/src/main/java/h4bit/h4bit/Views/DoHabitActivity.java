@@ -42,6 +42,12 @@ public class DoHabitActivity extends AppCompatActivity {
         ToggleButton locationToggle = (ToggleButton) findViewById(R.id.locationToggle);
         commentText = (EditText) findViewById(R.id.addCommentText);
 
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View view){
+                onBackPressed();
+            }
+        });
+
         doHabitButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 HabitEvent habitEvent = new HabitEvent(theHabit, commentText.getText().toString());
