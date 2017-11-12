@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -21,7 +20,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import h4bit.h4bit.Models.Habit;
-import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -61,7 +59,7 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // list adapter init
         habitArrayList = user.getHabitList().getRawList();
-        habitAdapter = new HabitAdapter(this, habitArrayList);
+        habitAdapter = new HabitAdapter(this, habitArrayList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
@@ -78,13 +76,18 @@ public class MainHabitActivity extends AppCompatActivity {
         // The habitsButton should do nothing on this screen
         // (Because it takes us to where we already are)
 
+        // This is the listview listener
+//        AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener(){
+//            public void onItemClick(AdapterView parent, View v, int position, long id){
+//                // Start the edit habit activity
+//                editHabit(v, position);
+//            }
+//        };
+
         // This is the listener for the historyButton press
-        //
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 newHabit();
-//                loadFromFile();
-//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -106,7 +109,7 @@ public class MainHabitActivity extends AppCompatActivity {
         super.onResume();
         loadFromFile();
         habitArrayList = user.getHabitList().getRawList();
-        habitAdapter = new HabitAdapter(this, habitArrayList);
+        habitAdapter = new HabitAdapter(this, habitArrayList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
@@ -134,6 +137,7 @@ public class MainHabitActivity extends AppCompatActivity {
     public void newHabit() {
         Intent intent = new Intent(this, CreateHabitActivity.class);
         intent.putExtra("savefile",this.savefile);
+        intent.putExtra("mode", "create");
         startActivity(intent);
 
         // So when we get to here a new habit was added to the users list and saved
@@ -143,6 +147,13 @@ public class MainHabitActivity extends AppCompatActivity {
         habitAdapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
         // TODO add backbutton to xml
+    }
+
+    public void editHabit(View view, Integer position){
+        Intent intent = new Intent(this, EditHabitActivity.class);
+        intent.putExtra("savefile", this.savefile);
+        intent.putExtra("position", position);
+        startActivity(intent);
     }
 
     private void loadFromFile() {

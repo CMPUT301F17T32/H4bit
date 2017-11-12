@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Controllers.HabitController;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -34,6 +35,8 @@ public class CreateHabitActivity extends AppCompatActivity {
     private String savefile;
     private HabitController habitController;
     private boolean[] schedule;
+    private String mode;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // Get the savefile name from intent
         this.savefile = getIntent().getStringExtra("savefile");
+
+        // Get the mode for creating/editing
+        this.mode = getIntent().getStringExtra("mode");
 
         // load the user from the savefile
         loadFromFile();
@@ -53,6 +59,14 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.schedule = new boolean[7];
 
         Button createButton = (Button) findViewById(R.id.createButton);
+
+        // only get the position if you are in edit mode
+        // Also change button to say save
+        if (this.mode == "edit"){
+            this.position = getIntent().getIntExtra("position", -1);
+            createButton.setText("Save");
+        }
+
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
         ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
         ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
@@ -65,7 +79,11 @@ public class CreateHabitActivity extends AppCompatActivity {
         // This is what happens when you hit the create button at the bottom of the screen
         createButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                createHabit();
+                if (mode == "create")
+                    createHabit();
+                // How will edit habit get the habit its trying to edit?
+                else
+                    editHabit();
             }
         });
 
@@ -84,10 +102,6 @@ public class CreateHabitActivity extends AppCompatActivity {
 
     }
 
-    public void updateSchedule(boolean bool, Integer day){
-        this.schedule[day] = bool;
-    }
-
     public void toggleButton(ToggleButton button, final Integer day){
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -102,7 +116,6 @@ public class CreateHabitActivity extends AppCompatActivity {
         });
     }
 
-    // Bad, we need a habit controller for this!
     public void createHabit(){
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
@@ -126,7 +139,17 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
+    public void editHabit(){
+        EditText nameText = (EditText) findViewById(R.id.nameText);
+        EditText commentText = (EditText) findViewById(R.id.commentText);
+        EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
+        HabitList habitList = user.getHabitList();
+        Habit habit = habitList.getHabit(this.position);
 
+        habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule);
+        saveInFile();
+        finish();
+    }
 
     private void loadFromFile() {
         try {
