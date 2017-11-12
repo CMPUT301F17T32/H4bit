@@ -29,4 +29,5 @@
     <string name="do_habit">Do Habit</string>
     <string name="location_on">Location On</string>
     <string name="location_off">Location Off</string>
+    <string name="comment_optional">Comment (Optional)</string>
 </resources>

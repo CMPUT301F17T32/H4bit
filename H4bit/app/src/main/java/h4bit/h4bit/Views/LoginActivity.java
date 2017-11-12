@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,14 +38,14 @@ import h4bit.h4bit.Models.User;
  * the login screen when someone is offline?
  */
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_login);
 
         Button signupButton = (Button) findViewById(R.id.signupButton);
         Button crealogButton = (Button) findViewById(R.id.crealogButton);
@@ -82,8 +81,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (username.isEmpty()) {
-            Log.i("Login", "Please enter a username");
-            Toast.makeText(CreateAccountActivity.this, "Enter a name noob", Toast.LENGTH_SHORT).show();
+            //Log.i("Login", "Please enter a username");
+            Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {  // need + so it doesn't only compare 1 letter
             // elastic search
 
@@ -99,6 +98,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             intent.putExtra("savefile", username + ".sav");
             startActivity(intent);
             finish();
+        } else {
+            Toast.makeText(LoginActivity.this, "Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
         }
     }
 
