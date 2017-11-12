@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -23,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
@@ -41,6 +44,7 @@ import h4bit.h4bit.Models.User;
 public class LoginActivity extends AppCompatActivity {
 
     private User user;
+    private ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +134,8 @@ public class LoginActivity extends AppCompatActivity {
 
             //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2017-09-19
-//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
+            //Type listType = new TypeToken<ArrayList<User>>(){}.getType();
+            //userList = gson.fromJson(in, listType);
             this.user = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
