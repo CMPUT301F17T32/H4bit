@@ -1,6 +1,7 @@
 package h4bit.h4bit.Views;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,8 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
@@ -27,6 +36,7 @@ import h4bit.h4bit.R;
 public class DoHabitActivity extends AppCompatActivity {
 
     private Habit theHabit;
+    private String savefile;
     private User user;
     private HabitEventList habitEventList;
     private EditText commentText;
@@ -35,6 +45,15 @@ public class DoHabitActivity extends AppCompatActivity {
     protected void onStart(){   //@ben
         super.onStart();
         setContentView(R.layout.do_habit_activity);
+
+        this.savefile = getIntent().getStringExtra("savefile");
+
+        loadFromFile();
+        int position = getIntent().getIntExtra("position", -1);
+        this.theHabit = user.getHabitList().getHabit(position);
+
+
+        this.habitEventList = user.getHabitEventList();
 
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         Button doHabitButton = (Button) findViewById(R.id.doHabitButton);
@@ -84,6 +103,42 @@ public class DoHabitActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(savefile);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
+            // 2017-09-19
+//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
+            this.user = gson.fromJson(in, User.class);
+
+        } catch (FileNotFoundException e) {
+            user = new User("test");
+        }
+    }
+
+    // This is the code from the lonelyTwitter lab exercise
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(savefile, Context.MODE_PRIVATE);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Gson gson = new Gson();
+            gson.toJson(this.user, out);
+            out.flush();
+
+            fos.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 

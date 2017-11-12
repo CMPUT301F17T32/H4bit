@@ -96,6 +96,10 @@ public class User {
         return this.habitList;
     }
 
+    public HabitEventList getHabitEventList(){
+        return this.habitEventList;
+    }
+
 
 
 
