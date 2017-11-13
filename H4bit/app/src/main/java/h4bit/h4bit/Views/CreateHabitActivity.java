@@ -67,19 +67,20 @@ public class CreateHabitActivity extends AppCompatActivity {
         // only get the position if you are in edit mode
         // Also change button to say save
 
-        EditText nameText = (EditText) findViewById(R.id.nameText);
-        EditText commentText = (EditText) findViewById(R.id.commentText);
-
         if (Objects.equals(this.mode, "edit")) {
             this.position = getIntent().getIntExtra("position", -1);
             createButton.setText(R.string.save);
+            EditText nameText = (EditText) findViewById(R.id.nameText);
+            EditText commentText = (EditText) findViewById(R.id.commentText);
+            //EditText dateText = (EditText) findViewById(R.id.dateCalendar);
             HabitList habitList = user.getHabitList();
             Habit habit = habitList.getHabit(this.position);
             nameText.setText(habit.getName());
             commentText.setText(habit.getComment());
+            //dateText.setText(String.valueOf(habit.getDate()));
         }
 
-        //dateText.setText(String.valueOf(habit.getDate()));
+
 
         // init delete button
         Button deleteButton = (Button) findViewById(R.id.deleteButton);
@@ -158,13 +159,17 @@ public class CreateHabitActivity extends AppCompatActivity {
     public void createHabit(){
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
+        //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
 
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
-
+        if (habit == null) {
+            Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Add the valid habit to the user
         this.user.addHabit(habit);
@@ -179,8 +184,15 @@ public class CreateHabitActivity extends AppCompatActivity {
     public void editHabit() {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        HabitList habitList = user.getHabitList();
-        Habit habit = habitList.getHabit(this.position);
+        //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
+//        HabitList habitList = user.getHabitList();
+//        Habit habit = habitList.getHabit(this.position);
+
+        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
+            Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // do nothing if edit returns -1
 
         saveInFile();
         finish();
