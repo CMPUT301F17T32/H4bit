@@ -70,68 +70,69 @@ public class CreateHabitActivity extends AppCompatActivity {
         if (Objects.equals(this.mode, "edit")) {
             this.position = getIntent().getIntExtra("position", -1);
             createButton.setText(R.string.save);
-            EditText nameText = (EditText) findViewById(R.id.nameText);
-            EditText commentText = (EditText) findViewById(R.id.commentText);
-            EditText dateText = (EditText) findViewById(R.id.dateCalendar);
-            HabitList habitList = user.getHabitList();
-            Habit habit = habitList.getHabit(this.position);
-            nameText.setText(habit.getName());
-            commentText.setText(habit.getComment());
-            //dateText.setText(String.valueOf(habit.getDate()));
+        }
 
-            // init delete button
-            Button deleteButton = (Button) findViewById(R.id.deleteButton);
+        EditText nameText = (EditText) findViewById(R.id.nameText);
+        EditText commentText = (EditText) findViewById(R.id.commentText);
+        EditText dateText = (EditText) findViewById(R.id.dateCalendar);
+        HabitList habitList = user.getHabitList();
+        Habit habit = habitList.getHabit(this.position);
+        nameText.setText(habit.getName());
+        commentText.setText(habit.getComment());
+        //dateText.setText(String.valueOf(habit.getDate()));
 
-            if (Objects.equals(this.mode, "edit")) {
-                this.position = getIntent().getIntExtra("position", -1);
-                createButton.setText("Save");
-            } else {
-                deleteButton.setVisibility(View.GONE);
+        // init delete button
+        Button deleteButton = (Button) findViewById(R.id.deleteButton);
 
+        if (Objects.equals(this.mode, "edit")) {
+            this.position = getIntent().getIntExtra("position", -1);
+            createButton.setText("Save");
+        } else {
+            deleteButton.setVisibility(View.GONE);
+        }
+
+        ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
+        ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
+        ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
+        ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
+        ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.thursdayToggle);
+        ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
+        ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
+
+
+        // This is what happens when you hit the create button at the bottom of the screen
+        createButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (Objects.equals(mode, "create"))
+                    createHabit();
+                    // How will edit habit get the habit its trying to edit?
+                else
+                    editHabit();
             }
+        });
 
-            ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
-            ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
-            ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
-            ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
-            ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.thursdayToggle);
-            ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
-            ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
+        // This is what happens when you hit the delete button at the bottom of the screen
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (Objects.equals(mode, "edit"))
+                    deleteHabit();
+            }
+        });
 
-
-            // This is what happens when you hit the create button at the bottom of the screen
-            createButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    if (Objects.equals(mode, "create"))
-                        createHabit();
-                        // How will edit habit get the habit its trying to edit?
-                    else
-                        editHabit();
-                }
-            });
-
-            // This is what happens when you hit the delete button at the bottom of the screen
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    if (Objects.equals(mode, "edit"))
-                        deleteHabit();
-                }
-            });
-
-            // This is the listener for each toggleable button
-            toggleButton(sundayToggle, 0);
-            toggleButton(mondayToggle, 1);
-            toggleButton(tuesdayToggle, 2);
-            toggleButton(wednesdayToggle, 3);
-            toggleButton(thursdayToggle, 4);
-            toggleButton(fridayToggle, 5);
-            toggleButton(saturdayToggle, 6);
+        // This is the listener for each toggleable button
+        toggleButton(sundayToggle, 0);
+        toggleButton(mondayToggle, 1);
+        toggleButton(tuesdayToggle, 2);
+        toggleButton(wednesdayToggle, 3);
+        toggleButton(thursdayToggle, 4);
+        toggleButton(fridayToggle, 5);
+        toggleButton(saturdayToggle, 6);
 
 
-            //ToDo test to make sure the togglebutton method actually works
+        //ToDo test to make sure the togglebutton method actually works
 
         }
-    }
+
 
     public void toggleButton(ToggleButton button, final Integer day){
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
