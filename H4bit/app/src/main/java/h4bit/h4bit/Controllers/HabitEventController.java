@@ -1,10 +1,20 @@
 package h4bit.h4bit.Controllers;
 
+import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitEvent;
+
 /**
- * Created by benhl on 2017-11-09.
- *
  * This should handle all data regarding habitEvents and habitEventLists
  */
 
 public class HabitEventController {
+
+    public HabitEventController(){
+
+    }
+    public void editHabitEvent(Habit habit, String comment){
+
+        //habitEvent.setComment(comment);
+        //habitEvent.habit.setName(name);
+    }
 }

@@ -20,5 +20,8 @@ public class HabitEventList {
     public void deleteHabitEvent(HabitEvent habitEvent){
         this.habitEventList.remove(habitEvent);
     }
+    public HabitEvent getHabitEvent(int i){
+        return habitEventList.get(i);
+    }
 
 }

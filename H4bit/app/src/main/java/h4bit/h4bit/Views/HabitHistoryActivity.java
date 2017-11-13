@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,12 +26,12 @@ import h4bit.h4bit.Models.User;
  * We should create a tab interface maybe??
  */
 
-public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity{
+public class HabitHistoryActivity extends MainHabitActivity{
 
     private User user;
     private String savefile;
     private ListView eventsList;
-    protected ArrayAdapter<HabitEvent> adapter;
+    protected HabitEventAdapter adapter;
     protected HabitEventList habitEventArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,8 @@ public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity
         loadFromFile();
         //eventsList.setAdapter(adapter);
         habitEventArrayList = user.getHabitEventList();
-        adapter = new ArrayAdapter<HabitEvent>(this,
-                R.layout.list_item, habitEventArrayList);
-        eventsList().setAdapter(adapter);
+        adapter = new HabitEventAdapter(this, habitEventArrayList, savefile);
+        eventsList.setAdapter(adapter);
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -74,8 +74,11 @@ public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity
                 String comment = searchCommentText.getText().toString();
 
                 searchHistory(name, comment);
+
             }
         });
+       // eventsList.setOnClickListener(new );
+
 
     }
     public void searchHistory(String name, String comment){
@@ -85,6 +88,7 @@ public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity
         // Doesn't elastic search do this? Does this mean elasticsearch
         // should store a user object AND that users history seperately so it can
         // be easily quereied?
+       // AutoCompleteTextView AutoCompleteTextView = (AutoCompleteTextView)
     }
 
     // This takes us back to the habitsTab activity, should finish the current activity as

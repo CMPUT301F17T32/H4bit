@@ -35,6 +35,7 @@ public class HabitEvent {
     public String getComment() {
         return comment;
     }
+    public void setHabit(Habit habit){this.habit = habit; }
 
     public void setComment(String comment) {
         this.comment = comment;
