@@ -74,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // These aren't functional yet so they will be hidden
+        signupButton.setVisibility(View.GONE);
+        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        passwordText.setVisibility(View.GONE);
+
     }
 
     // This should log in the user and take us to the main todays habits screen screen

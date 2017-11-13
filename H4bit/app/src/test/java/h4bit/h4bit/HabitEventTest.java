@@ -24,4 +24,19 @@ public class HabitEventTest{
         assertEquals(event1.getHabit(),habit1);
         assertEquals(event1.getComment(),comment);
     }
+
+    public void testGetHabitEvent(){
+        boolean[] sched = new boolean[7];
+        Arrays.fill(sched, true);
+        Habit habit = new Habit("test", "test", sched);
+        HabitEvent habitEvent = new HabitEvent(habit);
+        assertEquals(habitEvent.getHabit(), habit);
+    }
+    public void testGetComment(){
+        boolean[] sched = new boolean[7];
+        Arrays.fill(sched, true);
+        Habit habit = new Habit("test1", "test2", sched);
+        HabitEvent habitEvent = new HabitEvent(habit, "test3");
+        assertEquals(habitEvent.getComment(), "test3");
+    }
 }
