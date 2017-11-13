@@ -24,6 +24,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import h4bit.h4bit.Controllers.HabitEventController;
 import h4bit.h4bit.Models.HabitEvent;
@@ -68,7 +71,13 @@ public class EditHabitEventActivity extends AppCompatActivity {
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         EditText dateCalendar = (EditText) findViewById(R.id.startCalendar);
         loadFromFile();
-        HabitEventList habitEventList = user.getHabitEventList();
+        HabitEvent habitEvent = user.getHabitEventList().getHabitEvent(position);
+        habitEvent.getHabit().setName(nameText.toString());
+        habitEvent.setComment(commentText.toString());
+        DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        Date NewDate = df.parse(dateCalendar.toString());
+        habitEvent.setDate(NewDate);
+
 
 
 

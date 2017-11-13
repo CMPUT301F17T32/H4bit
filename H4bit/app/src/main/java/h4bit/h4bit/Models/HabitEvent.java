@@ -31,6 +31,7 @@ public class HabitEvent {
     public Date getDate() {
         return date;
     }
+    public Date setDate(Date date){this.date=date;}
 
     public String getComment() {
         return comment;
