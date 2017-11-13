@@ -8,7 +8,7 @@ package h4bit.h4bit.Views;
  */
 
 
-/**
+/*
  * nameText, dateCalendar, reasonText, createButton, sundayButton, mondayButton etc.
  */
 public class EditHabitEventActivity {

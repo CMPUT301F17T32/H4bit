@@ -31,7 +31,7 @@ import h4bit.h4bit.Models.User;
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
-/**
+/*
  * habitsButton, socialButton, historyButton, addButton, habitsList
  * I suggest the habits button do nothing because it will only take us to the
  * screen we are already on (this one)
@@ -104,7 +104,7 @@ public class MainHabitActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
+    @Override
     protected void onResume(){
         super.onResume();
         loadFromFile();

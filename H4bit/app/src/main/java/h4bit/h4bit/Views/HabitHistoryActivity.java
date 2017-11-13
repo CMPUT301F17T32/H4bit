@@ -21,7 +21,7 @@ import h4bit.h4bit.Models.User;
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
-/**
+/*
  * habitsButton, socialButton, historyButton, searchNameText, searchCommentText, searchButton, eventsList
  * We should create a tab interface maybe??
  */
@@ -69,11 +69,17 @@ public class HabitHistoryActivity extends AppCompatActivity{
         });
 
     }
+
+    /**
+     *
+     * @param name
+     * @param comment
+     */
     public void searchHistory(String name, String comment){
         // This function will query the user's habit history
         // Doesn't elastic search do this? Does this mean elasticsearch
         // should store a user object AND that users history seperately so it can
-        // be easily quereied?
+        // be easily q
     }
 
     // This takes us back to the habitsTab activity, should finish the current activity as

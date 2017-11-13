@@ -44,6 +44,13 @@ public class HabitAdapter extends BaseAdapter {
         this.savefile = savefile;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -102,16 +109,30 @@ public class HabitAdapter extends BaseAdapter {
         return view;
     }
 
+    /**
+     *
+     * @return habitlist size
+     */
     @Override
     public int getCount(){
         return habitList.getSize();
     }
 
+    /**
+     *
+     * @param pos for indexing
+     * @return habit
+     */
     @Override
     public Object getItem(int pos) {
         return habitList.getHabit(pos);
     }
 
+    /**
+     *
+     * @param pos for indexing
+     * @return itemID
+     */
     @Override
     public long getItemId(int pos){
         return pos;

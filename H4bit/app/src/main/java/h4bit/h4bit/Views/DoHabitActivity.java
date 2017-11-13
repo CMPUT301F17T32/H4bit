@@ -116,9 +116,7 @@ public class DoHabitActivity extends AppCompatActivity {
         }
     }
 
-    /*this is for saving and loading
 
-     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(savefile);
