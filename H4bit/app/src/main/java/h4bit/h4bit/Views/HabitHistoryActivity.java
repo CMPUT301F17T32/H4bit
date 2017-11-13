@@ -47,11 +47,11 @@ public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         loadFromFile();
-
-        adapter = new ArrayAdapter<HabitEventList>(this,
-                R.layout.list_item, eventsList);
         //eventsList.setAdapter(adapter);
-        HabitEventList = user.getHabitEventList();
+        habitEventArrayList = user.getHabitEventList();
+        adapter = new ArrayAdapter<HabitEvent>(this,
+                R.layout.list_item, habitEventArrayList);
+        eventsList().setAdapter(adapter);
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
