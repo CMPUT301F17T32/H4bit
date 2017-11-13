@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Objects;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Controllers.HabitController;
@@ -62,7 +63,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // only get the position if you are in edit mode
         // Also change button to say save
-        if (this.mode == "edit"){
+        if (Objects.equals(this.mode, "edit")){
             this.position = getIntent().getIntExtra("position", -1);
             createButton.setText("Save");
         }
@@ -79,7 +80,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         // This is what happens when you hit the create button at the bottom of the screen
         createButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                if (mode == "create")
+                if (Objects.equals(mode, "create"))
                     createHabit();
                 // How will edit habit get the habit its trying to edit?
                 else

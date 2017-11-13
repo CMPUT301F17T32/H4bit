@@ -30,14 +30,12 @@ public class HabitList {
         habitArrayList.remove(theHabit);
     }
 
-    public Habit getHabit(int i){
-        return habitArrayList.get(i);
+    public int getSize(){
+        return habitArrayList.size();
     }
 
-    // This is a bad function that should probably be deleted
-    // I dont know how to make adapters so Im making this just for prototype convenience
-    public ArrayList<Habit> getRawList(){
-        return habitArrayList;
+    public Habit getHabit(int i){
+        return habitArrayList.get(i);
     }
 
     public void sortByNextDate(){

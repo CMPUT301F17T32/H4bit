@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,14 +43,14 @@ public class DoHabitActivity extends AppCompatActivity {
     private EditText commentText;
 
     @Override
-    protected void onStart(){   //@ben
+    protected void onStart(){
         super.onStart();
         setContentView(R.layout.do_habit_activity);
 
         this.savefile = getIntent().getStringExtra("savefile");
 
         loadFromFile();
-        int position = getIntent().getIntExtra("position", -1);
+        final int position = getIntent().getIntExtra("position", -1);
         this.theHabit = user.getHabitList().getHabit(position);
 
 
@@ -69,9 +70,16 @@ public class DoHabitActivity extends AppCompatActivity {
 
         doHabitButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                HabitEvent habitEvent = new HabitEvent(theHabit, commentText.getText().toString());
-                habitEventList.addHabitEvent(habitEvent);
-                // more
+                user.getHabitList().sortByNextDate();
+                theHabit = user.getHabitList().getHabit(position);
+                Log.d("test4", String.valueOf(position));
+                if(commentText.getText().toString().equals("")){
+                    theHabit.doHabit(habitEventList);
+                } else {
+                    theHabit.doHabit(commentText.getText().toString(), habitEventList);
+                }
+                saveInFile();
+                finish();
             }
         });
 

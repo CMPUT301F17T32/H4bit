@@ -20,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -38,7 +39,7 @@ public class MainHabitActivity extends AppCompatActivity {
 
     // This is just a placeholder to see if I can figure out how to list everything again
     //private ArrayAdapter<Habit> adapter;
-    private ArrayList<Habit> habitArrayList;
+    private HabitList habitList;
     private HabitAdapter habitAdapter;
     private ListView listView;
 
@@ -58,8 +59,8 @@ public class MainHabitActivity extends AppCompatActivity {
         // This will display all the users habits, not the ones due today
 
         // list adapter init
-        habitArrayList = user.getHabitList().getRawList();
-        habitAdapter = new HabitAdapter(this, habitArrayList, savefile);
+        habitList = user.getHabitList();
+        habitAdapter = new HabitAdapter(this, habitList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
@@ -108,8 +109,8 @@ public class MainHabitActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         loadFromFile();
-        habitArrayList = user.getHabitList().getRawList();
-        habitAdapter = new HabitAdapter(this, habitArrayList, savefile);
+        habitList = user.getHabitList();
+        habitAdapter = new HabitAdapter(this, habitList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
