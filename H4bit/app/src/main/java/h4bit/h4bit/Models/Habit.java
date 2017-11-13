@@ -1,5 +1,7 @@
 package h4bit.h4bit.Models;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,6 +82,7 @@ public class Habit implements Comparable<Habit> {
             }
             this.nextDate++;
         }
+
         return this.nextDate;
     }
 
@@ -95,7 +98,7 @@ public class Habit implements Comparable<Habit> {
         } else if (theNext == 1){
             return "Tomorrow";
         } else {
-            theNext = ((dayNumber + theNext) % 7) + 1;
+            theNext = ((dayNumber + theNext) % 7);
             calendar.add(Calendar.DATE, theNext);
             return (new SimpleDateFormat("EEEE").format(calendar.getTime()));
         }
