@@ -3,10 +3,13 @@ package h4bit.h4bit.Views;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
@@ -63,9 +66,29 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // only get the position if you are in edit mode
         // Also change button to say save
-        if (Objects.equals(this.mode, "edit")){
+
+        EditText nameText = (EditText) findViewById(R.id.nameText);
+        EditText commentText = (EditText) findViewById(R.id.commentText);
+
+        if (Objects.equals(this.mode, "edit")) {
+            this.position = getIntent().getIntExtra("position", -1);
+            createButton.setText(R.string.save);
+            HabitList habitList = user.getHabitList();
+            Habit habit = habitList.getHabit(this.position);
+            nameText.setText(habit.getName());
+            commentText.setText(habit.getComment());
+        }
+
+        //dateText.setText(String.valueOf(habit.getDate()));
+
+        // init delete button
+        Button deleteButton = (Button) findViewById(R.id.deleteButton);
+
+        if (Objects.equals(this.mode, "edit")) {
             this.position = getIntent().getIntExtra("position", -1);
             createButton.setText("Save");
+        } else {
+            deleteButton.setVisibility(View.GONE);
         }
 
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
@@ -78,13 +101,21 @@ public class CreateHabitActivity extends AppCompatActivity {
 
 
         // This is what happens when you hit the create button at the bottom of the screen
-        createButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick (View view){
+        createButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 if (Objects.equals(mode, "create"))
                     createHabit();
-                // How will edit habit get the habit its trying to edit?
+                    // How will edit habit get the habit its trying to edit?
                 else
                     editHabit();
+            }
+        });
+
+        // This is what happens when you hit the delete button at the bottom of the screen
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (Objects.equals(mode, "edit"))
+                    deleteHabit();
             }
         });
 
@@ -98,10 +129,10 @@ public class CreateHabitActivity extends AppCompatActivity {
         toggleButton(saturdayToggle, 6);
 
 
-
         //ToDo test to make sure the togglebutton method actually works
 
     }
+
 
     public void toggleButton(ToggleButton button, final Integer day){
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -117,18 +148,23 @@ public class CreateHabitActivity extends AppCompatActivity {
         });
     }
 
+    // This looks ugly af but don't worry because it still deletes the habit
+    public void deleteHabit(){
+        this.user.getHabitList().deleteHabit(user.getHabitList().getHabit(this.position));
+        saveInFile();
+        finish();
+    }
+
     public void createHabit(){
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
 
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
-        if (habit == null)
-            return;
+
 
         // Add the valid habit to the user
         this.user.addHabit(habit);
@@ -140,14 +176,12 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
-    public void editHabit(){
+    public void editHabit() {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
         HabitList habitList = user.getHabitList();
         Habit habit = habitList.getHabit(this.position);
 
-        habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule);
         saveInFile();
         finish();
     }

@@ -37,4 +37,6 @@
     <string name="sun">Sun</string>
     <string name="wed">Wed</string>
     <string name="mon">Mon</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>

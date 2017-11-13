@@ -112,7 +112,6 @@
                 android:text="@string/sat"
                 android:textOff="@string/sat"
                 android:textOn="@string/sat" />
-
         </LinearLayout>
 
         <EditText
@@ -130,5 +129,12 @@
             android:layout_height="0dp"
             android:layout_weight="0.7"
             android:text="@string/createButton" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:text="@string/delete" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
