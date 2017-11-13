@@ -30,4 +30,5 @@
     <string name="location_on">Location On</string>
     <string name="location_off">Location Off</string>
     <string name="comment_optional">Comment (Optional)</string>
+    <string name="delete">Delete</string>
 </resources>

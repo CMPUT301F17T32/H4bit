@@ -77,13 +77,6 @@ public class MainHabitActivity extends AppCompatActivity {
         // The habitsButton should do nothing on this screen
         // (Because it takes us to where we already are)
 
-        // This is the listview listener
-//        AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener(){
-//            public void onItemClick(AdapterView parent, View v, int position, long id){
-//                // Start the edit habit activity
-//                editHabit(v, position);
-//            }
-//        };
 
         // This is the listener for the historyButton press
         addButton.setOnClickListener(new View.OnClickListener(){
@@ -150,12 +143,6 @@ public class MainHabitActivity extends AppCompatActivity {
         // TODO add backbutton to xml
     }
 
-    public void editHabit(View view, Integer position){
-        Intent intent = new Intent(this, EditHabitActivity.class);
-        intent.putExtra("savefile", this.savefile);
-        intent.putExtra("position", position);
-        startActivity(intent);
-    }
 
     private void loadFromFile() {
         try {

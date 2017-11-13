@@ -63,9 +63,14 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // only get the position if you are in edit mode
         // Also change button to say save
+        // init delete button
+        Button deleteButton = (Button) findViewById(R.id.deleteButton);
+
         if (Objects.equals(this.mode, "edit")){
             this.position = getIntent().getIntExtra("position", -1);
             createButton.setText("Save");
+        } else {
+            deleteButton.setVisibility(View.GONE);
         }
 
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
@@ -85,6 +90,14 @@ public class CreateHabitActivity extends AppCompatActivity {
                 // How will edit habit get the habit its trying to edit?
                 else
                     editHabit();
+            }
+        });
+
+        // This is what happens when you hit the delete button at the bottom of the screen
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View view){
+                if (Objects.equals(mode, "edit"))
+                    deleteHabit();
             }
         });
 
@@ -115,6 +128,13 @@ public class CreateHabitActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // This looks ugly af but don't worry because it still deletes the habit
+    public void deleteHabit(){
+        this.user.getHabitList().deleteHabit(user.getHabitList().getHabit(this.position));
+        saveInFile();
+        finish();
     }
 
     public void createHabit(){
