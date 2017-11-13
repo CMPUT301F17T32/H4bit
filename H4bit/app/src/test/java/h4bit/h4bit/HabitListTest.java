@@ -2,21 +2,25 @@ package h4bit.h4bit;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.Views.MainHabitActivity;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
 /**
  * Created by Vlad Kravchnko on 10/21/2017.
  */
 
-public class HabitListTest extends ActivityInstrumentationTestCase2 {
-    public HabitListTest(){
-        super (MainHabitActivity.class);
-    }
+public class HabitListTest{
 
+    @Test
     public void testAddHabit() {
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
@@ -25,7 +29,7 @@ public class HabitListTest extends ActivityInstrumentationTestCase2 {
         habits.addHabit(habit1);
         assertTrue(habits.hasHabit(habit1));
     }
-
+    @Test
     public void testHasHabit() {
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
@@ -35,6 +39,7 @@ public class HabitListTest extends ActivityInstrumentationTestCase2 {
         habits.addHabit(habit1);
         assertTrue(habits.hasHabit(habit1));
     }
+    @Test
     public void testDeleteHabit() {
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
@@ -44,6 +49,7 @@ public class HabitListTest extends ActivityInstrumentationTestCase2 {
         habits.deleteHabit(habit1);
         assertFalse(habits.hasHabit(habit1));
     }
+    @Test
     public void testGetHabit(){
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];

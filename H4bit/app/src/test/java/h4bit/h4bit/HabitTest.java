@@ -12,15 +12,16 @@ import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.Views.MainHabitActivity;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+
 /**
  * Created by Vlad Kravchnko on 10/22/2017.
  */
 
-public class HabitTest extends ActivityInstrumentationTestCase2 {
-    public HabitTest() {
-        super(MainHabitActivity.class);
-    }
+public class HabitTest{
 
+    @Test
     public void testCreateHabit() {
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
@@ -31,6 +32,7 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
         assertEquals(habit1.getComment(),comment);
         assertEquals(habit1.getSchedule(), sched);
     }
+    @Test
      public void testEditSchedule(){
          boolean[] sched = new boolean[7];
          Arrays.fill(sched, true);
@@ -42,6 +44,8 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
          boolean [] schedTest= habit1.getSchedule();
          assertFalse(schedTest[0]);
      }
+
+    @Test
      public void testGetCompletionRate(){
          HabitEventList habitEventList = new HabitEventList();
          boolean[] sched = new boolean[7];
@@ -50,6 +54,7 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
          habit.doHabit(habitEventList);
          assertEquals(habit.getCompletionRate(), 100);
      }
+    @Test
      public void testSetNextDate(){
          boolean[] sched = new boolean[7];
          Arrays.fill(sched, true);
@@ -58,6 +63,7 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
          habit.setNextDate();
          assertEquals(habit.getNextDate(), date+1);
      }
+    @Test
      public void testGetNextDayString(){
          boolean[] sched = new boolean[7];
          Arrays.fill(sched, true);

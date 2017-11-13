@@ -14,12 +14,9 @@ import static org.junit.Assert.*;
  * Created by Vlad Kravchnko on 10/22/2017.
  */
 
-public class HabitEventTest extends ActivityInstrumentationTestCase2{
+public class HabitEventTest{
 
-    public HabitEventTest() {
-        super(MainHabitActivity.class);
-    }
-
+    @Test
     public void testCreateHabitEvent(){
         String comment = "test comment for event";
         boolean[] sched = new boolean[7];
@@ -30,7 +27,7 @@ public class HabitEventTest extends ActivityInstrumentationTestCase2{
         assertEquals(event1.getHabit(),habit1);
         assertEquals(event1.getComment(),comment);
     }
-
+    @Test
     public void testGetHabitEvent(){
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
@@ -38,6 +35,7 @@ public class HabitEventTest extends ActivityInstrumentationTestCase2{
         HabitEvent habitEvent = new HabitEvent(habit);
         assertEquals(habitEvent.getHabit(), habit);
     }
+    @Test
     public void testGetComment(){
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
