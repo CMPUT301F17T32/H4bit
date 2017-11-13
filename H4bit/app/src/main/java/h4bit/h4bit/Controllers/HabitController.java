@@ -21,15 +21,26 @@ public class HabitController {
 
         // Return null habit if constraints not met
         Habit habit = null;
+        if(comment.length() > 30 || name.length() > 20)
+            return habit;
+
         return new Habit(name, comment, schedule);
     }
 
-    public void editHabit(Habit habit,  String name, String comment, boolean[] schedule){
+    public int editHabit(Habit habit,  String name, String comment, boolean[] schedule){
         //does this perform the edits by value?
+        //todo handle constraints
+        // name no more than 20
+        // comment no more than 30
+
+        //if constraints not met
+        if(comment.length() > 30 || name.length() > 20)
+            return -1;
 
         habit.setComment(comment);
         habit.setName(name);
         habit.setSchedule(schedule);
+        return 1;
 
 //        return habit;
     }

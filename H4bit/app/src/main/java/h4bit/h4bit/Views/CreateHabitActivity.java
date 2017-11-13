@@ -167,7 +167,12 @@ public class CreateHabitActivity extends AppCompatActivity {
         HabitList habitList = user.getHabitList();
         Habit habit = habitList.getHabit(this.position);
 
-        habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule);
+        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1)
+            return;
+
+        // do nothing if edit returns -1
+
+
         saveInFile();
         finish();
     }
