@@ -157,7 +157,7 @@ public class MainHabitActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void loadFromFile() {
+    public void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(savefile);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));

@@ -3,6 +3,7 @@ package h4bit.h4bit.Models;
 import android.media.Image;
 import android.widget.ArrayAdapter;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * Created by James on 2017-10-20.
  */
 
-public class User {
+public class User implements Serializable {
 
     private String username;
     private Image profilePicture;

@@ -8,9 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import h4bit.h4bit.Models.HabitEvent;
+import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -19,10 +25,13 @@ import h4bit.h4bit.Models.User;
  * We should create a tab interface maybe??
  */
 
-public class HabitHistoryActivity extends AppCompatActivity{
+public class HabitHistoryActivity extends MainHabitActivity{ //AppCompatActivity{
 
     private User user;
     private String savefile;
+    private ListView eventsList;
+    protected ArrayAdapter<HabitEvent> adapter;
+    protected HabitEventList habitEventArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +41,17 @@ public class HabitHistoryActivity extends AppCompatActivity{
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button searchButton = (Button) findViewById(R.id.searchButton);
+        ListView eventsList = (ListView) findViewById(R.id.eventsList);
+
 
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
+        loadFromFile();
 
+        adapter = new ArrayAdapter<HabitEventList>(this,
+                R.layout.list_item, eventsList);
+        //eventsList.setAdapter(adapter);
+        HabitEventList = user.getHabitEventList();
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -63,6 +79,8 @@ public class HabitHistoryActivity extends AppCompatActivity{
 
     }
     public void searchHistory(String name, String comment){
+
+
         // This function will query the user's habit history
         // Doesn't elastic search do this? Does this mean elasticsearch
         // should store a user object AND that users history seperately so it can
