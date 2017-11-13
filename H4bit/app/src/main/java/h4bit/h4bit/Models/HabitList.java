@@ -3,8 +3,10 @@ package h4bit.h4bit.Models;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Alex on 2017-10-24.
+/** User class
+ * version 1.0
+ * 2017-10-20.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class HabitList {
@@ -14,10 +16,19 @@ public class HabitList {
         habitArrayList = new ArrayList<Habit>();
     }
 
+    /**
+     *
+     * @param theHabit
+     */
     public void addHabit(Habit theHabit){
         habitArrayList.add(theHabit);
     }
 
+    /**
+     *
+     * @param theHabit
+     * @return
+     */
     public boolean hasHabit(Habit theHabit){
         if(habitArrayList.contains(theHabit)){
             return true;
