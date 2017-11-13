@@ -10,7 +10,10 @@ import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
 /**
- * Created by bhlewka on 11/6/17.
+ * SocialActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class SocialActivity extends AppCompatActivity {
