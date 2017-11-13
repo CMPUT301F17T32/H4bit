@@ -60,7 +60,7 @@ public class Habit implements Comparable<Habit> {
      */
     public void doHabit(String comment, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
-        setDoneToday();
+        setDoneToday(true);
         setNextDate();
         habitEventList.addHabitEvent(new HabitEvent(this, comment));
     }
@@ -71,7 +71,7 @@ public class Habit implements Comparable<Habit> {
      */
     public void doHabit(HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
-        setDoneToday();
+        setDoneToday(true);
         setNextDate();
         habitEventList.addHabitEvent(new HabitEvent(this));
     }
@@ -118,7 +118,6 @@ public class Habit implements Comparable<Habit> {
         Date currentDate = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
-        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
         int theNext = setNextDate();
         if(theNext == 0){
@@ -126,7 +125,6 @@ public class Habit implements Comparable<Habit> {
         } else if (theNext == 1){
             return "Tomorrow";
         } else {
-            theNext = ((dayNumber + theNext) % 7);
             calendar.add(Calendar.DATE, theNext);
             return (new SimpleDateFormat("EEEE").format(calendar.getTime()));
         }
@@ -198,8 +196,8 @@ public class Habit implements Comparable<Habit> {
         return this.doneToday;
     }
 
-    public void setDoneToday(){
-            this.doneToday = true;
+    public void setDoneToday(boolean b){
+            this.doneToday = b;
     }
 
     public int getNextDate(){

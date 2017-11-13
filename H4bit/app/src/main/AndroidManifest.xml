@@ -39,6 +39,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Views.DoHabitActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Views.EditHabitEventActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

@@ -64,6 +64,9 @@ public class MainHabitActivity extends AppCompatActivity {
         habitAdapter = new HabitAdapter(this, habitList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
+        for(int i = 0; i < habitList.getSize(); i++){
+            habitList.getHabit(i).setDoneToday(user.getHabitEventList().isDoneToday(habitList.getHabit(i)));
+        }
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
         saveInFile();
@@ -102,7 +105,7 @@ public class MainHabitActivity extends AppCompatActivity {
     }
 
 //    @Override
-    protected void onResume(){
+    /*protected void onResume(){
         super.onResume();
         loadFromFile();
         habitList = user.getHabitList();
@@ -113,7 +116,7 @@ public class MainHabitActivity extends AppCompatActivity {
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
         saveInFile();
-    }
+    }*/
 
     public void historyTab(){
         // This should start an activity

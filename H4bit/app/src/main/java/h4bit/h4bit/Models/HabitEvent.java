@@ -8,7 +8,7 @@ import java.util.Date;
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
-public class HabitEvent {
+public class HabitEvent implements Comparable<HabitEvent> {
 
     private Habit habit;
     private Date date;
@@ -33,6 +33,14 @@ public class HabitEvent {
         this.habit = habit;
         this.date = new Date();
         this.comment = comment;
+    }
+
+    public int compareTo(HabitEvent compareHabitEvent) {
+
+        Date compareQuantity = compareHabitEvent.getDate();
+        //ascending order
+        return compareQuantity.compareTo(this.getDate());
+
     }
 
     public Habit getHabit() {

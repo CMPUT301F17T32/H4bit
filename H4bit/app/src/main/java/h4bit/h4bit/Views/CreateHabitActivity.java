@@ -64,7 +64,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         Button createButton = (Button) findViewById(R.id.createButton);
 
-        final ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
+        ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
         ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
         ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
         ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
@@ -218,7 +218,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
 
-        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }

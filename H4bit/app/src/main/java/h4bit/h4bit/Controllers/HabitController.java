@@ -1,6 +1,7 @@
 package h4bit.h4bit.Controllers;
 
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.User;
 
 /** User class
  * version 1.0
@@ -47,7 +48,7 @@ public class HabitController {
      * @param schedule
      * @return
      */
-    public int editHabit(Habit habit,  String name, String comment, boolean[] schedule){
+    public int editHabit(User user, Habit habit, String name, String comment, boolean[] schedule){
         //does this perform the edits by value?
         //todo handle constraints
         // name no more than 20
@@ -58,7 +59,15 @@ public class HabitController {
             return -1;
 
         habit.setComment(comment);
-        habit.setName(name);
+        if(!habit.getName().equals(name)){
+            for(int i = 0; i < user.getHabitEventList().size(); i++){
+                if(user.getHabitEventList().get(i).getHabit().getName().equals(habit.getName())){
+                    user.getHabitEventList().get(i).getHabit().setName(name);
+                }
+            }
+            habit.setName(name);
+
+        }
         habit.setSchedule(schedule);
         return 1;
 
