@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
@@ -147,8 +148,10 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
-        if (habit == null)
+        if (habit == null) {
+            Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
+        }
 
         // Add the valid habit to the user
         this.user.addHabit(habit);
@@ -160,16 +163,17 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
-    public void editHabit(){
+    public void editHabit() {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
         EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
         HabitList habitList = user.getHabitList();
         Habit habit = habitList.getHabit(this.position);
 
-        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1)
+        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
+            Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
-
+            }
         // do nothing if edit returns -1
 
 
