@@ -32,7 +32,6 @@ public class HabitHistoryActivity extends MainHabitActivity{
     private String savefile;
     private ListView eventsList;
     protected HabitEventAdapter adapter2;
-    //protected ArrayAdapter<String[]> adapter;
     protected HabitEventList habitEventArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +73,21 @@ public class HabitHistoryActivity extends MainHabitActivity{
 
         searchButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                //EditText searchNameText = (EditText) findViewById(R.id.searchNameText);
-                EditText searchCommentText = (EditText) findViewById(R.id.searchCommentText);
+               // AutoCompleteTextView searchNameText = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+                //EditText searchCommentText = (EditText) findViewById(R.id.searchCommentText);
 
                 //String name = searchNameText.getText().toString();
-                String comment = searchCommentText.getText().toString();
+                //String comment = searchCommentText.getText().toString();
 
                 //searchHistory(name, comment);
 
             }
         });
-       // eventsList.setOnClickListener(new );
+        eventsList.setOnClickListener(new View.OnClickListener(){
+            public void onClick (View view){
+                //editHabitEvent();
+            }
+        });
 
 
     }
@@ -114,4 +117,11 @@ public class HabitHistoryActivity extends MainHabitActivity{
         finish();
 
     }
+    //public void editHabitEvent(){
+      //  Intent intent = new Intent(this, EditHabitEventActivity.class);
+        //intent.putExtra("savefile", savefile);
+        //intent.putExtra("position",pos)
+        //startActivity(intent);
+        //finish();
+
 }

@@ -50,21 +50,8 @@ public class HabitEventAdapter extends BaseAdapter {
             Log.d("test0", theHabitEvent.getHabit().getName());
             TextView habitEventName = (TextView) view.findViewById(R.id.HabitEventName);
             TextView habitEventDate = (TextView) view.findViewById(R.id.HabitEventDate);
-            //TextView completed = (TextView) view.findViewById(R.id.completed);
-            //TextView missed = (TextView) view.findViewById(R.id.missed);
-            //TextView nextDate = (TextView) view.findViewById(R.id.nextDate);
-            //ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
 
-            //editButton.setOnClickListener(new View.OnClickListener(){
-                //public void onClick(View view){
-                    // This will take us to the edit habit activity
-                    //Intent intent = new Intent(context, CreateHabitActivity.class);
-                    //intent.putExtra("savefile", savefile);
-                    //intent.putExtra("mode", "edit");
-                  //  intent.putExtra("position", position);
-                //    context.startActivity(intent);
-              //  }
-            //});
+
 
             view.setOnClickListener(new View.OnClickListener() {
 
@@ -73,7 +60,8 @@ public class HabitEventAdapter extends BaseAdapter {
                     theHabitEvent = habitEventList.getHabitEvent(position);
                     Intent intent = new Intent(view.getContext(), EditHabitActivity.class);
                     intent.putExtra("savefile", savefile);
-                    intent.putExtra("position", position);
+
+                    intent.putExtra("habitEvent", position);
                     context.startActivity(intent);
                 }
 

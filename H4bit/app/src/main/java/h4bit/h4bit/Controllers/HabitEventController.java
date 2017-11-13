@@ -12,9 +12,9 @@ public class HabitEventController {
     public HabitEventController(){
 
     }
-    public void editHabitEvent(Habit habit, String comment){
+    public void editHabitEvent(String habitName, String comment){
 
-        //habitEvent.setComment(comment);
-        //habitEvent.habit.setName(name);
+        habitEvent.setComment(comment);
+        habitEvent.habit.setName(habitName);
     }
 }
