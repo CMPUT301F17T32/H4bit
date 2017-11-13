@@ -31,7 +31,8 @@ public class HabitHistoryActivity extends MainHabitActivity{
     private User user;
     private String savefile;
     private ListView eventsList;
-    protected HabitEventAdapter adapter;
+    protected HabitEventAdapter adapter2;
+    //protected ArrayAdapter<String[]> adapter;
     protected HabitEventList habitEventArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,16 @@ public class HabitHistoryActivity extends MainHabitActivity{
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         loadFromFile();
-        //eventsList.setAdapter(adapter);
+        //autocompletetextview
         habitEventArrayList = user.getHabitEventList();
-        adapter = new HabitEventAdapter(this, habitEventArrayList, savefile);
-        eventsList.setAdapter(adapter);
+        String[] Names = new String[habitEventArrayList.size()];
+        Names = habitEventArrayList.toArray(Names);
+
+        //AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(autoCompleteTextView);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
+        //autoCompleteTextView.setAdapter(adapter);
+        adapter2 = new HabitEventAdapter(this, habitEventArrayList, savefile);
+        eventsList.setAdapter(adapter2);
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -67,13 +74,13 @@ public class HabitHistoryActivity extends MainHabitActivity{
 
         searchButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                EditText searchNameText = (EditText) findViewById(R.id.searchNameText);
+                //EditText searchNameText = (EditText) findViewById(R.id.searchNameText);
                 EditText searchCommentText = (EditText) findViewById(R.id.searchCommentText);
 
-                String name = searchNameText.getText().toString();
+                //String name = searchNameText.getText().toString();
                 String comment = searchCommentText.getText().toString();
 
-                searchHistory(name, comment);
+                //searchHistory(name, comment);
 
             }
         });

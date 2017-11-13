@@ -23,5 +23,11 @@ public class HabitEventList {
     public HabitEvent getHabitEvent(int i){
         return habitEventList.get(i);
     }
+    public int size(){
+        return habitEventList.size();
+    }
+    public String[] toArray(String[] String){
+        return habitEventList.toArray(String);
+    }
 
 }

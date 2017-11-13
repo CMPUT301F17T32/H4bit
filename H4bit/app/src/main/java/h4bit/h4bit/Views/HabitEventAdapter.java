@@ -71,7 +71,7 @@ public class HabitEventAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view){
                     theHabitEvent = habitEventList.getHabitEvent(position);
-                    Intent intent = new Intent(view.getContext(), DoHabitActivity.class);
+                    Intent intent = new Intent(view.getContext(), EditHabitActivity.class);
                     intent.putExtra("savefile", savefile);
                     intent.putExtra("position", position);
                     context.startActivity(intent);
@@ -82,8 +82,14 @@ public class HabitEventAdapter extends BaseAdapter {
         }
 
         @Override
-        public long getItemId(int pos){
-            return pos;
+        public HabitEvent getItem(int pos){
+            return this.theHabitEvent;
         }
+
+        public long getItemId(int pos) {return pos;}
+
+        public int getCount(){
+        return habitEventList.size();
+    }
 
 }
