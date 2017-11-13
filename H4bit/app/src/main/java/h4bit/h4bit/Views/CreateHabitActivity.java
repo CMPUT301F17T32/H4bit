@@ -3,10 +3,13 @@ package h4bit.h4bit.Views;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
@@ -19,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Objects;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Controllers.HabitController;
@@ -62,9 +66,17 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // only get the position if you are in edit mode
         // Also change button to say save
-        if (this.mode == "edit"){
+        if (Objects.equals(this.mode, "edit")){
             this.position = getIntent().getIntExtra("position", -1);
-            createButton.setText("Save");
+            createButton.setText(R.string.save);
+            EditText nameText = (EditText) findViewById(R.id.nameText);
+            EditText commentText = (EditText) findViewById(R.id.commentText);
+            EditText dateText = (EditText) findViewById(R.id.dateCalendar);
+            HabitList habitList = user.getHabitList();
+            Habit habit = habitList.getHabit(this.position);
+            nameText.setText(habit.getName());
+            commentText.setText(habit.getComment());
+            //dateText.setText(String.valueOf(habit.getDate()));
         }
 
         ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
@@ -79,7 +91,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         // This is what happens when you hit the create button at the bottom of the screen
         createButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                if (mode == "create")
+                if (Objects.equals(mode, "create"))
                     createHabit();
                 // How will edit habit get the habit its trying to edit?
                 else
@@ -146,7 +158,10 @@ public class CreateHabitActivity extends AppCompatActivity {
         HabitList habitList = user.getHabitList();
         Habit habit = habitList.getHabit(this.position);
 
+//        nameText.setText(habit.getName());
+//        commentText.setText(habit.getComment());
         habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule);
+
         saveInFile();
         finish();
     }

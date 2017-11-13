@@ -3,6 +3,7 @@ package h4bit.h4bit.Views;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 
@@ -30,6 +31,7 @@ public class EditHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
     }
+
 
 
     private void loadFromFile() {

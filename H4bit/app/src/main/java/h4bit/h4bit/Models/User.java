@@ -54,6 +54,7 @@ public class User {
     public void addHabit(Habit habit){
         this.habitList.addHabit(habit);
     }
+
     // requests
     public void addRequests(String username) {
         requests.add(username);
