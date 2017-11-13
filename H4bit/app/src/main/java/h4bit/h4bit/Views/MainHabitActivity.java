@@ -24,8 +24,14 @@ import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
-
 /**
+ * MainHabitActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
+
+/*
  * habitsButton, socialButton, historyButton, addButton, habitsList
  * I suggest the habits button do nothing because it will only take us to the
  * screen we are already on (this one)
@@ -101,7 +107,7 @@ public class MainHabitActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
+    @Override
     protected void onResume(){
         super.onResume();
         loadFromFile();
@@ -115,6 +121,7 @@ public class MainHabitActivity extends AppCompatActivity {
         saveInFile();
     }
 
+    /* This takes us to the history tab */
     public void historyTab(){
         // This should start an activity
 
@@ -132,7 +139,7 @@ public class MainHabitActivity extends AppCompatActivity {
 
     }
 
-    // This should take us to the create habit activity
+    /* This will take us to the create habit activity */
     public void newHabit() {
         Intent intent = new Intent(this, CreateHabitActivity.class);
         intent.putExtra("savefile",this.savefile);
@@ -148,7 +155,7 @@ public class MainHabitActivity extends AppCompatActivity {
         // TODO add backbutton to xml
     }
 
-
+    /* This is to save and load the user object for offline functionality */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(savefile);

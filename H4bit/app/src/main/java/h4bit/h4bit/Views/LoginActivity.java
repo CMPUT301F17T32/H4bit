@@ -1,8 +1,6 @@
 package h4bit.h4bit.Views;
 
-/**
- * Created by benhl on 2017-10-29.
- */
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +29,13 @@ import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
 /**
+ * LoginActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
+
+/*
  * usernameText, passwordText, signupButton, crealogButton
  * These are the respective textboxes required to handle the information
  * we plan for this screen to have dual functionality, so the crealog button should

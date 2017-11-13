@@ -1,3 +1,6 @@
+
+
+
 package h4bit.h4bit.Views;
 
 import android.content.Context;
@@ -30,8 +33,12 @@ import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
-// createButton, nameText, commentText, mondayToggle, etc.
-// test
+/**
+ * CreateHabitActivity
+ * Version 1.0
+ * November 9th 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
 
 public class CreateHabitActivity extends AppCompatActivity {
 

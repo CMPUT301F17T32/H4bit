@@ -23,7 +23,10 @@ import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 
 /**
- * Created by Alex on 2017-11-09.
+ * HabitAdapter
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class HabitAdapter extends BaseAdapter {
@@ -41,6 +44,13 @@ public class HabitAdapter extends BaseAdapter {
         this.savefile = savefile;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -99,16 +109,30 @@ public class HabitAdapter extends BaseAdapter {
         return view;
     }
 
+    /**
+     *
+     * @return habitlist size
+     */
     @Override
     public int getCount(){
         return habitList.getSize();
     }
 
+    /**
+     *
+     * @param pos for indexing
+     * @return habit
+     */
     @Override
     public Object getItem(int pos) {
         return habitList.getHabit(pos);
     }
 
+    /**
+     *
+     * @param pos for indexing
+     * @return itemID
+     */
     @Override
     public long getItemId(int pos){
         return pos;

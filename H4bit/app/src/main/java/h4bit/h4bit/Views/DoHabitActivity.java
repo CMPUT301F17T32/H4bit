@@ -31,7 +31,10 @@ import h4bit.h4bit.Models.User;
 import h4bit.h4bit.R;
 
 /**
- * Created by benhl on 2017-10-29.
+ * DoHabitActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class DoHabitActivity extends AppCompatActivity {
@@ -112,6 +115,7 @@ public class DoHabitActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private void loadFromFile() {
         try {
