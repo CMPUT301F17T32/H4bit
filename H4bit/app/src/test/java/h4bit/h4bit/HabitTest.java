@@ -37,4 +37,5 @@ public class HabitTest extends ActivityInstrumentationTestCase2 {
          boolean [] schedTest= habit1.getSchedule();
          assertFalse(schedTest[0]);
      }
+
 }

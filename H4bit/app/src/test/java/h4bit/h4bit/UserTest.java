@@ -2,6 +2,7 @@ package h4bit.h4bit;
 
 import org.junit.Test;
 
+import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.User;
 
 import static org.junit.Assert.*;
@@ -26,5 +27,12 @@ public class UserTest{
 //            request = true;
 //        }
         assertTrue(request);
+    }
+    public void testAddHabit(){
+        boolean[] sched = new boolean[7];
+        Habit habit = new Habit("name", "comment", sched);
+        User user = new User("Name");
+        user.addHabit(habit);
+        assertTrue(user.getHabitList().hasHabit(habit));
     }
 }
