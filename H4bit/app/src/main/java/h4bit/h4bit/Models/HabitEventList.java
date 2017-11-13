@@ -2,8 +2,10 @@ package h4bit.h4bit.Models;
 
 import java.util.ArrayList;
 
-/**
- * Created by Alex on 2017-11-03.
+/** User class
+ * version 1.0
+ * 2017-11-03.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class HabitEventList {

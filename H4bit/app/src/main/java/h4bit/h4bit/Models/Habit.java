@@ -8,8 +8,10 @@ import java.util.Date;
 
 import h4bit.h4bit.R;
 
-/**
- * Created by James on 2017-10-20.
+/** User class
+ * version 1.0
+ * 2017-10-20.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class Habit implements Comparable<Habit> {
@@ -21,7 +23,12 @@ public class Habit implements Comparable<Habit> {
     private boolean doneToday;
     private int missed, completed, nextDate;
 
-
+    /**
+     *
+     * @param name
+     * @param comment
+     * @param schedule
+     */
     public Habit(String name, String comment, boolean[] schedule) {
 
         this.date = new Date();
@@ -34,6 +41,10 @@ public class Habit implements Comparable<Habit> {
 
     }
 
+    /**
+     *
+     * @return completionRate
+     */
     public double getCompletionRate() {
         if(getCompleted() + getMissed() == 0){
             return -1;
@@ -42,6 +53,11 @@ public class Habit implements Comparable<Habit> {
         }
     }
 
+    /**
+     *
+     * @param comment
+     * @param habitEventList
+     */
     public void doHabit(String comment, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday();
@@ -49,6 +65,10 @@ public class Habit implements Comparable<Habit> {
         habitEventList.addHabitEvent(new HabitEvent(this, comment));
     }
 
+    /**
+     *
+     * @param habitEventList
+     */
     public void doHabit(HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday();
@@ -56,6 +76,10 @@ public class Habit implements Comparable<Habit> {
         habitEventList.addHabitEvent(new HabitEvent(this));
     }
 
+    /**
+     *
+     * @return nextDate
+     */
     public int setNextDate(){
         Date currentDate = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -86,6 +110,10 @@ public class Habit implements Comparable<Habit> {
         return this.nextDate;
     }
 
+    /**
+     *
+     * @return date
+     */
     public String getNextDayString(){
         Date currentDate = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -104,6 +132,11 @@ public class Habit implements Comparable<Habit> {
         }
     }
 
+    /**
+     *
+     * @param compareHabit
+     * @return nextDate
+     */
     @Override
     public int compareTo(Habit compareHabit) {
 
@@ -113,6 +146,10 @@ public class Habit implements Comparable<Habit> {
 
     }
 
+    /**
+     *
+     * @param schedule
+     */
     public void editSchedule(boolean[] schedule){
         setSchedule(schedule);
     }

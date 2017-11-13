@@ -16,8 +16,11 @@
 //import io.searchbox.core.SearchResult;
 //
 //
-///**
-// * Created by jv on 11/6/17.
+///** User class
+// * version 1.0
+// * 2017-11-06.
+// * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+// * shelved for now
 // */
 //
 //
