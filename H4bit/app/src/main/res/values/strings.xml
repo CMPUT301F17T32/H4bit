@@ -30,9 +30,9 @@
     <string name="location_on">Location On</string>
     <string name="location_off">Location Off</string>
     <string name="comment_optional">Comment (Optional)</string>
-<<<<<<< HEAD
+
     <string name="save">Save</string>
-=======
+
     <string name="delete">Delete</string>
->>>>>>> 800f7869cf8b399a5cbb27137ef7e3d4ea121b79
+
 </resources>
