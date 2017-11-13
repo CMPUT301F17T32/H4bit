@@ -19,6 +19,7 @@ import java.util.Date;
 
 import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 
 /**
@@ -27,13 +28,14 @@ import h4bit.h4bit.R;
 
 public class HabitAdapter extends BaseAdapter {
 
-    private ArrayList<Habit> habitArrayList;
+    private HabitList habitList;
     private Context context;
     private HabitController habitController;
     private String savefile;
+    private Habit theHabit;
 
-    public HabitAdapter(Context context, ArrayList<Habit> habits, String savefile) {
-        this.habitArrayList = habits;
+    public HabitAdapter(Context context, HabitList habitList, String savefile) {
+        this.habitList = habitList;
         this.context = context;
         this.habitController = new HabitController();
         this.savefile = savefile;
@@ -48,7 +50,8 @@ public class HabitAdapter extends BaseAdapter {
         }
 
         //Initialize view components
-        Habit theHabit = habitArrayList.get(position);
+        theHabit = habitList.getHabit(position);
+        Log.d("test0", theHabit.getName());
         TextView habitName = (TextView) view.findViewById(R.id.habitName);
         TextView completionRate = (TextView) view.findViewById(R.id.completionRate);
         TextView completed = (TextView) view.findViewById(R.id.completed);
@@ -71,20 +74,24 @@ public class HabitAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(context, DoHabitActivity.class);
-                intent.putExtra("savefile", savefile);
-                intent.putExtra("position", position);
-                context.startActivity(intent);
+                theHabit = habitList.getHabit(position);
+                if(theHabit.getNextDate() == 0 && !theHabit.getDoneToday()){
+                    Intent intent = new Intent(view.getContext(), DoHabitActivity.class);
+                    intent.putExtra("savefile", savefile);
+                    intent.putExtra("position", position);
+                    context.startActivity(intent);
+                }
             }
 
         });
 
         habitName.setText(theHabit.getName());
+        Log.d("test2", theHabit.getName());
 
         if(theHabit.getCompletionRate() == -1){
             completionRate.setText("N/A");
         } else {
-            completionRate.setText(String.valueOf(Math.round(theHabit.getCompletionRate())));
+            completionRate.setText(String.valueOf(Math.round(theHabit.getCompletionRate())) + "%");
         }
 
         completed.setText(String.valueOf(theHabit.getCompleted()));
@@ -96,12 +103,12 @@ public class HabitAdapter extends BaseAdapter {
 
     @Override
     public int getCount(){
-        return habitArrayList.size();
+        return habitList.getSize();
     }
 
     @Override
     public Object getItem(int pos) {
-        return habitArrayList.get(pos);
+        return habitList.getHabit(pos);
     }
 
     @Override

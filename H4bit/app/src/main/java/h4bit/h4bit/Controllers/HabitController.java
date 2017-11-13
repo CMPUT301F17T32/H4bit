@@ -1,12 +1,6 @@
 package h4bit.h4bit.Controllers;
 
-import android.content.Intent;
-
 import h4bit.h4bit.Models.Habit;
-import h4bit.h4bit.Models.HabitList;
-import h4bit.h4bit.Models.User;
-import h4bit.h4bit.Views.CreateHabitActivity;
-import h4bit.h4bit.Views.EditHabitActivity;
 
 /**
  * Created by benhl on 2017-11-09.
