@@ -51,7 +51,6 @@ public class HabitAdapter extends BaseAdapter {
 
         //Initialize view components
         theHabit = habitList.getHabit(position);
-        Log.d("test0", theHabit.getName());
         TextView habitName = (TextView) view.findViewById(R.id.habitName);
         TextView completionRate = (TextView) view.findViewById(R.id.completionRate);
         TextView completed = (TextView) view.findViewById(R.id.completed);
@@ -86,7 +85,6 @@ public class HabitAdapter extends BaseAdapter {
         });
 
         habitName.setText(theHabit.getName());
-        Log.d("test2", theHabit.getName());
 
         if(theHabit.getCompletionRate() == -1){
             completionRate.setText("N/A");

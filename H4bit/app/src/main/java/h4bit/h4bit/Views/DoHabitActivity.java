@@ -72,7 +72,6 @@ public class DoHabitActivity extends AppCompatActivity {
             public void onClick (View view){
                 user.getHabitList().sortByNextDate();
                 theHabit = user.getHabitList().getHabit(position);
-                Log.d("test4", String.valueOf(position));
                 if(commentText.getText().toString().equals("")){
                     theHabit.doHabit(habitEventList);
                 } else {
