@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.R;
 
+/**
+ * ViewFollowListActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
+
 public class ViewFollowListActivity extends AppCompatActivity {
 
     private ArrayList<Habit> habitsArrayList;

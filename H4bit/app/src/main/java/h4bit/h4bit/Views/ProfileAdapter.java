@@ -1,7 +1,10 @@
 package h4bit.h4bit.Views;
 
 /**
- * Created by James on 2017-11-11.
+ * ProfileController
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class ProfileAdapter {

@@ -23,7 +23,10 @@ import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 
 /**
- * Created by Alex on 2017-11-09.
+ * HabitAdapter
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class HabitAdapter extends BaseAdapter {

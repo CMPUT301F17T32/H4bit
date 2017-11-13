@@ -15,6 +15,13 @@ import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
 /**
+ * HabitHistoryActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
+
+/**
  * habitsButton, socialButton, historyButton, searchNameText, searchCommentText, searchButton, eventsList
  * We should create a tab interface maybe??
  */
