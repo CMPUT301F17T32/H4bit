@@ -60,10 +60,13 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // list adapter init
         habitList = user.getHabitList();
+        habitList.sortByNextDate();
         habitAdapter = new HabitAdapter(this, habitList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
+        habitAdapter.notifyDataSetChanged();
+        saveInFile();
 
         /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
         habitListView = (ListView) findViewById(R.id.habitsList);
@@ -103,11 +106,13 @@ public class MainHabitActivity extends AppCompatActivity {
         super.onResume();
         loadFromFile();
         habitList = user.getHabitList();
+        habitList.sortByNextDate();
         habitAdapter = new HabitAdapter(this, habitList, savefile);
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
+        saveInFile();
     }
 
     public void historyTab(){
