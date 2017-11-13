@@ -17,7 +17,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     /**
      *
-     * @param habit
+     * @param habit habit
      */
     public HabitEvent(Habit habit) {
         this.habit = habit;
@@ -26,8 +26,8 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     /**
      *
-     * @param habit
-     * @param comment
+     * @param habit habit
+     * @param comment comment
      */
     public HabitEvent(Habit habit, String comment) {
         this.habit = habit;

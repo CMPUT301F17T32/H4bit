@@ -132,7 +132,7 @@ public class Habit implements Comparable<Habit> {
 
     /**
      *
-     * @param compareHabit
+     * @param compareHabit habit you want to compare
      * @return nextDate
      */
     @Override

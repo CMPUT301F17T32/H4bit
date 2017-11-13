@@ -1,9 +1,12 @@
 package h4bit.h4bit;
+import android.test.ActivityInstrumentationTestCase2;
+
 import java.util.Arrays;
 import org.junit.Test;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
+import h4bit.h4bit.Views.MainHabitActivity;
 
 import static org.junit.Assert.*;
 
@@ -11,9 +14,12 @@ import static org.junit.Assert.*;
  * Created by Vlad Kravchnko on 10/22/2017.
  */
 
-public class HabitEventTest{
+public class HabitEventTest extends ActivityInstrumentationTestCase2{
 
-    @Test
+    public HabitEventTest() {
+        super(MainHabitActivity.class);
+    }
+
     public void testCreateHabitEvent(){
         String comment = "test comment for event";
         boolean[] sched = new boolean[7];
@@ -39,4 +45,5 @@ public class HabitEventTest{
         HabitEvent habitEvent = new HabitEvent(habit, "test3");
         assertEquals(habitEvent.getComment(), "test3");
     }
+    // compareto does not testing as its another built in method with expected behaviour
 }
