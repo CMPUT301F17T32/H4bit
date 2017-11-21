@@ -39,4 +39,6 @@
     <string name="mon">Mon</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="comment">Comment</string>
+    <string name="habit_name">Habit Name</string>
 </resources>

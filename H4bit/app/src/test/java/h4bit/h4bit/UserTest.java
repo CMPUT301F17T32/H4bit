@@ -1,22 +1,27 @@
 package h4bit.h4bit;
 
+import android.test.ActivityInstrumentationTestCase2;
+
 import org.junit.Test;
 
+import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.User;
+import h4bit.h4bit.Views.MainHabitActivity;
 
 import static org.junit.Assert.*;
 /**
  * Created by Vlad Kravchnko on 10/22/2017.
  */
 
-public class UserTest{
+public class UserTest {
+
     @Test
     public void testCreateUser(){
         User user1 = new User("user1");
         assertEquals(user1.getUsername(), "user1");
 
     }
-
+    @Test
     public void testSendFollowRequest(){
         User user1 = new User("user1");
         User user2 = new User ("user2");
@@ -27,5 +32,12 @@ public class UserTest{
 //        }
         assertTrue(request);
     }
-
+    @Test
+    public void testAddHabit(){
+        boolean[] sched = new boolean[7];
+        Habit habit = new Habit("name", "comment", sched);
+        User user = new User("Name");
+        user.addHabit(habit);
+        assertTrue(user.getHabitList().hasHabit(habit));
+    }
 }

@@ -1,9 +1,12 @@
 package h4bit.h4bit.Controllers;
 
 import h4bit.h4bit.Models.Habit;
+import h4bit.h4bit.Models.User;
 
-/**
- * Created by benhl on 2017-11-09.
+/** User class
+ * version 1.0
+ * 2017-11-09.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  *
  * This controller should handle all data regarding habits and habitLists
  */
@@ -14,7 +17,17 @@ public class HabitController {
 
     }
 
-    // This should initialize a habit adhering to constraints and return it
+    /*
+    This should initialize a habit adhering to constraints and return it
+     */
+
+    /**
+     *
+     * @param name
+     * @param comment
+     * @param schedule
+     * @return habit
+     */
     public Habit createHabit(String name, String comment, boolean[] schedule){
         // Todo perform constraint checking, maybe return null habit if constraints not met
         // One constraint should be to not create a habit with an all false boolean array
@@ -27,7 +40,15 @@ public class HabitController {
         return new Habit(name, comment, schedule);
     }
 
-    public int editHabit(Habit habit,  String name, String comment, boolean[] schedule){
+    /**
+     *
+     * @param habit
+     * @param name
+     * @param comment
+     * @param schedule
+     * @return
+     */
+    public int editHabit(User user, Habit habit, String name, String comment, boolean[] schedule){
         //does this perform the edits by value?
         //todo handle constraints
         // name no more than 20
@@ -38,7 +59,15 @@ public class HabitController {
             return -1;
 
         habit.setComment(comment);
-        habit.setName(name);
+        if(!habit.getName().equals(name)){
+            for(int i = 0; i < user.getHabitEventList().size(); i++){
+                if(user.getHabitEventList().get(i).getHabit().getName().equals(habit.getName())){
+                    user.getHabitEventList().get(i).getHabit().setName(name);
+                }
+            }
+            habit.setName(name);
+
+        }
         habit.setSchedule(schedule);
         return 1;
 

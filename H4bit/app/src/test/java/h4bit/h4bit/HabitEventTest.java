@@ -1,9 +1,12 @@
 package h4bit.h4bit;
+import android.test.ActivityInstrumentationTestCase2;
+
 import java.util.Arrays;
 import org.junit.Test;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
+import h4bit.h4bit.Views.MainHabitActivity;
 
 import static org.junit.Assert.*;
 
@@ -24,4 +27,21 @@ public class HabitEventTest{
         assertEquals(event1.getHabit(),habit1);
         assertEquals(event1.getComment(),comment);
     }
+    @Test
+    public void testGetHabitEvent(){
+        boolean[] sched = new boolean[7];
+        Arrays.fill(sched, true);
+        Habit habit = new Habit("test", "test", sched);
+        HabitEvent habitEvent = new HabitEvent(habit);
+        assertEquals(habitEvent.getHabit(), habit);
+    }
+    @Test
+    public void testGetComment(){
+        boolean[] sched = new boolean[7];
+        Arrays.fill(sched, true);
+        Habit habit = new Habit("test1", "test2", sched);
+        HabitEvent habitEvent = new HabitEvent(habit, "test3");
+        assertEquals(habitEvent.getComment(), "test3");
+    }
+    // compareto does not testing as its another built in method with expected behaviour
 }

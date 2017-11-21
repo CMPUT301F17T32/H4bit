@@ -71,6 +71,14 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         Button createButton = (Button) findViewById(R.id.createButton);
 
+        ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
+        ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
+        ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
+        ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
+        ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.thursdayToggle);
+        ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
+        ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
+
         // only get the position if you are in edit mode
         // Also change button to say save
 
@@ -84,6 +92,40 @@ public class CreateHabitActivity extends AppCompatActivity {
             Habit habit = habitList.getHabit(this.position);
             nameText.setText(habit.getName());
             commentText.setText(habit.getComment());
+
+            if(habit.getSchedule()[0]) {
+                sundayToggle.setChecked(true);
+                schedule[0] = true;
+            }
+
+            if(habit.getSchedule()[1]) {
+                mondayToggle.setChecked(true);
+                schedule[1] = true;
+            }
+            if(habit.getSchedule()[2]) {
+                tuesdayToggle.setChecked(true);
+                schedule[2] = true;
+            }
+            if(habit.getSchedule()[3]) {
+                wednesdayToggle.setChecked(true);
+                schedule[3] = true;
+            }
+
+            if(habit.getSchedule()[4]) {
+                thursdayToggle.setChecked(true);
+                schedule[4] = true;
+            }
+
+            if(habit.getSchedule()[5]) {
+                fridayToggle.setChecked(true);
+                schedule[5] = true;
+            }
+
+            if(habit.getSchedule()[6]) {
+                saturdayToggle.setChecked(true);
+                schedule[6] = true;
+            }   //please don't view this code
+
             //dateText.setText(String.valueOf(habit.getDate()));
         }
 
@@ -99,13 +141,7 @@ public class CreateHabitActivity extends AppCompatActivity {
             deleteButton.setVisibility(View.GONE);
         }
 
-        ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.sundayToggle);
-        ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.mondayToggle);
-        ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.tuesdayToggle);
-        ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.wednesdayToggle);
-        ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.thursdayToggle);
-        ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
-        ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
+
 
 
         // This is what happens when you hit the create button at the bottom of the screen
@@ -145,13 +181,7 @@ public class CreateHabitActivity extends AppCompatActivity {
     public void toggleButton(ToggleButton button, final Integer day){
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    schedule[day] = isChecked;
-                } else {
-                    // The toggle is disabled
-                    schedule[day] = isChecked;
-                }
+                schedule[day] = isChecked;
             }
         });
     }
@@ -195,7 +225,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
 
-        if (habitController.editHabit(user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }

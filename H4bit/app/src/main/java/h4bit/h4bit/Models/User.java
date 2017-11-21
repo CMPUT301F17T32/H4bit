@@ -2,12 +2,13 @@ package h4bit.h4bit.Models;
 
 import android.media.Image;
 import android.widget.ArrayAdapter;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-/**
- * Created by James on 2017-10-20.
+/** User class
+ * version 1.0
+ * 2017-10-20.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class User {
@@ -20,10 +21,6 @@ public class User {
     private ArrayList<String> following;
     private ArrayList<String> requests;
 
-    //private HabitAdapter habitAdapter;
-    //private HabitEventAdapter habitEventAdapter;
-    //private FollowAdapter followerAdapter;
-    //private FollowAdapter followAdapter;
 
     public User (){
         this.habitEventList = new HabitEventList();
