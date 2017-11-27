@@ -21,24 +21,25 @@ import h4bit.h4bit.Models.User;
 
 public class SaveLoadController {
 
-    private User user;
     private String savefile;
     private Context context;
 
-    public SaveLoadController(String savefile, User user, Context context){
+    public SaveLoadController(String savefile, Context context){
         this.savefile = savefile;
-        this.user = user;
         this.context = context;
+        // Must load the user object from the filename
+        // But then this user object wont be the same as the one outside
+        // Solution: Make load return a user object
     }
 
-    public void save(){
+    public void save(User user){
         try {
             FileOutputStream fos = context.openFileOutput(savefile, Context.MODE_PRIVATE);
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
 
             Gson gson = new Gson();
-            gson.toJson(this.user, out);
+            gson.toJson(user, out);
             out.flush();
 
             fos.close();
@@ -50,7 +51,9 @@ public class SaveLoadController {
 
     }
 
-    public void load(){
+    public User load(){
+        User user;
+
         try {
             FileInputStream fis = context.openFileInput(savefile);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
@@ -60,10 +63,11 @@ public class SaveLoadController {
             //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2017-09-19
 //            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
-            this.user = gson.fromJson(in, User.class);
+            user = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
             user = new User("test");
         }
+        return user;
     }
 }

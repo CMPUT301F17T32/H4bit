@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Objects;
 
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Models.HabitList;
@@ -48,6 +49,7 @@ public class CreateHabitActivity extends AppCompatActivity {
     private boolean[] schedule;
     private String mode;
     private int position;
+    private SaveLoadController saveLoadController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,11 @@ public class CreateHabitActivity extends AppCompatActivity {
         // Get the mode for creating/editing
         this.mode = getIntent().getStringExtra("mode");
 
+        // Init the saveLoadController
+        this.saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
+
         // load the user from the savefile
-        loadFromFile();
+        user = saveLoadController.load();
 
         // init the habit controller
         this.habitController = new HabitController();
@@ -93,42 +98,41 @@ public class CreateHabitActivity extends AppCompatActivity {
             nameText.setText(habit.getName());
             commentText.setText(habit.getComment());
 
-            if(habit.getSchedule()[0]) {
+            if (habit.getSchedule()[0]) {
                 sundayToggle.setChecked(true);
                 schedule[0] = true;
             }
 
-            if(habit.getSchedule()[1]) {
+            if (habit.getSchedule()[1]) {
                 mondayToggle.setChecked(true);
                 schedule[1] = true;
             }
-            if(habit.getSchedule()[2]) {
+            if (habit.getSchedule()[2]) {
                 tuesdayToggle.setChecked(true);
                 schedule[2] = true;
             }
-            if(habit.getSchedule()[3]) {
+            if (habit.getSchedule()[3]) {
                 wednesdayToggle.setChecked(true);
                 schedule[3] = true;
             }
 
-            if(habit.getSchedule()[4]) {
+            if (habit.getSchedule()[4]) {
                 thursdayToggle.setChecked(true);
                 schedule[4] = true;
             }
 
-            if(habit.getSchedule()[5]) {
+            if (habit.getSchedule()[5]) {
                 fridayToggle.setChecked(true);
                 schedule[5] = true;
             }
 
-            if(habit.getSchedule()[6]) {
+            if (habit.getSchedule()[6]) {
                 saturdayToggle.setChecked(true);
                 schedule[6] = true;
             }   //please don't view this code
 
             //dateText.setText(String.valueOf(habit.getDate()));
         }
-
 
 
         // init delete button
@@ -140,8 +144,6 @@ public class CreateHabitActivity extends AppCompatActivity {
         } else {
             deleteButton.setVisibility(View.GONE);
         }
-
-
 
 
         // This is what happens when you hit the create button at the bottom of the screen
@@ -178,7 +180,7 @@ public class CreateHabitActivity extends AppCompatActivity {
     }
 
 
-    public void toggleButton(ToggleButton button, final Integer day){
+    public void toggleButton(ToggleButton button, final Integer day) {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 schedule[day] = isChecked;
@@ -187,13 +189,13 @@ public class CreateHabitActivity extends AppCompatActivity {
     }
 
     // This looks ugly af but don't worry because it still deletes the habit
-    public void deleteHabit(){
+    public void deleteHabit() {
         this.user.getHabitList().deleteHabit(user.getHabitList().getHabit(this.position));
-        saveInFile();
+        saveLoadController.save(this.user);
         finish();
     }
 
-    public void createHabit(){
+    public void createHabit() {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
         //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
@@ -212,7 +214,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.user.addHabit(habit);
 
         // Save the new user to the user save file
-        saveInFile();
+        saveLoadController.save(this.user);
 
         // Finish the activity and take us back to the main habit screen
         finish();
@@ -225,49 +227,13 @@ public class CreateHabitActivity extends AppCompatActivity {
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
 
-        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1){
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }
         // do nothing if edit returns -1
 
-        saveInFile();
+        saveLoadController.save(user);
         finish();
-    }
-
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(savefile);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-
-            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            // 2017-09-19
-//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
-            this.user = gson.fromJson(in, User.class);
-
-        } catch (FileNotFoundException e) {
-            user = new User("test");
-        }
-    }
-
-    // This is the code from the lonelyTwitter lab exercise
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(savefile, Context.MODE_PRIVATE);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            gson.toJson(this.user, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
     }
 }
