@@ -65,7 +65,7 @@ public class HabitEventAdapter extends BaseAdapter {
                 theHabitEvent = habitEventList.get(position);
                 Intent intent = new Intent(view.getContext(), EditHabitEventActivity.class);
                 intent.putExtra("savefile", savefile);
-                intent.putExtra("habitEvent", position);
+                intent.putExtra("position", position);
                 context.startActivity(intent);
             }
 
