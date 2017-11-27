@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Date;
 
 import h4bit.h4bit.Models.User;
 
@@ -36,6 +37,7 @@ public class SaveLoadController {
 
     public void save(User user){
         try {
+            user.setLastModified(new Date());
             FileOutputStream fos = context.openFileOutput(savefile, Context.MODE_PRIVATE);
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));

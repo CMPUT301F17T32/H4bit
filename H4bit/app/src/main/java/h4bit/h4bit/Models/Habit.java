@@ -22,6 +22,7 @@ public class Habit implements Comparable<Habit> {
     private boolean[] schedule;
     private boolean doneToday;
     private int missed, completed, nextDate;
+    private String id;
 
     /**
      *
@@ -206,6 +207,14 @@ public class Habit implements Comparable<Habit> {
 
     public String toString(){
         return this.name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
