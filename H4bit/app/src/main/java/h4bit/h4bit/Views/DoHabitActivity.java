@@ -55,9 +55,9 @@ public class DoHabitActivity extends AppCompatActivity {
         // Init the saveload controller
         this.savefile = getIntent().getStringExtra("savefile");
         this.saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
-
         user = saveLoadController.load();
 //        loadFromFile();
+
         final int position = getIntent().getIntExtra("position", -1);
         this.theHabit = user.getHabitList().getHabit(position);
 
@@ -121,42 +121,4 @@ public class DoHabitActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(savefile);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-
-            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            // 2017-09-19
-//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
-            this.user = gson.fromJson(in, User.class);
-
-        } catch (FileNotFoundException e) {
-            user = new User("test");
-        }
-    }
-
-    // This is the code from the lonelyTwitter lab exercise
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(savefile, Context.MODE_PRIVATE);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            gson.toJson(this.user, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
-
 }

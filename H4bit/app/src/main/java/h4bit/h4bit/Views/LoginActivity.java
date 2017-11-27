@@ -134,43 +134,5 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Invalid username. Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private void loadFromFile(String username) {
-        try {
-            FileInputStream fis = openFileInput(username+".sav");
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-
-            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            // 2017-09-19
-            //Type listType = new TypeToken<ArrayList<User>>(){}.getType();
-            //userList = gson.fromJson(in, listType);
-            this.user = gson.fromJson(in, User.class);
-
-        } catch (FileNotFoundException e) {
-            user = new User("test");
-        }
-    }
-
-    // This is the code form the lonelyTwitter lab exercise
-    private void saveInFile(String username) {
-        try {
-            FileOutputStream fos = openFileOutput(username+".sav",
-                    Context.MODE_PRIVATE);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            gson.toJson(this.user, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
 }
 

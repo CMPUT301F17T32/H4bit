@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
@@ -42,6 +43,7 @@ public class MainHabitActivity extends AppCompatActivity {
     // as well as store it locally
     private User user;
     private String savefile;
+    private SaveLoadController saveLoadController;
 
     // This is just a placeholder to see if I can figure out how to list everything again
     //private ArrayAdapter<Habit> adapter;
@@ -59,7 +61,9 @@ public class MainHabitActivity extends AppCompatActivity {
         this.savefile = getIntent().getStringExtra("savefile");
 
         // Loads the user
-        loadFromFile();
+        saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
+        user = saveLoadController.load();
+//        loadFromFile();
 
         // Again, clumsy but serving a basic purpose mostly right now
         // This will display all the users habits, not the ones due today
@@ -75,7 +79,8 @@ public class MainHabitActivity extends AppCompatActivity {
         }
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
-        saveInFile();
+        saveLoadController.save(user);
+//        saveInFile();
 
         /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
         habitListView = (ListView) findViewById(R.id.habitsList);
@@ -153,46 +158,10 @@ public class MainHabitActivity extends AppCompatActivity {
         // So when we get to here a new habit was added to the users list and saved
         // do we have to reload the user from the save file then notify the adapter?
         // or will we have to reload the listview as well?
-        loadFromFile();
+        user = saveLoadController.load();
+//        loadFromFile();
         habitAdapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
         // TODO add backbutton to xml
-    }
-
-    /* This is to save and load the user object for offline functionality */
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(savefile);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-            Gson gson = new Gson();
-
-            //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            // 2017-09-19
-//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
-            this.user = gson.fromJson(in, User.class);
-
-        } catch (FileNotFoundException e) {
-            user = new User("test");
-        }
-    }
-
-    // This is the code from the lonelyTwitter lab exercise
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(savefile, Context.MODE_PRIVATE);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-
-            Gson gson = new Gson();
-            gson.toJson(this.user, out);
-            out.flush();
-
-            fos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
     }
 }
