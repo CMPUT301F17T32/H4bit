@@ -17,6 +17,8 @@ import h4bit.h4bit.Models.User;
 
 /**
  * Created by benhl on 2017-11-20.
+ *
+ * This code was taken from the lonely twitter lab exercise
  */
 
 public class SaveLoadController {

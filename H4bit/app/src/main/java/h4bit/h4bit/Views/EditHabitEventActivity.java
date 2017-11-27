@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import h4bit.h4bit.Controllers.HabitEventController;
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.User;
@@ -51,6 +52,7 @@ public class EditHabitEventActivity extends AppCompatActivity {
     private int position;
     private HabitEvent theHabitEvent;
     private HabitEventList habitEventList;
+    private SaveLoadController saveLoadController;
 
     @Override
     protected void onStart() {
@@ -58,7 +60,11 @@ public class EditHabitEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_habit_event);
         this.savefile = getIntent().getStringExtra("savefile");
         this.position = getIntent().getIntExtra("position",position);
-        loadFromFile();
+
+        // Init the saveload controller and assign user
+        saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
+        user = saveLoadController.load();
+        //loadFromFile();
 
         this.theHabitEvent = user.getHabitEventList().get(position);
         this.habitEventList = user.getHabitEventList();
@@ -76,7 +82,8 @@ public class EditHabitEventActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 user.getHabitEventList().deleteHabitEvent(user.getHabitEventList().get(position));
-                saveInFile();
+                saveLoadController.save(user);
+                //saveInFile();
                 finish();
             }
         });
@@ -93,7 +100,8 @@ public class EditHabitEventActivity extends AppCompatActivity {
 
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         theHabitEvent.setComment(commentText.getText().toString());
-        saveInFile();
+        saveLoadController.save(user);
+        //saveInFile();
         finish();
 
     }

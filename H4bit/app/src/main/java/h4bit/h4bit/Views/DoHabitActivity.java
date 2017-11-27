@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
@@ -44,15 +45,19 @@ public class DoHabitActivity extends AppCompatActivity {
     private User user;
     private HabitEventList habitEventList;
     private EditText commentText;
+    private SaveLoadController saveLoadController;
 
     @Override
     protected void onStart(){
         super.onStart();
         setContentView(R.layout.do_habit_activity);
 
+        // Init the saveload controller
         this.savefile = getIntent().getStringExtra("savefile");
+        this.saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
 
-        loadFromFile();
+        user = saveLoadController.load();
+//        loadFromFile();
         final int position = getIntent().getIntExtra("position", -1);
         this.theHabit = user.getHabitList().getHabit(position);
 
@@ -80,7 +85,8 @@ public class DoHabitActivity extends AppCompatActivity {
                 } else {
                     theHabit.doHabit(commentText.getText().toString(), habitEventList);
                 }
-                saveInFile();
+                saveLoadController.save(user);
+//                saveInFile();
                 finish();
             }
         });
