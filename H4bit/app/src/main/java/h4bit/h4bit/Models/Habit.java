@@ -1,5 +1,6 @@
 package h4bit.h4bit.Models;
 
+import android.location.Location;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -56,24 +57,25 @@ public class Habit implements Comparable<Habit> {
     /**
      *
      * @param comment
+     * @param location
      * @param habitEventList
      */
-    public void doHabit(String comment, HabitEventList habitEventList) {
+    public void doHabit(String comment, Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
-        habitEventList.addHabitEvent(new HabitEvent(this, comment));
+        habitEventList.addHabitEvent(new HabitEvent(this, comment, location));
     }
 
     /**
      *
      * @param habitEventList
      */
-    public void doHabit(HabitEventList habitEventList) {
+    public void doHabit(Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
-        habitEventList.addHabitEvent(new HabitEvent(this));
+        habitEventList.addHabitEvent(new HabitEvent(this, location));
     }
 
     /**
