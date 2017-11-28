@@ -1,5 +1,7 @@
 package h4bit.h4bit.Models;
 
+import android.location.Location;
+
 import java.util.Date;
 
 /** User class
@@ -12,16 +14,17 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     private Habit habit;
     private Date date;
-    //location stuff
+    private Location location;
     private String comment;
 
     /**
      *
      * @param habit habit
      */
-    public HabitEvent(Habit habit) {
+    public HabitEvent(Habit habit, Location location) {
         this.habit = habit;
         this.date = new Date();
+        this.location = location;
     }
 
     /**
@@ -29,10 +32,11 @@ public class HabitEvent implements Comparable<HabitEvent> {
      * @param habit habit
      * @param comment comment
      */
-    public HabitEvent(Habit habit, String comment) {
+    public HabitEvent(Habit habit, String comment, Location location) {
         this.habit = habit;
         this.date = new Date();
         this.comment = comment;
+        this.location = location;
     }
 
     public int compareTo(HabitEvent compareHabitEvent) {
@@ -58,4 +62,6 @@ public class HabitEvent implements Comparable<HabitEvent> {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public Location getLocation(){return this.location;}
 }

@@ -3,16 +3,25 @@ package h4bit.h4bit.Views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -25,11 +34,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
+import h4bit.h4bit.Manifest;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.User;
 import h4bit.h4bit.R;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 /**
  * DoHabitActivity
@@ -46,17 +58,32 @@ public class DoHabitActivity extends AppCompatActivity {
     private HabitEventList habitEventList;
     private EditText commentText;
     private SaveLoadController saveLoadController;
+    private FusedLocationProviderClient mFusedLocationClient;
+    private Location eventLocation;
+    private Context context;
+    private static final int locationPermission = 1;
+    private Activity activity;
 
     @Override
     protected void onStart(){
         super.onStart();
         setContentView(R.layout.do_habit_activity);
 
+        // init context and activity
+        this.context = getApplicationContext();
+        this.activity = this;
+
         // Init the saveload controller
         this.savefile = getIntent().getStringExtra("savefile");
         this.saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
         user = saveLoadController.load();
-//        loadFromFile();
+
+        // location is null as default
+        eventLocation = null;
+
+
+        // init the fusedlocationthing
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
 
         final int position = getIntent().getIntExtra("position", -1);
         this.theHabit = user.getHabitList().getHabit(position);
@@ -67,7 +94,7 @@ public class DoHabitActivity extends AppCompatActivity {
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         Button doHabitButton = (Button) findViewById(R.id.doHabitButton);
         Button uploadImageButton = (Button) findViewById(R.id.uploadHabitPictureButton);
-        ToggleButton locationToggle = (ToggleButton) findViewById(R.id.locationToggle);
+        final ToggleButton locationToggle = (ToggleButton) findViewById(R.id.locationToggle);
         commentText = (EditText) findViewById(R.id.addCommentText);
 
         cancelButton.setOnClickListener(new View.OnClickListener(){
@@ -81,16 +108,31 @@ public class DoHabitActivity extends AppCompatActivity {
                 user.getHabitList().sortByNextDate();
                 theHabit = user.getHabitList().getHabit(position);
                 if(commentText.getText().toString().equals("")){
-                    theHabit.doHabit(habitEventList);
+                    theHabit.doHabit(eventLocation, habitEventList);
                 } else {
-                    theHabit.doHabit(commentText.getText().toString(), habitEventList);
+                    theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
                 }
+
                 saveLoadController.save(user);
-//                saveInFile();
                 finish();
             }
         });
 
+        locationToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // This will turn location on our off, rather, clicking the button will
+                // activate location and store it in habitEvent
+                // and toggling it off will make that location NULL
+                if (isChecked) {
+                    getCurrentLocation(locationToggle);
+
+                }else{
+                    eventLocation = null;
+                    //Toast.makeText(context, "PERMISSION DENIED", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
         //https://stackoverflow.com/questions/9107900/how-to-upload-image-from-gallery-in-android
         uploadImageButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -119,6 +161,64 @@ public class DoHabitActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+    public void getCurrentLocation(ToggleButton locationToggle){
+        // this taken directly from the android tutorial
+        if (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // If permission is not granted we can show a rationale
+            // lets not
+            ActivityCompat.requestPermissions(activity, new String[]{ACCESS_FINE_LOCATION}, locationPermission);
+            locationToggle.setChecked(false);
+
+
+            // if statement covers if they have already given permission
+            // If they did not we will not get the location
+            // We will also leave the button untoggled
+            // We could possibly hide the button, or disallow any interaction with it
+            // unless location services is allowed
+
+        } else {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(activity, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    // Got last known location!
+                    if (location != null) {
+                        eventLocation = location;
+                        Toast.makeText(context, "Location received", Toast.LENGTH_LONG).show();
+
+
+                    } else {
+                        // Maybe a toast saying cannot get location
+                        Toast.makeText(context, "Could not get location", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case locationPermission: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    // Get the location here I guess
+//                    getCurrentLocation();
+
+                } else {
+                    eventLocation = null;
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 }
