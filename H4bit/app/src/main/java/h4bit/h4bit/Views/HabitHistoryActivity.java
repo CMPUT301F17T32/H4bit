@@ -4,17 +4,29 @@ package h4bit.h4bit.Views;
  * Created by benhl on 2017-10-29.
  */
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -45,11 +57,11 @@ import h4bit.h4bit.Models.User;
  * We should create a tab interface maybe??
  */
 
-public class HabitHistoryActivity extends MainHabitActivity{
+public class HabitHistoryActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private User user;
     private String savefile;
-    private ListView eventsList;
+    private FragmentManager fragmentManager;
     private SaveLoadController saveLoadController;
     protected HabitEventAdapter habitEventAdapter;
     protected HabitEventList habitEventList;
@@ -59,11 +71,19 @@ public class HabitHistoryActivity extends MainHabitActivity{
         super.onStart();
         setContentView(R.layout.activity_habit_history);
 
+
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button searchButton = (Button) findViewById(R.id.searchButton);
+        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
+
+        // Init the map fragment manager and the map fragment
+        fragmentManager = getFragmentManager();
+        final MapFragment mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
+        fragmentManager.beginTransaction().hide(mapFragment).commit();
 
 
         // get savefile
@@ -86,7 +106,20 @@ public class HabitHistoryActivity extends MainHabitActivity{
         habitEventList.sortByDate();
         habitEventAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
-//        saveInFile();
+
+        mapToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // This will turn location on our off, rather, clicking the button will
+                // activate location and store it in habitEvent
+                // and toggling it off will make that location NULL
+                if (isChecked) {
+                    // We want this to show the map, and display all the users habits
+                    fragmentManager.beginTransaction().show(mapFragment).commit();
+                }else{
+                    // We want this to hide the map and return the screen to the normal, non-janky layout
+                    fragmentManager.beginTransaction().hide(mapFragment).commit();
+                }
+            }});
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -114,6 +147,21 @@ public class HabitHistoryActivity extends MainHabitActivity{
         });
 
 
+    }
+    @Override
+    public void onMapReady(GoogleMap map) {
+        // We need to use this addMarker to add all the habits with locations
+        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
+        // First we need to get all the habitEvents
+        // Then we need to iterate through them and add a marker for each event with a location
+        for (int i = 0; i < habitEventList.size(); i++) {
+            HabitEvent habitEvent = habitEventList.get(i);
+            if (habitEvent.getLocation() != null){
+                Location location = habitEvent.getLocation();
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
+            }
+        }
     }
 
     /**

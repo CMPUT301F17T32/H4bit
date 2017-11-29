@@ -43,6 +43,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Views.EditHabitEventActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBcBkze2-tjqIxSuo2eBn8KalfFunaiPVo"/>
     </application>
 
 </manifest>

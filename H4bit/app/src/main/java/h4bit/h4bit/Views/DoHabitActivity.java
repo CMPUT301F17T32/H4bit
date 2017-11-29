@@ -155,7 +155,7 @@ public class DoHabitActivity extends AppCompatActivity {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                // TODO Auto-generated catch block2
                 e.printStackTrace();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
