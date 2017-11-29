@@ -59,12 +59,26 @@
             android:ems="10"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/searchButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="@string/searchHistoryButton" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/searchHistoryButton" />
+
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/map" />
+        </LinearLayout>
 
     </LinearLayout>
 

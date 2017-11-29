@@ -4,6 +4,7 @@ import android.media.Image;
 import android.widget.ArrayAdapter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 
 /** User class
  * version 1.0
@@ -20,7 +21,8 @@ public class User {
     private ArrayList<String> followers;
     private ArrayList<String> following;
     private ArrayList<String> requests;
-
+    private Date lastModified;
+    //private Boolean isLogin;
 
     public User (){
         this.habitEventList = new HabitEventList();
@@ -98,8 +100,12 @@ public class User {
         return this.habitEventList;
     }
 
+    public Date getLastModified() {
+        return lastModified;
+    }
 
-
-
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 }
 

@@ -41,4 +41,6 @@
     <string name="delete">Delete</string>
     <string name="comment">Comment</string>
     <string name="habit_name">Habit Name</string>
+    <string name="map">Map</string>
+    <string name="follow">Follow</string>
 </resources>
