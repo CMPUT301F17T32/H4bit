@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -63,14 +64,15 @@ public class HabitHistoryActivity extends FragmentActivity implements OnMapReady
     private String savefile;
     private FragmentManager fragmentManager;
     private SaveLoadController saveLoadController;
+    private MapFragment mapFragment;
     protected HabitEventAdapter habitEventAdapter;
     protected HabitEventList habitEventList;
+    private OnMapReadyCallback callback;
 
     @Override
     protected void onStart() {
         super.onStart();
         setContentView(R.layout.activity_habit_history);
-
 
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
@@ -80,9 +82,11 @@ public class HabitHistoryActivity extends FragmentActivity implements OnMapReady
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 
         // Init the map fragment manager and the map fragment
+        callback = this;
+        // Does this need to be reinitialized in onResume?? I assume so
         fragmentManager = getFragmentManager();
-        final MapFragment mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(this);
+        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(callback);
         fragmentManager.beginTransaction().hide(mapFragment).commit();
 
 
@@ -145,9 +149,34 @@ public class HabitHistoryActivity extends FragmentActivity implements OnMapReady
 
             }
         });
-
-
     }
+
+    // This should end the fragment when the activity is no longer on top
+    // ie when edit button is pressed
+//    @Override
+//    public void onPause(){
+//        super.onPause();
+//        fragmentManager.beginTransaction().remove(mapFragment);
+//    }
+//
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        fragmentManager.beginTransaction().remove(mapFragment);
+//    }
+//
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//
+//        // Reinit the map so it doesn't blow anything up
+//        // Unless we need to delete the map fragment on starting a new activity
+//        fragmentManager = getFragmentManager();
+//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+//        mapFragment.getMapAsync(this);
+//        fragmentManager.beginTransaction().hide(mapFragment).commit();
+//    }
+
     @Override
     public void onMapReady(GoogleMap map) {
         // We need to use this addMarker to add all the habits with locations
