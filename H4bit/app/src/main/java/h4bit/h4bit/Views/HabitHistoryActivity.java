@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -69,6 +70,8 @@ public class HabitHistoryActivity extends MainHabitActivity{
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 
 
+
+
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
@@ -76,13 +79,23 @@ public class HabitHistoryActivity extends MainHabitActivity{
 //        loadFromFile();
 
         //autocompletetextview
-        //habitEventArrayList = user.getHabitEventList();
-        //String[] Names = new String[habitEventArrayList.size()];
-        //Names = habitEventArrayList.toArray(Names);
+        HabitEventList habitEventAutoList = user.getHabitEventList();
+        HabitList HabitAutoList = user.getHabitList();
+        String[] Comments = new String[habitEventAutoList.size()];
+        String[] Names = new String[HabitAutoList.getSize()];
+        for (int i = 0; i<habitEventAutoList.size();i++){
+          Comments[i]= habitEventAutoList.get(i).getComment();
+        }
+        for (int i =0;i<HabitAutoList.getSize();i++){
+          Names[i] = HabitAutoList.getHabit(i).getName();
+        }
 
-        //AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(autoCompleteTextView);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
-        //autoCompleteTextView.setAdapter(adapter);
+        AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(R.id.AutoCompleteName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
+        autoCompleteTextView.setAdapter(adapter);
+        AutoCompleteTextView autoCompleteTextView2 =(AutoCompleteTextView) findViewById(R.id.AutoCompleteComment);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Comments);
+        autoCompleteTextView2.setAdapter(adapter2);
         habitEventList = user.getHabitEventList();
         habitEventAdapter = new HabitEventAdapter(this, habitEventList, savefile);
         eventsList.setAdapter(habitEventAdapter);
