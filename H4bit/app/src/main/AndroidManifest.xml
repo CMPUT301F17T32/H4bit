@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="h4bit.h4bit">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,6 @@
         <activity
             android:name=".Views.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,29 +22,35 @@
         </activity>
         <activity
             android:name=".Views.MainHabitActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.HabitHistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.SocialActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.ViewProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.CreateHabitActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Views.ViewFollowListActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Views.DoHabitActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Views.EditHabitEventActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.DoHabitActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.EditHabitEventActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Views.HabitEventMap"
+            android:parentActivityName=".Views.HabitHistoryActivity"/>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBcBkze2-tjqIxSuo2eBn8KalfFunaiPVo"/>
+            android:value="AIzaSyBcBkze2-tjqIxSuo2eBn8KalfFunaiPVo" />
     </application>
 
 </manifest>

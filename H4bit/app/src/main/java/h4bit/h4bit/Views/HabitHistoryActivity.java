@@ -58,36 +58,40 @@ import h4bit.h4bit.Models.User;
  * We should create a tab interface maybe??
  */
 
-public class HabitHistoryActivity extends FragmentActivity implements OnMapReadyCallback{
+public class HabitHistoryActivity extends FragmentActivity{
 
     private User user;
     private String savefile;
     private FragmentManager fragmentManager;
     private SaveLoadController saveLoadController;
     private MapFragment mapFragment;
+    private Context context;
     protected HabitEventAdapter habitEventAdapter;
     protected HabitEventList habitEventList;
-    private OnMapReadyCallback callback;
+
 
     @Override
     protected void onStart() {
         super.onStart();
         setContentView(R.layout.activity_habit_history);
 
+        this.context = this.getApplicationContext();
+
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button searchButton = (Button) findViewById(R.id.searchButton);
-        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
+        Button mapButton = (Button) findViewById(R.id.mapButton);
+//        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 
         // Init the map fragment manager and the map fragment
-        callback = this;
-        // Does this need to be reinitialized in onResume?? I assume so
-        fragmentManager = getFragmentManager();
-        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(callback);
-        fragmentManager.beginTransaction().hide(mapFragment).commit();
+//        callback = this;
+//        // Does this need to be reinitialized in onResume?? I assume so
+//        fragmentManager = getFragmentManager();
+//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
+//        mapFragment.getMapAsync(callback);
+//        fragmentManager.beginTransaction().hide(mapFragment).commit();
 
 
         // get savefile
@@ -111,19 +115,28 @@ public class HabitHistoryActivity extends FragmentActivity implements OnMapReady
         habitEventAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
 
-        mapToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // This will turn location on our off, rather, clicking the button will
-                // activate location and store it in habitEvent
-                // and toggling it off will make that location NULL
-                if (isChecked) {
-                    // We want this to show the map, and display all the users habits
-                    fragmentManager.beginTransaction().show(mapFragment).commit();
-                }else{
-                    // We want this to hide the map and return the screen to the normal, non-janky layout
-                    fragmentManager.beginTransaction().hide(mapFragment).commit();
-                }
+        mapButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intent = new Intent(context, HabitEventMap.class);
+                intent.putExtra("savefile", savefile);
+                startActivity(intent);
             }});
+
+
+        // TODO change me to regular button that brings up the new map activity
+//        mapToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                // This will turn location on our off, rather, clicking the button will
+//                // activate location and store it in habitEvent
+//                // and toggling it off will make that location NULL
+//                if (isChecked) {
+//                    // We want this to show the map, and display all the users habits
+//                    fragmentManager.beginTransaction().show(mapFragment).commit();
+//                }else{
+//                    // We want this to hide the map and return the screen to the normal, non-janky layout
+//                    fragmentManager.beginTransaction().hide(mapFragment).commit();
+//                }
+//            }});
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -151,47 +164,21 @@ public class HabitHistoryActivity extends FragmentActivity implements OnMapReady
         });
     }
 
-    // This should end the fragment when the activity is no longer on top
-    // ie when edit button is pressed
 //    @Override
-//    public void onPause(){
-//        super.onPause();
-//        fragmentManager.beginTransaction().remove(mapFragment);
+//    public void onMapReady(GoogleMap map) {
+//        // We need to use this addMarker to add all the habits with locations
+//        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
+//        // First we need to get all the habitEvents
+//        // Then we need to iterate through them and add a marker for each event with a location
+//        for (int i = 0; i < habitEventList.size(); i++) {
+//            HabitEvent habitEvent = habitEventList.get(i);
+//            if (habitEvent.getLocation() != null){
+//                Location location = habitEvent.getLocation();
+//                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
+//            }
+//        }
 //    }
-//
-//    @Override
-//    public void onStop(){
-//        super.onStop();
-//        fragmentManager.beginTransaction().remove(mapFragment);
-//    }
-//
-//    @Override
-//    public void onResume(){
-//        super.onResume();
-//
-//        // Reinit the map so it doesn't blow anything up
-//        // Unless we need to delete the map fragment on starting a new activity
-//        fragmentManager = getFragmentManager();
-//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-//        mapFragment.getMapAsync(this);
-//        fragmentManager.beginTransaction().hide(mapFragment).commit();
-//    }
-
-    @Override
-    public void onMapReady(GoogleMap map) {
-        // We need to use this addMarker to add all the habits with locations
-        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
-        // First we need to get all the habitEvents
-        // Then we need to iterate through them and add a marker for each event with a location
-        for (int i = 0; i < habitEventList.size(); i++) {
-            HabitEvent habitEvent = habitEventList.get(i);
-            if (habitEvent.getLocation() != null){
-                Location location = habitEvent.getLocation();
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
-            }
-        }
-    }
 
     /**
      *
