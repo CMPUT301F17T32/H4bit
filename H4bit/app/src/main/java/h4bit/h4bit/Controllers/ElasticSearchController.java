@@ -7,6 +7,9 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.w3c.dom.Document;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class ElasticSearchController {
             verifySettings();
 
             for (Habit habit : habits) {
-                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("Habit").build();
+                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("habit").build();
 
                 try {
                     // where is the client?
@@ -55,27 +58,6 @@ public class ElasticSearchController {
                 } catch (Exception e) {
                     Log.i("Error", "The application failed to build and send the habits");
                 }
-                // figure out how all this works
-                /**for (Habit habit : habits) {
-                 Index index = new Index.Builder(habit).index("t32").type("Habit").build();
-
-                 try {
-                 // where is the client?
-                 DocumentResult result = client.execute(index);
-
-                 if (result.isSucceeded()) {
-                 habit.setId(result.getId());
-                 } else {
-                 Log.i("Error","Elasticsearch was not able to add the habit");
-                 }
-
-                 }
-                 catch (Exception e) {
-                 Log.i("Error", "The application failed to build and send the habits");
-                 }
-
-                 }**/
-                //return null;
             }
         return null;
         }
@@ -111,6 +93,32 @@ public class ElasticSearchController {
 //            return habits;
 //        }
 //    }
+
+      public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+          protected Void doInBackground(User... users) {
+            verifySettings();
+            for (User user: users) {
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("user").build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        user.setId(result.getId());
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to add the user");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "The application failed");
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+      }
 
 //    public static class getUsersTask extends AsyncTask<String, Void, User> {
 //
