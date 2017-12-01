@@ -62,6 +62,9 @@ public class HabitHistoryActivity extends MainHabitActivity{
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        historyButton.setPressed(true);
+        historyButton.setEnabled(false);
         Button searchButton = (Button) findViewById(R.id.searchButton);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 

@@ -29,21 +29,21 @@ public class LoginActivityEspressoTest {
     @Test
     public void ensureTextChangesWork() {
         // Type text and then press the button.
-        onView(withId(R.id.usernameText))
+        onView(withId(R.id.statusUsernameText))
                 .perform(typeText("User1"), closeSoftKeyboard());
         onView(withId(R.id.passwordText))
                 .perform(typeText("pswd1"), closeSoftKeyboard());
         onView(withId(R.id.crealogButton)).perform(click());
 
         // Check that the text was changed.
-        onView(withId(R.id.usernameText)).check(matches(withText("User1")));
+        onView(withId(R.id.statusUsernameText)).check(matches(withText("User1")));
         onView(withId(R.id.passwordText)).check(matches(withText("pswd1")));
     }
 
     @Test
     public void login_MainHabitActivity() {
         // Type text and then press the button.
-        onView(withId(R.id.usernameText)).perform(typeText("User1"),
+        onView(withId(R.id.statusUsernameText)).perform(typeText("User1"),
                 closeSoftKeyboard());
         onView(withId(R.id.passwordText)).perform(typeText("pswd1"),
                 closeSoftKeyboard());

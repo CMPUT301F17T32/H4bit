@@ -89,6 +89,9 @@ public class MainHabitActivity extends AppCompatActivity {
         // Initializing the buttons and shit
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        Button habitsButton = (Button) findViewById(R.id.habitsButton);
+        habitsButton.setPressed(true);
+        habitsButton.setEnabled(false);
         Button addButton = (Button) findViewById(R.id.addButton);
 
         // The habitsButton should do nothing on this screen

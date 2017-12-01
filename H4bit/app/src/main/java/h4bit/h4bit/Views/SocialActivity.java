@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.R;
@@ -21,18 +22,28 @@ public class SocialActivity extends AppCompatActivity {
 
     private User user;
     private String savefile;
+    private StatusAdapter statusAdapter;
+    private SaveLoadController saveLoadController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
-        // this can just hang because it isnt a goal for part4
 
         // get savefile and user
         this.savefile = getIntent().getStringExtra("savefile");
+        saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
+        user = saveLoadController.load();
 
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
+        Button socialButton = (Button) findViewById(R.id.socialButton);
+        socialButton.setPressed(true);
+        socialButton.setEnabled(false);
+        statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
+        ListView listView = (ListView) findViewById(R.id.habitStatusList);
+        listView.setAdapter(statusAdapter);
 
         habitsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
