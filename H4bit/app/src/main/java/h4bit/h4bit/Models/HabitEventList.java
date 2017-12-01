@@ -49,5 +49,5 @@ public class HabitEventList {
     public void deleteHabitEvent(HabitEvent habitEvent){
         this.habitEventList.remove(habitEvent);
     }
-
+    public void clearList(){  habitEventList.clear();}
 }
