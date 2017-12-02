@@ -45,7 +45,7 @@
             android:name=".Views.EditHabitEventActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Views.HabitEventMap"
+            android:name=".Views.HabitEventMapActivity"
             android:parentActivityName=".Views.HabitHistoryActivity"/>
 
         <meta-data

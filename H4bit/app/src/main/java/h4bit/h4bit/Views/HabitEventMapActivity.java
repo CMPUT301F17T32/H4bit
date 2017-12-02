@@ -18,30 +18,34 @@ import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.User;
 import h4bit.h4bit.R;
 
-/**
- * This will display the map the user can interact with
+/** HabitEventMapActivity
+ * version 1.0
+ * 2017-11-09.
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ *
+ * This should display the map along with all the users tracked location habit events
  */
 
-public class HabitEventMap extends AppCompatActivity implements OnMapReadyCallback{
+public class HabitEventMapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    private String savefile;
-    private FragmentManager fragmentManager;
-    private SaveLoadController saveLoadController;
-    private User user;
-    private MapFragment mapFragment;
     private HabitEventList habitEventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String savefile;
+        FragmentManager fragmentManager;
+        SaveLoadController saveLoadController;
+        User user;
+        MapFragment mapFragment;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_event_map);
 
-        // Get intent
-
         // Load save
-        this.savefile = getIntent().getStringExtra("savefile");
+        savefile = getIntent().getStringExtra("savefile");
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
+
         // Get habitEventList
         habitEventList = user.getHabitEventList();
 
@@ -51,6 +55,7 @@ public class HabitEventMap extends AppCompatActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
     }
 
+    // This initializes the map and is called implicitly im pretty sure
     @Override
     public void onMapReady(GoogleMap map) {
         // We need to use this addMarker to add all the habits with locations
@@ -67,8 +72,8 @@ public class HabitEventMap extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    // This app is to prevent the default back button crashing the app
-    // I don't know why it crashes with the default behaviour so this feels like a bandaid fix
+    // This is to prevent the default back button from crashing the app
+    // I don't know why it crashes with the default behaviour so this feels like a bandaid fix but it works soooo...
     // Taken from https://stackoverflow.com/questions/32296923/crashing-when-back-to-parent-activity-jsonexception-no-value-for-response
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
