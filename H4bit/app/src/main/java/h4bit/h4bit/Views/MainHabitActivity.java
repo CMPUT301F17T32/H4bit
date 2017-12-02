@@ -76,6 +76,7 @@ public class MainHabitActivity extends AppCompatActivity {
         listView.setAdapter(habitAdapter);
         for(int i = 0; i < habitList.getSize(); i++){
             habitList.getHabit(i).setDoneToday(user.getHabitEventList().isDoneToday(habitList.getHabit(i)));
+            habitList.getHabit(i).updateStats(user.getHabitEventList());
         }
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
