@@ -103,7 +103,7 @@ public class CreateHabitActivity extends AppCompatActivity {
             Habit habit = habitList.getHabit(this.position);
             nameText.setText(habit.getName());
             commentText.setText(habit.getComment());
-            startDatePicker.updateDate(habit.getStartDate().getYear(), habit.getStartDate().getMonth(), habit.getStartDate().getDate());
+            startDatePicker.updateDate(habit.getStartDate().getYear() + 1900, habit.getStartDate().getMonth(), habit.getStartDate().getDate());
 
             if (habit.getSchedule()[0]) {
                 sundayToggle.setChecked(true);
@@ -197,6 +197,11 @@ public class CreateHabitActivity extends AppCompatActivity {
 
     // This looks ugly af but don't worry because it still deletes the habit
     public void deleteHabit() {
+        for(int i = 0; i < user.getHabitEventList().size(); i++){
+            if(user.getHabitEventList().get(i).getHabit().getName().equals(user.getHabitList().getHabit(this.position).getName())){
+                user.getHabitEventList().deleteHabitEvent(user.getHabitEventList().get(i));
+            }
+        }
         this.user.getHabitList().deleteHabit(user.getHabitList().getHabit(this.position));
         saveLoadController.save(this.user);
         finish();
@@ -209,7 +214,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
-        habit.setStartDate(new Date(year, month, day), user.getHabitEventList());
+        habit.setStartDate(new Date((year - 1900), month, day), user.getHabitEventList());
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
         if (habit == null) {
@@ -233,7 +238,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
-        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date(year, month, day)) == -1) {
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date((year - 1900), month, day)) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }
