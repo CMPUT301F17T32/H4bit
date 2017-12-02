@@ -110,6 +110,7 @@ public class HabitHistoryActivity extends FragmentActivity{
             public void onClick(View view){
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
+                intent.putExtra("mode", "history");
                 startActivity(intent);
             }});
 
