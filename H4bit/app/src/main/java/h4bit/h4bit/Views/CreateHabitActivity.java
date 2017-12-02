@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Date;
 import java.util.Objects;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
@@ -84,6 +86,10 @@ public class CreateHabitActivity extends AppCompatActivity {
         ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.fridaytoggle);
         ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.saturdayToggle);
 
+        final DatePicker startDatePicker = (DatePicker) findViewById(R.id.startDatePicker);
+        Date todayDate = new Date();
+        startDatePicker.updateDate(todayDate.getYear() + 1900, todayDate.getMonth(), todayDate.getDate());
+        startDatePicker.setMinDate(todayDate.getTime());
         // only get the position if you are in edit mode
         // Also change button to say save
 
@@ -97,6 +103,7 @@ public class CreateHabitActivity extends AppCompatActivity {
             Habit habit = habitList.getHabit(this.position);
             nameText.setText(habit.getName());
             commentText.setText(habit.getComment());
+            startDatePicker.updateDate(habit.getStartDate().getYear(), habit.getStartDate().getMonth(), habit.getStartDate().getDate());
 
             if (habit.getSchedule()[0]) {
                 sundayToggle.setChecked(true);
@@ -150,10 +157,10 @@ public class CreateHabitActivity extends AppCompatActivity {
         createButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (Objects.equals(mode, "create"))
-                    createHabit();
+                    createHabit(startDatePicker.getYear(), startDatePicker.getMonth(), startDatePicker.getDayOfMonth());
                     // How will edit habit get the habit its trying to edit?
                 else
-                    editHabit();
+                    editHabit(startDatePicker.getYear(), startDatePicker.getMonth(), startDatePicker.getDayOfMonth());
             }
         });
 
@@ -195,14 +202,14 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
-    public void createHabit() {
+    public void createHabit(int year, int month, int day) {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
         //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
-
+        habit.setStartDate(new Date(year, month, day), user.getHabitEventList());
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
         if (habit == null) {
@@ -220,14 +227,13 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
-    public void editHabit() {
+    public void editHabit(int year, int month, int day) {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
         //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
-
-        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule) == -1) {
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date(year, month, day)) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }
