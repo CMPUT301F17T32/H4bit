@@ -14,6 +14,7 @@ import java.util.Date;
 
 public class User {
 
+    private String id;
     private String username;
     private Image profilePicture;
     private HabitList habitList;
@@ -106,6 +107,14 @@ public class User {
 
     public void setLastModified(Date lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
 
