@@ -67,7 +67,6 @@ public class HabitAdapter extends BaseAdapter {
         TextView missed = (TextView) view.findViewById(R.id.missed);
         TextView nextDate = (TextView) view.findViewById(R.id.nextDate);
         ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
-
         editButton.setOnClickListener(new View.OnClickListener(){
            public void onClick(View view){
                // This will take us to the edit habit activity
