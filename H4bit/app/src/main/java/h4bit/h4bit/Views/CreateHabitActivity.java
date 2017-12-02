@@ -180,12 +180,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         toggleButton(thursdayToggle, 4);
         toggleButton(fridayToggle, 5);
         toggleButton(saturdayToggle, 6);
-
-
-        //ToDo test to make sure the togglebutton method actually works
-
     }
-
 
     public void toggleButton(ToggleButton button, final Integer day) {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

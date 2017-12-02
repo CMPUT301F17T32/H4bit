@@ -4,47 +4,19 @@ package h4bit.h4bit.Views;
  * Created by benhl on 2017-10-29.
  */
 
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ToggleButton;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
-import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
@@ -136,26 +108,10 @@ public class HabitHistoryActivity extends FragmentActivity{
 
         mapButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(context, HabitEventMap.class);
+                Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
                 startActivity(intent);
             }});
-
-
-        // TODO change me to regular button that brings up the new map activity
-//        mapToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                // This will turn location on our off, rather, clicking the button will
-//                // activate location and store it in habitEvent
-//                // and toggling it off will make that location NULL
-//                if (isChecked) {
-//                    // We want this to show the map, and display all the users habits
-//                    fragmentManager.beginTransaction().show(mapFragment).commit();
-//                }else{
-//                    // We want this to hide the map and return the screen to the normal, non-janky layout
-//                    fragmentManager.beginTransaction().hide(mapFragment).commit();
-//                }
-//            }});
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -207,7 +163,7 @@ public class HabitHistoryActivity extends FragmentActivity{
     /**
      *
      * @param name
-     * @param comment
+     * @param
      */
     public void searchHistory(String name, HabitEventList FullHabitEventList){
 
