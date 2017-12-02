@@ -22,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ToggleButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -39,10 +40,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
+import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -80,6 +84,9 @@ public class HabitHistoryActivity extends FragmentActivity{
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        historyButton.setPressed(true);
+        historyButton.setEnabled(false);
         Button searchButton = (Button) findViewById(R.id.searchButton);
         Button mapButton = (Button) findViewById(R.id.mapButton);
 //        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
@@ -94,6 +101,8 @@ public class HabitHistoryActivity extends FragmentActivity{
 //        fragmentManager.beginTransaction().hide(mapFragment).commit();
 
 
+
+
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
@@ -101,13 +110,23 @@ public class HabitHistoryActivity extends FragmentActivity{
 //        loadFromFile();
 
         //autocompletetextview
-        //habitEventArrayList = user.getHabitEventList();
-        //String[] Names = new String[habitEventArrayList.size()];
-        //Names = habitEventArrayList.toArray(Names);
+        HabitEventList habitEventAutoList = user.getHabitEventList();
+        HabitList HabitAutoList = user.getHabitList();
+        final String[] Comments = new String[habitEventAutoList.size()];
+        final String[] Names = new String[HabitAutoList.getSize()];
+        for (int i = 0; i<habitEventAutoList.size();i++){
+          Comments[i]= habitEventAutoList.get(i).getComment();
+        }
+        for (int i =0;i<HabitAutoList.getSize();i++){
+          Names[i] = HabitAutoList.getHabit(i).getName();
+        }
 
-        //AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(autoCompleteTextView);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
-        //autoCompleteTextView.setAdapter(adapter);
+        final AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(R.id.AutoCompleteName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
+        autoCompleteTextView.setAdapter(adapter);
+        final AutoCompleteTextView autoCompleteTextView2 =(AutoCompleteTextView) findViewById(R.id.AutoCompleteComment);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Comments);
+        autoCompleteTextView2.setAdapter(adapter2);
         habitEventList = user.getHabitEventList();
         habitEventAdapter = new HabitEventAdapter(this, habitEventList, savefile);
         eventsList.setAdapter(habitEventAdapter);
@@ -151,13 +170,18 @@ public class HabitHistoryActivity extends FragmentActivity{
         });
 
         searchButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick (View view){
-                // AutoCompleteTextView searchNameText = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
-                //EditText searchCommentText = (EditText) findViewById(R.id.searchCommentText);
+            @Override
+            public void onClick (final View view){
 
-                //String name = searchNameText.getText().toString();
-                //String comment = searchCommentText.getText().toString();
+                String name = autoCompleteTextView.getEditableText().toString();
+                HabitEventList FullHabitEventList = new HabitEventList();
+                searchHistory(name,FullHabitEventList);
+                habitEventAdapter.notifyDataSetChanged();
+                //finish();
+                //String comment = Comments[autoCompleteTextView2.getListSelection()];
 
+                //Toast.makeText(getApplicationContext(), name,
+                  //      Toast.LENGTH_LONG).show();
                 //searchHistory(name, comment);
 
             }
@@ -185,9 +209,20 @@ public class HabitHistoryActivity extends FragmentActivity{
      * @param name
      * @param comment
      */
-    public void searchHistory(String name, String comment){
+    public void searchHistory(String name, HabitEventList FullHabitEventList){
 
 
+        for (int i=0; i<habitEventList.size();i++){
+            if (name.equals(habitEventList.get(i).getHabit().getName())){
+                FullHabitEventList.addHabitEvent(habitEventList.get(i));
+            }
+
+
+        }
+        habitEventList.clearList();
+        for (int i=0;i<FullHabitEventList.size();i++){
+            habitEventList.addHabitEvent(FullHabitEventList.get(i));
+        }
         // This function will query the user's habit history
         // Doesn't elastic search do this? Does this mean elasticsearch
         // should store a user object AND that users history seperately so it can

@@ -3,6 +3,7 @@ package h4bit.h4bit.Views;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -75,7 +76,8 @@ public class MainHabitActivity extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.habitsList);
         listView.setAdapter(habitAdapter);
         for(int i = 0; i < habitList.getSize(); i++){
-            habitList.getHabit(i).setDoneToday(user.getHabitEventList().isDoneToday(habitList.getHabit(i)));
+            habitList.getHabit(i).setDoneToday(user.getHabitEventList().isDoneToday(habitList.getHabit(i)));// THIS
+            habitList.getHabit(i).updateStats(user.getHabitEventList());
         }
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
@@ -89,6 +91,9 @@ public class MainHabitActivity extends AppCompatActivity {
         // Initializing the buttons and shit
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        Button habitsButton = (Button) findViewById(R.id.habitsButton);
+        habitsButton.setPressed(true);
+        habitsButton.setEnabled(false);
         Button addButton = (Button) findViewById(R.id.addButton);
 
         // The habitsButton should do nothing on this screen

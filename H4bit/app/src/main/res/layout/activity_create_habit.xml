@@ -27,8 +27,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:calendarViewShown="false"
-            android:scaleX="0.8"
-            android:scaleY="0.8" />
+            android:datePickerMode="spinner" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"

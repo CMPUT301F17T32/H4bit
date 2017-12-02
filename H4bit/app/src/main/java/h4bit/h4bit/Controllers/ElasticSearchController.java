@@ -116,6 +116,16 @@ public class ElasticSearchController {
 //
 //        protected User doInBackground(String... search_parameters) {
 //            verifySettings();
+//            User user = null;
+//
+//            // need to figure this out
+//            String query = "";
+//
+//            Search search = new Search.Builder(query)
+//                    .addIndex("cmput301f17t32_h4bit")
+//                    .addType("User")
+//                    .build();
+//
 //            return user;
 //        }
 //    }
