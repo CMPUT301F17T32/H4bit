@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import h4bit.h4bit.R;
 
-/** User class
+/** Habit class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
