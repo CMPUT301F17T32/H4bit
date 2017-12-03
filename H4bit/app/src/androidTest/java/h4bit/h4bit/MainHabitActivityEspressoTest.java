@@ -1,9 +1,5 @@
 package h4bit.h4bit;
 
-/**
- * Created by Vlad Kravchnko on 11/13/2017.
- */
-
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -29,6 +25,11 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
+
+/**
+ * Created by Vlad Kravchnko on 11/13/2017.
+ */
+
 public class MainHabitActivityEspressoTest {
     @Rule
     public IntentsTestRule<MainHabitActivity> mActivityRule =

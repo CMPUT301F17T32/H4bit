@@ -10,18 +10,17 @@ import h4bit.h4bit.Controllers.ElasticSearchController;
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
- */
-
-/**
+ *
  * Class that uses ElasticSearchController to add classes, and add habits etc in future
  */
+
 public class ElasticSearch {
     public ElasticSearch(){}
 
     /**
      * Add a user to elastic search database
      * return true if user was added, false if not
-     * @param user
+     * @param user The user object
      * @return
      */
     public Boolean addUser(User user) {

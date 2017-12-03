@@ -1,11 +1,6 @@
 package h4bit.h4bit.Views;
 
-/**
- * EditHabitEventActivity
- * Version 1.0
- * November 1st 2017
- * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
- */
+
 
 import android.content.Context;
 import android.os.Bundle;
@@ -41,33 +36,36 @@ import h4bit.h4bit.Models.User;
 import h4bit.h4bit.R;
 
 /**
-/*
- * nameText, dateCalendar, reasonText, createButton, sundayButton, mondayButton etc.
+ * EditHabitEventActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ *
+ * This is the view for editing a habit event
  */
 
 public class EditHabitEventActivity extends AppCompatActivity {
 
     private User user;
-    private String savefile;
     private int position;
     private HabitEvent theHabitEvent;
-    private HabitEventList habitEventList;
     private SaveLoadController saveLoadController;
 
     @Override
     protected void onStart() {
+        String savefile;
+
         super.onStart();
+
         setContentView(R.layout.activity_edit_habit_event);
-        this.savefile = getIntent().getStringExtra("savefile");
+        savefile = getIntent().getStringExtra("savefile");
         this.position = getIntent().getIntExtra("position",position);
 
         // Init the saveload controller and assign user
-        saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
+        saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
-        //loadFromFile();
 
         this.theHabitEvent = user.getHabitEventList().get(position);
-        this.habitEventList = user.getHabitEventList();
 
         Button saveButton = (Button) findViewById(R.id.saveEventButton);
         Button deleteButton = (Button) findViewById(R.id.deleteEventButton);
@@ -96,12 +94,15 @@ public class EditHabitEventActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This is the method that changes the habit event's data, and
+     * is triggered on button click
+     */
     private void editHabitEvent(){
 
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         theHabitEvent.setComment(commentText.getText().toString());
         saveLoadController.save(user);
-        //saveInFile();
         finish();
 
     }

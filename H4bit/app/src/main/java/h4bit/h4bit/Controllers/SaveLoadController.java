@@ -27,6 +27,11 @@ public class SaveLoadController {
     private String savefile;
     private Context context;
 
+    /**
+     * This initializes the SaveLoadController object
+     * @param savefile This is the String username that it will save/load to
+     * @param context This is the context of the current activity
+     */
     public SaveLoadController(String savefile, Context context){
         this.savefile = savefile;
         this.context = context;
@@ -35,6 +40,10 @@ public class SaveLoadController {
         // Solution: Make load return a user object
     }
 
+    /**
+     * This will save the user object locally, with the file being the name of the username
+     * @param user This should be a user object
+     */
     public void save(User user){
         try {
             user.setLastModified(new Date());
@@ -55,6 +64,10 @@ public class SaveLoadController {
 
     }
 
+    /**
+     * This will return a user object with the savefile name passed in on initialization
+     * @return will return a user object
+     */
     public User load(){
         User user;
 

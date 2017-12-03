@@ -17,38 +17,50 @@ public class HabitList {
     }
 
     /**
-     *
-     * @param theHabit
+     * Adds a habit to a habitList
+     * @param theHabit the habit to be added
      */
     public void addHabit(Habit theHabit){
         habitArrayList.add(theHabit);
     }
 
     /**
-     *
-     * @param theHabit
-     * @return
+     * checks if the list has a habit
+     * @param theHabit the habit to check if it exists
+     * @return returns true or flase
      */
     public boolean hasHabit(Habit theHabit){
-        if(habitArrayList.contains(theHabit)){
-            return true;
-        } else {
-            return false;
-        }
+        return habitArrayList.contains(theHabit);
     }
 
+    /**
+     * Deletes the habit
+     * @param theHabit habit to be deleted
+     */
     public void deleteHabit(Habit theHabit){
         habitArrayList.remove(theHabit);
     }
 
+    /**
+     * Gets the size of the habit List
+     * @return size of habit list int
+     */
     public int getSize(){
         return habitArrayList.size();
     }
 
+    /**
+     * Returns a habit
+     * @param i index position of habit to be gotten
+     * @return Returns habit at position i
+     */
     public Habit getHabit(int i){
         return habitArrayList.get(i);
     }
 
+    /**
+     * Sorts the habit list chronologically
+     */
     public void sortByNextDate(){
         for(int i = 0; i < habitArrayList.size(); i++){
             habitArrayList.get(i).setNextDate();

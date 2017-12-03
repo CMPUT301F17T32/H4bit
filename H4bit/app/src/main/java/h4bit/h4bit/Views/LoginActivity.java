@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
             // if username to register does not exist in database
             if (user == null) {
                 boolean userCreated = elasticSearch.addUser(new User(username));
-                if (userCreated == true) {
+                if (userCreated) {
                     Log.i("Register", "Successfully registered");
                     Intent intent = new Intent(this, MainHabitActivity.class);
                     intent.putExtra("savefile", username + ".sav");

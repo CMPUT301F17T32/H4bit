@@ -45,7 +45,7 @@ public class HabitAdapter extends BaseAdapter {
     }
 
     /**
-     *
+     * Gets the current view
      * @param position
      * @param convertView
      * @param parent

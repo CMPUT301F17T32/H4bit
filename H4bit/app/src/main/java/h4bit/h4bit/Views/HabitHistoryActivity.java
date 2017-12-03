@@ -1,9 +1,5 @@
 package h4bit.h4bit.Views;
 
-/**
- * Created by benhl on 2017-10-29.
- */
-
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -31,20 +27,13 @@ import h4bit.h4bit.Models.User;
  * Version 1.0
  * November 1st 2017
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
- */
-
-/*
- * habitsButton, socialButton, historyButton, searchNameText, searchCommentText, searchButton, eventsList
- * We should create a tab interface maybe??
+ *
+ * Shows habit history, list of habit events, is searchable
  */
 
 public class HabitHistoryActivity extends FragmentActivity{
 
-    private User user;
     private String savefile;
-    private FragmentManager fragmentManager;
-    private SaveLoadController saveLoadController;
-    private MapFragment mapFragment;
     private Context context;
     protected HabitEventAdapter habitEventAdapter;
     protected HabitEventList habitEventList;
@@ -52,6 +41,8 @@ public class HabitHistoryActivity extends FragmentActivity{
 
     @Override
     protected void onStart() {
+        User user;
+        SaveLoadController saveLoadController;
         super.onStart();
         setContentView(R.layout.activity_habit_history);
 
@@ -67,17 +58,6 @@ public class HabitHistoryActivity extends FragmentActivity{
         Button mapButton = (Button) findViewById(R.id.mapButton);
 //        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
-
-        // Init the map fragment manager and the map fragment
-//        callback = this;
-//        // Does this need to be reinitialized in onResume?? I assume so
-//        fragmentManager = getFragmentManager();
-//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-//        mapFragment.getMapAsync(callback);
-//        fragmentManager.beginTransaction().hide(mapFragment).commit();
-
-
-
 
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
@@ -182,23 +162,12 @@ public class HabitHistoryActivity extends FragmentActivity{
 
     }
 
-
-//    @Override
-//    public void onMapReady(GoogleMap map) {
-//        // We need to use this addMarker to add all the habits with locations
-//        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
-//        // First we need to get all the habitEvents
-//        // Then we need to iterate through them and add a marker for each event with a location
-//        for (int i = 0; i < habitEventList.size(); i++) {
-//            HabitEvent habitEvent = habitEventList.get(i);
-//            if (habitEvent.getLocation() != null){
-//                Location location = habitEvent.getLocation();
-//                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
-//            }
-//        }
-//    }
-
+    /**
+     * This saves the original, unsearched habit event list so it is easy to grab later
+     * Getting around potential pointer issues
+     * @param habitEventList The clean habit event list you are working with
+     * @return Returns the clean habitEventList you are working with
+     */
     public HabitEventList saveOriginalList(HabitEventList habitEventList){
         HabitEventList savedHabitEventList = new HabitEventList();
         for (int i=0;i<habitEventList.size();i++) {
@@ -207,6 +176,11 @@ public class HabitHistoryActivity extends FragmentActivity{
         return savedHabitEventList;
     }
 
+    /**
+     * This searches the habitEventList by name
+     * @param name The name you want to search by
+     * @param FullHabitEventList This is the full, unsearched habitEventList
+     */
     public void searchHistoryName(String name, HabitEventList FullHabitEventList){
 
 
@@ -226,8 +200,13 @@ public class HabitHistoryActivity extends FragmentActivity{
         // should store a user object AND that users history seperately so it can
         // be easily queried?
         // AutoCompleteTextView AutoCompleteTextView = (AutoCompleteTextView)
-
     }
+
+    /**
+     * This searches the habitEventHistory comment section
+     * @param comment The comment to be searched
+     * @param FullHabitEventList This is the fullHabitEvent list so it searches a clean unsearched list
+     */
     public void searchHistoryComment(String comment, HabitEventList FullHabitEventList) {
 
 
@@ -242,6 +221,13 @@ public class HabitHistoryActivity extends FragmentActivity{
             habitEventList.addHabitEvent(FullHabitEventList.get(i));
         }
     }
+
+    /**
+     * This Searches with both a name and a comment
+     * @param name Name to be searched;
+     * @param comment Comment to be searched
+     * @param FullHabitEventList The clean unsearched habit event list
+     */
     public void searchHistoryFull(String name, String comment, HabitEventList FullHabitEventList) {
 
 
@@ -265,6 +251,10 @@ public class HabitHistoryActivity extends FragmentActivity{
 
     // This takes us back to the habitsTab activity, should finish the current activity as
     // to not create a huge stacking stack of tab activites
+
+    /**
+     * This ends the activity and starts the habit activity
+     */
     public void habitsTab(){
         Intent intent = new Intent(this, MainHabitActivity.class);
         intent.putExtra("savefile", savefile);
@@ -272,6 +262,9 @@ public class HabitHistoryActivity extends FragmentActivity{
         finish();
     }
 
+    /**
+     * This ends the activity and starts the social tab activity
+     */
     public void socialTab(){
         Intent intent = new Intent(this, SocialActivity.class);
         intent.putExtra("savefile", savefile);
