@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import h4bit.h4bit.Controllers.HabitController;
@@ -51,12 +52,15 @@ public class HabitEventAdapter extends BaseAdapter {
         TextView habitEventName = (TextView) view.findViewById(R.id.habitEventName);
         TextView habitEventDate = (TextView) view.findViewById(R.id.habitEventDate);
         TextView habitEventComment = (TextView) view.findViewById(R.id.habitEventComment);
-        ImageButton editButton = (ImageButton) view.findViewById(R.id.editHabitButton);
+        ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
+        ImageView eventImageView = (ImageView) view.findViewById(R.id.eventImage);
 
         habitEventName.setText(theHabitEvent.getHabit().getName());
         habitEventDate.setText(theHabitEvent.getDate().toString());
         habitEventComment.setText(theHabitEvent.getComment());
-
+        //if(theHabitEvent.getImage() != null){
+        eventImageView.setImageBitmap(theHabitEvent.getImage());
+        //}
 
         editButton.setOnClickListener(new View.OnClickListener() {
 

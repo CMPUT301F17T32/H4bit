@@ -110,7 +110,7 @@ public class Habit implements Comparable<Habit> {
      * @param location
      * @param habitEventList
      */
-    public void doHabit(String comment, Location location, HabitEventList habitEventList) {
+    public HabitEvent doHabit(String comment, Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
@@ -118,14 +118,16 @@ public class Habit implements Comparable<Habit> {
         Date newDate = new Date();
         newDate.setTime(newDate.getTime() + 86400000);
         this.setUpdatedDate(newDate);
-        habitEventList.addHabitEvent(new HabitEvent(this, comment, location));
+        HabitEvent theEvent = new HabitEvent(this, comment, location);
+        habitEventList.addHabitEvent(theEvent);
+        return theEvent;
     }
 
     /**
      *
      * @param habitEventList
      */
-    public void doHabit(Location location, HabitEventList habitEventList) {
+    public HabitEvent doHabit(Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
@@ -133,7 +135,9 @@ public class Habit implements Comparable<Habit> {
         Date newDate = new Date();
         newDate.setTime(newDate.getTime() + 86400000);
         this.setUpdatedDate(newDate);
-        habitEventList.addHabitEvent(new HabitEvent(this, location));
+        HabitEvent theEvent = new HabitEvent(this, location);
+        habitEventList.addHabitEvent(theEvent);
+        return theEvent;
     }
 
     /**
