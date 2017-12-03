@@ -227,7 +227,7 @@ public class Habit implements Comparable<Habit> {
 
     public void setStartDate(Date startDate, HabitEventList habitEventList){
         this.startDate = startDate;
-        Date today = new Date();
+        //Date today = new Date();
         for(int i = 0; i < habitEventList.size(); i++){
             if(habitEventList.get(i).getDate().getYear() < startDate.getYear() ||
                     habitEventList.get(i).getDate().getMonth() < startDate.getMonth() ||

@@ -209,7 +209,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
-        habit.setStartDate(new Date((year - 1900), month, day), user.getHabitEventList());
+        habit.setStartDate(new Date(year - 1900, month, day), user.getHabitEventList());
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity
         if (habit == null) {
@@ -233,7 +233,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 //        HabitList habitList = user.getHabitList();
 //        Habit habit = habitList.getHabit(this.position);
-        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date((year - 1900), month, day)) == -1) {
+        if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date(year - 1900, month, day)) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }
