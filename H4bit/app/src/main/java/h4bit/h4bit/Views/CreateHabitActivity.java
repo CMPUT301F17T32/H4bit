@@ -77,10 +77,15 @@ public class CreateHabitActivity extends AppCompatActivity {
             // Compare recent updated
             if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
                 user = user1;
+                Toast.makeText(CreateHabitActivity.this, "local save", Toast.LENGTH_SHORT).show();
             } else {
                 user = user2;
+                Toast.makeText(CreateHabitActivity.this, "online save", Toast.LENGTH_SHORT).show();
+
             }
         } catch (Exception e) {
+            Toast.makeText(CreateHabitActivity.this, "ElasticSearch Down", Toast.LENGTH_SHORT).show();
+
             user = user1;
         }
 
@@ -237,8 +242,8 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.user.addHabit(habit);
 
         // Save the new user to the user save file
-        elasticSearch.updateUser(user);
         saveLoadController.save(this.user);
+        elasticSearch.updateUser(user);
 
         // Finish the activity and take us back to the main habit screen
         finish();
@@ -256,8 +261,8 @@ public class CreateHabitActivity extends AppCompatActivity {
         }
         // do nothing if edit returns -1
 
-        elasticSearch.updateUser(user);
         saveLoadController.save(user);
+        elasticSearch.updateUser(user);
         finish();
     }
 }

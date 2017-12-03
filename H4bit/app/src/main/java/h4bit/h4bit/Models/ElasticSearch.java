@@ -3,6 +3,7 @@ package h4bit.h4bit.Models;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
@@ -44,6 +45,7 @@ public class ElasticSearch {
         ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
         updateUserTask.execute(user);
         try {
+            user.setLastModified(new Date());
             updateUserTask.get();
             return true;
         }
