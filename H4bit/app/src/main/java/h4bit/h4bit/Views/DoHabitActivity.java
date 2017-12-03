@@ -123,7 +123,9 @@ public class DoHabitActivity extends AppCompatActivity {
                 } else {
                     theHabitEvent = theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
                 }
-                theHabitEvent.setImage(eventImage);
+                if(eventImage != null) {
+                    theHabitEvent.setImage(eventImage);
+                }
                 saveLoadController.save(user);
                 finish();
             }
