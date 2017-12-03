@@ -20,7 +20,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 
@@ -53,7 +56,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class DoHabitActivity extends AppCompatActivity {
 
     private Habit theHabit;
-    private String savefile;
     private User user;
     private HabitEventList habitEventList;
     private EditText commentText;
@@ -63,9 +65,13 @@ public class DoHabitActivity extends AppCompatActivity {
     private Context context;
     private static final int locationPermission = 1;
     private Activity activity;
+    private LocationRequest mLocationRequest;
+    private LocationCallback mLocationCallback = new LocationCallback();
 
     @Override
     protected void onStart(){
+        String savefile;
+
         super.onStart();
         setContentView(R.layout.do_habit_activity);
 
@@ -74,8 +80,8 @@ public class DoHabitActivity extends AppCompatActivity {
         this.activity = this;
 
         // Init the saveload controller
-        this.savefile = getIntent().getStringExtra("savefile");
-        this.saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
+        savefile = getIntent().getStringExtra("savefile");
+        this.saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
 
         // location is null as default
@@ -84,25 +90,28 @@ public class DoHabitActivity extends AppCompatActivity {
 
         // init the fusedlocationthing
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+        createLocationRequest();
 
+        // Get the habit that was clicked on as well as the user habitEventList
         final int position = getIntent().getIntExtra("position", -1);
         this.theHabit = user.getHabitList().getHabit(position);
-
-
         this.habitEventList = user.getHabitEventList();
 
+        // Initialize the buttons and UI objects
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         Button doHabitButton = (Button) findViewById(R.id.doHabitButton);
         Button uploadImageButton = (Button) findViewById(R.id.uploadHabitPictureButton);
         final ToggleButton locationToggle = (ToggleButton) findViewById(R.id.locationToggle);
         commentText = (EditText) findViewById(R.id.addCommentText);
 
+        // Cancel button
         cancelButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 onBackPressed();
             }
         });
 
+        // Confirm doHabit button
         doHabitButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
                 user.getHabitList().sortByNextDate();
@@ -118,6 +127,7 @@ public class DoHabitActivity extends AppCompatActivity {
             }
         });
 
+        // Location toggle button
         locationToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // This will turn location on our off, rather, clicking the button will
@@ -144,6 +154,17 @@ public class DoHabitActivity extends AppCompatActivity {
 
     }
 
+    // This is taken from the google play location guide
+    // It sets up the location updates
+    //https://developer.android.com/training/location/receive-location-updates.html
+    protected void createLocationRequest(){
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    // Idk what this does @ alex
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -155,7 +176,7 @@ public class DoHabitActivity extends AppCompatActivity {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
+                // TODO Auto-generated catch block2
                 e.printStackTrace();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -163,6 +184,8 @@ public class DoHabitActivity extends AppCompatActivity {
             }
         }
     }
+
+
     public void getCurrentLocation(ToggleButton locationToggle){
         // this taken directly from the android tutorial
         if (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -179,6 +202,8 @@ public class DoHabitActivity extends AppCompatActivity {
             // unless location services is allowed
 
         } else {
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+
             mFusedLocationClient.getLastLocation().addOnSuccessListener(activity, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {

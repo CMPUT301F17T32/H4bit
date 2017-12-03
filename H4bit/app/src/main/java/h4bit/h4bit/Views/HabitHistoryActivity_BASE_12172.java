@@ -4,19 +4,34 @@ package h4bit.h4bit.Views;
  * Created by benhl on 2017-10-29.
  */
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.MapFragment;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
+import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
@@ -34,24 +49,19 @@ import h4bit.h4bit.Models.User;
  * We should create a tab interface maybe??
  */
 
-public class HabitHistoryActivity extends FragmentActivity{
+public class HabitHistoryActivity extends MainHabitActivity{
 
     private User user;
     private String savefile;
-    private FragmentManager fragmentManager;
+    private ListView eventsList;
     private SaveLoadController saveLoadController;
-    private MapFragment mapFragment;
-    private Context context;
     protected HabitEventAdapter habitEventAdapter;
     protected HabitEventList habitEventList;
-
 
     @Override
     protected void onStart() {
         super.onStart();
         setContentView(R.layout.activity_habit_history);
-
-        this.context = this.getApplicationContext();
 
         // Init the buttons and text search bar
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
@@ -60,17 +70,7 @@ public class HabitHistoryActivity extends FragmentActivity{
         historyButton.setPressed(true);
         historyButton.setEnabled(false);
         Button searchButton = (Button) findViewById(R.id.searchButton);
-        Button mapButton = (Button) findViewById(R.id.mapButton);
-//        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
-
-        // Init the map fragment manager and the map fragment
-//        callback = this;
-//        // Does this need to be reinitialized in onResume?? I assume so
-//        fragmentManager = getFragmentManager();
-//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-//        mapFragment.getMapAsync(callback);
-//        fragmentManager.beginTransaction().hide(mapFragment).commit();
 
 
 
@@ -99,21 +99,13 @@ public class HabitHistoryActivity extends FragmentActivity{
         final AutoCompleteTextView autoCompleteTextView2 =(AutoCompleteTextView) findViewById(R.id.AutoCompleteComment);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Comments);
         autoCompleteTextView2.setAdapter(adapter2);
-        autoCompleteTextView.setThreshold(1);
-        autoCompleteTextView2.setThreshold(1);
         habitEventList = user.getHabitEventList();
         habitEventAdapter = new HabitEventAdapter(this, habitEventList, savefile);
         eventsList.setAdapter(habitEventAdapter);
         habitEventList.sortByDate();
         habitEventAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
-
-        mapButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent intent = new Intent(context, HabitEventMapActivity.class);
-                intent.putExtra("savefile", savefile);
-                startActivity(intent);
-            }});
+//        saveInFile();
 
         habitsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
@@ -129,68 +121,31 @@ public class HabitHistoryActivity extends FragmentActivity{
 
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick ( View view){
-                //habitEventList = user.getHabitEventList();
-                HabitEventList SavedHabitEventList = saveOriginalList(habitEventList);
+            public void onClick (final View view){
+
                 String name = autoCompleteTextView.getEditableText().toString();
-                String comment = autoCompleteTextView2.getEditableText().toString();
                 HabitEventList FullHabitEventList = new HabitEventList();
-                if ((name.length()>0)&&(comment.length()>0)){
-                    searchHistoryFull(name,comment,FullHabitEventList);
-                }
-                else if (name.length()>0){
-                    searchHistoryName(name,FullHabitEventList);
-                }
-                else if (comment.length()>0){
-                    searchHistoryComment(comment, FullHabitEventList);
-                }
-                //searchHistory(name,FullHabitEventList);
+                searchHistory(name,FullHabitEventList);
                 habitEventAdapter.notifyDataSetChanged();
-                //TODO so at thiss point it displays the search results, and this wehre i need to get my initial habitEventList. the stuff that crashes the app is commented out
-                //habitEventList.clearList();
-                //habitEventList = saveOriginalList(SavedHabitEventList);
-                //Toast.makeText(getApplicationContext(), habitEventList.get(0).getHabit().getName(),
-                          //  Toast.LENGTH_LONG).show();
+                //finish();
+                //String comment = Comments[autoCompleteTextView2.getListSelection()];
+
+                //Toast.makeText(getApplicationContext(), name,
+                  //      Toast.LENGTH_LONG).show();
+                //searchHistory(name, comment);
 
             }
         });
+
+
     }
-
-<<<<<<< HEAD
-
-    public HabitEventList saveOriginalList(HabitEventList habitEventList){
-        HabitEventList savedHabitEventList = new HabitEventList();
-        for (int i=0;i<habitEventList.size();i++) {
-            savedHabitEventList.addHabitEvent(habitEventList.get(i));
-        }
-        return savedHabitEventList;
-    }
-
-    public void searchHistoryName(String name, HabitEventList FullHabitEventList){
-=======
-//    @Override
-//    public void onMapReady(GoogleMap map) {
-//        // We need to use this addMarker to add all the habits with locations
-//        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
-//        // First we need to get all the habitEvents
-//        // Then we need to iterate through them and add a marker for each event with a location
-//        for (int i = 0; i < habitEventList.size(); i++) {
-//            HabitEvent habitEvent = habitEventList.get(i);
-//            if (habitEvent.getLocation() != null){
-//                Location location = habitEvent.getLocation();
-//                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
-//            }
-//        }
-//    }
 
     /**
      *
      * @param name
-     * @param
+     * @param comment
      */
     public void searchHistory(String name, HabitEventList FullHabitEventList){
->>>>>>> 2774b01258d9d932f4ad977b73fe14310612bd08
 
 
         for (int i=0; i<habitEventList.size();i++){
@@ -211,35 +166,6 @@ public class HabitHistoryActivity extends FragmentActivity{
         // AutoCompleteTextView AutoCompleteTextView = (AutoCompleteTextView)
 
     }
-    public void searchHistoryComment(String comment, HabitEventList FullHabitEventList) {
-
-
-        for (int i = 0; i < habitEventList.size(); i++) {
-            if (comment.equals(habitEventList.get(i).getComment())) {
-                FullHabitEventList.addHabitEvent(habitEventList.get(i));
-            }
-
-        }
-        habitEventList.clearList();
-        for (int i = 0; i < FullHabitEventList.size(); i++) {
-            habitEventList.addHabitEvent(FullHabitEventList.get(i));
-        }
-    }
-    public void searchHistoryFull(String name, String comment, HabitEventList FullHabitEventList) {
-
-
-        for (int i = 0; i < habitEventList.size(); i++) {
-            if (comment.equals(habitEventList.get(i).getComment())&&name.equals(habitEventList.get(i).getHabit().getName())) {
-                FullHabitEventList.addHabitEvent(habitEventList.get(i));
-            }
-
-        }
-        habitEventList.clearList();
-        for (int i = 0; i < FullHabitEventList.size(); i++) {
-            habitEventList.addHabitEvent(FullHabitEventList.get(i));
-        }
-    }
-
 
     // This takes us back to the habitsTab activity, should finish the current activity as
     // to not create a huge stacking stack of tab activites

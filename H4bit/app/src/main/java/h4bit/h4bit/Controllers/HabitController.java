@@ -1,5 +1,7 @@
 package h4bit.h4bit.Controllers;
 
+import java.util.Date;
+
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.User;
 
@@ -29,7 +31,6 @@ public class HabitController {
      * @return habit
      */
     public Habit createHabit(String name, String comment, boolean[] schedule){
-        // Todo perform constraint checking, maybe return null habit if constraints not met
         // One constraint should be to not create a habit with an all false boolean array
 
         // Return null habit if constraints not met
@@ -48,9 +49,8 @@ public class HabitController {
      * @param schedule
      * @return
      */
-    public int editHabit(User user, Habit habit, String name, String comment, boolean[] schedule){
+    public int editHabit(User user, Habit habit, String name, String comment, boolean[] schedule, Date startDate){
         //does this perform the edits by value?
-        //todo handle constraints
         // name no more than 20
         // comment no more than 30
 
@@ -69,6 +69,10 @@ public class HabitController {
 
         }
         habit.setSchedule(schedule);
+
+        habit.setStartDate(startDate, user.getHabitEventList());
+        habit.updateStats(user.getHabitEventList());
+
         return 1;
 
 //        return habit;

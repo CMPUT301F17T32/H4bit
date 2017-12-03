@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import h4bit.h4bit.Controllers.ElasticSearchController;
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -37,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private User user;
     private ArrayList<User> userList;
+    private ElasticSearch elasticSearch = new ElasticSearch();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // These aren't functional yet so they will be hidden
-        signupButton.setVisibility(View.GONE);
+        //signupButton.setVisibility(View.GONE);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
         passwordText.setVisibility(View.GONE);
 
@@ -109,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
     public void signup(){
 
         User user = new User();
-        EditText usernameText = (EditText) findViewById(R.id.statusUsernameText);
+        EditText usernameText = (EditText) findViewById(R.id.usernameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
         String username = usernameText.getText().toString();
@@ -117,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {
             // do some elastic search stuff
+            elasticSearch.addUser(new User(username));
         } else {
             Toast.makeText(LoginActivity.this, "Invalid username. Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
         }

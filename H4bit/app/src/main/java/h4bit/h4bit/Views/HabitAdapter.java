@@ -67,7 +67,6 @@ public class HabitAdapter extends BaseAdapter {
         TextView missed = (TextView) view.findViewById(R.id.missed);
         TextView nextDate = (TextView) view.findViewById(R.id.nextDate);
         ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
-
         editButton.setOnClickListener(new View.OnClickListener(){
            public void onClick(View view){
                // This will take us to the edit habit activity
@@ -84,7 +83,12 @@ public class HabitAdapter extends BaseAdapter {
             @Override
             public void onClick(View view){
                 theHabit = habitList.getHabit(position);
-                if(theHabit.getNextDate() == 0 && !theHabit.getDoneToday()){
+                Date theDate = new Date();
+                Log.d("lel", String.valueOf(theDate.getYear()));
+                if(theHabit.getNextDate() == 0 && !theHabit.getDoneToday() &&
+                        theHabit.getStartDate().getYear() <= (theDate.getYear()) &&
+                        theHabit.getStartDate().getMonth() <= theDate.getMonth() &&
+                        theHabit.getStartDate().getDate() <= theDate.getDate()){
                     Intent intent = new Intent(view.getContext(), DoHabitActivity.class);
                     intent.putExtra("savefile", savefile);
                     intent.putExtra("position", position);

@@ -1,8 +1,11 @@
 package h4bit.h4bit.Models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Objects;
 
 /** User class
  * version 1.0
@@ -29,8 +32,10 @@ public class HabitEventList {
         Date date = new Date();
         this.sortByDate();
         for(int i = 0; i < this.size(); i++){
-            if(this.get(i).getHabit().getName().equals(habit.getName())){
-                if(this.get(i).getDate().getDate() == date.getDate()){
+            if(Objects.equals(this.get(i).getHabit().getName(), habit.getName())){
+               if(this.get(i).getDate().getYear() == date.getYear() &&
+                        this.get(i).getDate().getMonth() == date.getMonth() &&
+                        this.get(i).getDate().getDate() == date.getDate()){
                     return true;
                 }
             }
