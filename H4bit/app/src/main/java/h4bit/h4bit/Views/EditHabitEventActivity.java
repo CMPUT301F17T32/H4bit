@@ -79,6 +79,7 @@ public class EditHabitEventActivity extends AppCompatActivity {
 
         deleteButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                user.getHabitEventList().get(position).getHabit().setCompleted(user.getHabitEventList().get(position).getHabit().getCompleted() - 1);
                 user.getHabitEventList().deleteHabitEvent(user.getHabitEventList().get(position));
                 saveLoadController.save(user);
                 //saveInFile();

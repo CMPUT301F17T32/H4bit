@@ -83,10 +83,6 @@ public class LoginActivity extends AppCompatActivity {
     // This should log in the user and take us to the main todays habits screen screen
     public void login() throws ExecutionException, InterruptedException {
 
-        // Get the entered username and password text
-        // Its probably good practice to compare the users pass with a stored
-        // one-way hash for information security
-
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
         EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
@@ -119,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
+    // This adds a user to the elastic search database only if the user doesn't already exist
     public void signup(){
 
         User user = new User();
@@ -148,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("Register", "Failed to create account");
                     Toast.makeText(LoginActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
                 }
+            // username does exist in database
             } else {
                 Log.i("Register", "User exists");
                 Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();

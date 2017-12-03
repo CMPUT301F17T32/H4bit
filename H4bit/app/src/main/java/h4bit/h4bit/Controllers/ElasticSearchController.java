@@ -43,7 +43,7 @@ public class ElasticSearchController {
             verifySettings();
 
             for (Habit habit : habits) {
-                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("habit").build();
+                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("Habit").build();
 
                 try {
                     // where is the client?
@@ -51,6 +51,7 @@ public class ElasticSearchController {
 
                     if (result.isSucceeded()) {
                         habit.setId(result.getId());
+                        Log.i("Success", "Habit added");
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the habit");
                     }
@@ -63,36 +64,39 @@ public class ElasticSearchController {
         }
     }
 
-//    // TODO we need a function which gets tweets from elastic search
-//    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
-//        @Override
-//        protected ArrayList<Habit> doInBackground(String... search_parameters) {
-//            verifySettings();
-//
-//            ArrayList<Habit> habits = new ArrayList<Habit>();
-//
-//            // TODO Build the query
-//            Search query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
-//            Search search = new Search.Builder(query)
-//                    .addIndex("cmput301f17t32_h4bit").addType("habit").build();
-//            try {
-//                // TODO get the results of the query
-//                SearchResult result = client.execute(search);
-//
-//                if (result.isSucceeded()) {
-//                    List<Habit> foundHabit = result.getSourceAsObjectList(Habit.class);
-//                    habits.addAll(foundHabit);
-//                } else {
-//                    Log.i("Error","Something went wrong when we tried to communicate with the server");
-//                }
-//            }
-//            catch (Exception e) {
-//                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-//            }
-//
-//            return habits;
-//        }
-//    }
+    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
+        @Override
+        protected ArrayList<Habit> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Habit> habits = new ArrayList<Habit>();
+
+            // TODO Build the query
+            // sorted by most recent to oldest
+            String query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f17t32_h4bit")
+                    .addType("Habit")
+                    .build();
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+
+                if (result.isSucceeded()) {
+                    List<Habit> foundHabits = result.getSourceAsObjectList(Habit.class);
+                    habits.addAll(foundHabits);
+                } else {
+                    Log.i("Error","Something went wrong when we tried to communicate with the server");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return habits;
+        }
+    }
 
       public static class AddUsersTask extends AsyncTask<User, Void, Void> {
 
@@ -120,13 +124,14 @@ public class ElasticSearchController {
         }
       }
 
+    // This function is used for getting a user object from the database
     public static class GetUsersTask extends AsyncTask<String, Void, User> {
         // ... varargs, can pass arbitrary amount of arguments
+        @Override
         protected User doInBackground(String... search_parameters) {
             verifySettings();
             User user = null;
 
-            //String query = "{\"query\":{\"query_string\" :{\"fields\" : [\"username\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
             String query = "{\"query\": {\"match\": {\"username\":\"" + search_parameters[0] + "\" }}}";
 
             Search search = new Search.Builder(query)
@@ -151,6 +156,31 @@ public class ElasticSearchController {
         }
     }
 
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users){
+            verifySettings();
+            for (User user: users) {
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        Log.i("Success", "Update successful");
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to update the user");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "The application failed");
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
 
     public static void verifySettings() {
         if (client == null) {

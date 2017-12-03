@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Controllers.HabitEventController;
 import h4bit.h4bit.Models.Habit;
@@ -58,9 +61,9 @@ public class HabitEventAdapter extends BaseAdapter {
         habitEventName.setText(theHabitEvent.getHabit().getName());
         habitEventDate.setText(theHabitEvent.getDate().toString());
         habitEventComment.setText(theHabitEvent.getComment());
-        //if(theHabitEvent.getImage() != null){
+        Log.d("bitmap 2", String.valueOf(theHabitEvent.getImage()));
+
         eventImageView.setImageBitmap(theHabitEvent.getImage());
-        //}
 
         editButton.setOnClickListener(new View.OnClickListener() {
 

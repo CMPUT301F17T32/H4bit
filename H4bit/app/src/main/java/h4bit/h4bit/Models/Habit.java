@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import h4bit.h4bit.R;
 
-/** User class
+/** Habit class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
@@ -253,7 +253,7 @@ public class Habit implements Comparable<Habit> {
      */
     public void setStartDate(Date startDate, HabitEventList habitEventList){
         this.startDate = startDate;
-        Date today = new Date();
+        //Date today = new Date();
         for(int i = 0; i < habitEventList.size(); i++){
             if(habitEventList.get(i).getDate().getYear() < startDate.getYear() ||
                     habitEventList.get(i).getDate().getMonth() < startDate.getMonth() ||
