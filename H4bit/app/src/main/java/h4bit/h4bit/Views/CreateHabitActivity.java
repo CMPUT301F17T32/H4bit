@@ -233,9 +233,11 @@ public class CreateHabitActivity extends AppCompatActivity {
         }
 
         // Add the valid habit to the user
+
         this.user.addHabit(habit);
 
         // Save the new user to the user save file
+        elasticSearch.updateUser(user);
         saveLoadController.save(this.user);
 
         // Finish the activity and take us back to the main habit screen
