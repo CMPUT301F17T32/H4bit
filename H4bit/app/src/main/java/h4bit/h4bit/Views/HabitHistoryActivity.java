@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.MapFragment;
 
@@ -86,7 +87,7 @@ public class HabitHistoryActivity extends FragmentActivity{
 
         //autocompletetextview
         final HabitEventList habitEventAutoList = user.getHabitEventList();
-        HabitList HabitAutoList = user.getHabitList();
+        final HabitList HabitAutoList = user.getHabitList();
         String[] Comments1 = new String[habitEventAutoList.size()];
         final String[] Names = new String[HabitAutoList.getSize()];
 
@@ -114,9 +115,11 @@ public class HabitHistoryActivity extends FragmentActivity{
         autoCompleteTextView.setThreshold(1);
         autoCompleteTextView2.setThreshold(1);
         habitEventList = user.getHabitEventList();
+
         habitEventAdapter = new HabitEventAdapter(this, habitEventList, savefile);
         eventsList.setAdapter(habitEventAdapter);
         habitEventList.sortByDate();
+        final HabitEventList savedHabitEventList = saveOriginalList(habitEventList);
         habitEventAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
 
@@ -142,12 +145,14 @@ public class HabitHistoryActivity extends FragmentActivity{
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (final View view){
-                //habitEventList.clearList();
-                //user = saveLoadController.load();
-                //habitEventList = user.getHabitEventList();
-                //HabitEventList SavedHabitEventList = saveOriginalList(habitEventList);
+                habitEventList.clearList();
+                for (int i = 0; i < savedHabitEventList.size(); i++) {
+                    habitEventList.addHabitEvent(savedHabitEventList.get(i));
+                }
+
                 String name = autoCompleteTextView.getEditableText().toString();
                 String comment = autoCompleteTextView2.getEditableText().toString();
+
                 HabitEventList FullHabitEventList = new HabitEventList();
                 if ((name.length()>0)&&(comment.length()>0)){
                     searchHistoryFull(name,comment,FullHabitEventList);
@@ -159,6 +164,10 @@ public class HabitHistoryActivity extends FragmentActivity{
                     searchHistoryComment(comment, FullHabitEventList);
                 }
                 //searchHistory(name,FullHabitEventList);
+                if (habitEventList.size()==0){
+                      Toast.makeText(getApplicationContext(), "No Matches Found",
+                      Toast.LENGTH_LONG).show();
+                }
                 habitEventAdapter.notifyDataSetChanged();
                 // so at thiss point it displays the search results, and this wehre i need to get my initial habitEventList. the stuff that crashes the app is commented out
                 //habitEventList.clearList();
