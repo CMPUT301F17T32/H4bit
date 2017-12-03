@@ -73,19 +73,19 @@ public class CreateHabitActivity extends AppCompatActivity {
         // Make sure you use the more recent user object
         User user1 = saveLoadController.load();
         try {
-            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+//            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+            User user2 = elasticSearch.getUser("ben3");
             // Compare recent updated
             if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
                 user = user1;
-                Toast.makeText(CreateHabitActivity.this, "local save", Toast.LENGTH_SHORT).show();
+                Log.d("LOADERROR", "LOCAL SAVE LOADED");
             } else {
                 user = user2;
-                Toast.makeText(CreateHabitActivity.this, "online save", Toast.LENGTH_SHORT).show();
+                Log.d("LOADERROR", "ONLINE SAVE LOADED");
 
             }
         } catch (Exception e) {
-            Toast.makeText(CreateHabitActivity.this, "ElasticSearch Down", Toast.LENGTH_SHORT).show();
-
+            Log.d("LOADERROR", "LOCAL SAVE LOADED NO ELASTIC SEARCH");
             user = user1;
         }
 

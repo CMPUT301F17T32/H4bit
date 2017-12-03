@@ -21,6 +21,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
@@ -45,6 +46,7 @@ public class MainHabitActivity extends AppCompatActivity {
     private User user;
     private String savefile;
     private SaveLoadController saveLoadController;
+    private ElasticSearch elasticSearch = new ElasticSearch();
 
     // This is just a placeholder to see if I can figure out how to list everything again
     //private ArrayAdapter<Habit> adapter;
@@ -63,7 +65,25 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // Loads the user
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
-        user = saveLoadController.load();
+        // load the user from the savefile
+        // Make sure you use the more recent user object
+        User user1 = saveLoadController.load();
+        try {
+//            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+            User user2 = elasticSearch.getUser("ben3");
+            // Compare recent updated
+            if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
+                user = user1;
+                Log.d("LOADERROR", "LOCAL SAVE LOADED");
+            } else {
+                user = user2;
+                Log.d("LOADERROR", "ONLINE SAVE LOADED");
+
+            }
+        } catch (Exception e) {
+            Log.d("LOADERROR", "LOCAL SAVE LOADED NO ELASTIC SEARCH");
+            user = user1;
+        }
 //        loadFromFile();
 
         // Again, clumsy but serving a basic purpose mostly right now

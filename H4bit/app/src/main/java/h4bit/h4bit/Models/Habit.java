@@ -306,7 +306,7 @@ public class Habit implements Comparable<Habit> {
         return completed;
     }
 
-    private void setCompleted(int completed) {
+    public void setCompleted(int completed) {
         this.completed = completed;
     }
 
