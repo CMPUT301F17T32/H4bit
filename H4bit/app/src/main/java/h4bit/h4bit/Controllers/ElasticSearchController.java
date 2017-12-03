@@ -28,7 +28,7 @@ import io.searchbox.core.SearchResult;
  */
 
 
-/**
+/*
  * Taken from lab 5
  * Changed to fit our Habit App
  */

@@ -29,9 +29,11 @@ import h4bit.h4bit.R;
 public class HabitEventMapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private HabitEventList habitEventList;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Init local variables
         String savefile;
         FragmentManager fragmentManager;
         SaveLoadController saveLoadController;
@@ -40,6 +42,9 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_habit_event_map);
+
+        // Load the mode
+        mode = getIntent().getStringExtra("mode");
 
         // Load save
         savefile = getIntent().getStringExtra("savefile");
@@ -62,25 +67,29 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
         // First we need to get all the habitEvents
         // Then we need to iterate through them and add a marker for each event with a location
-        for (int i = 0; i < habitEventList.size(); i++) {
-            HabitEvent habitEvent = habitEventList.get(i);
-            if (habitEvent.getLocation() != null){
-                Location location = habitEvent.getLocation();
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
+        if (mode.equals("history")) {
+            for (int i = 0; i < habitEventList.size(); i++) {
+                HabitEvent habitEvent = habitEventList.get(i);
+                if (habitEvent.getLocation() != null) {
+                    Location location = habitEvent.getLocation();
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
+                }
             }
         }
+        else{
+            // Display the social markers
+        }
     }
-
     // This is to prevent the default back button from crashing the app
     // I don't know why it crashes with the default behaviour so this feels like a bandaid fix but it works soooo...
     // Taken from https://stackoverflow.com/questions/32296923/crashing-when-back-to-parent-activity-jsonexception-no-value-for-response
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            onBackPressed();
+//            return true;
+//        }
+//        return false;
+//    }
 }

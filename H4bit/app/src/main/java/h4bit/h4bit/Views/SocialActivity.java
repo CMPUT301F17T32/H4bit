@@ -1,5 +1,6 @@
 package h4bit.h4bit.Views;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class SocialActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Context context = getApplicationContext();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
 
@@ -39,11 +42,22 @@ public class SocialActivity extends AppCompatActivity {
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
+        Button mapButton = (Button) findViewById(R.id.mapButton);
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
         statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
         ListView listView = (ListView) findViewById(R.id.habitStatusList);
         listView.setAdapter(statusAdapter);
+
+        mapButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                // Take us into the map activity
+                Intent intent = new Intent(context, HabitEventMapActivity.class);
+                intent.putExtra("savefile", savefile);
+                intent.putExtra("mode", "social");
+                startActivity(intent);
+            }
+        });
 
         habitsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -56,6 +70,7 @@ public class SocialActivity extends AppCompatActivity {
                 historyTab();
             }
         });
+
     }
 
     public void habitsTab(){
