@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Date;
 
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.Models.User;
 
 /**
@@ -26,6 +27,7 @@ public class SaveLoadController {
 
     private String savefile;
     private Context context;
+    private ElasticSearch elasticSearch = new ElasticSearch();
 
     public SaveLoadController(String savefile, Context context){
         this.savefile = savefile;

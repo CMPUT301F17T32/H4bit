@@ -43,7 +43,7 @@ public class ElasticSearchController {
             verifySettings();
 
             for (Habit habit : habits) {
-                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("habit").build();
+                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("Habit").build();
 
                 try {
                     // where is the client?
@@ -64,36 +64,39 @@ public class ElasticSearchController {
         }
     }
 
-//    // TODO we need a function which gets tweets from elastic search
-//    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
-//        @Override
-//        protected ArrayList<Habit> doInBackground(String... search_parameters) {
-//            verifySettings();
-//
-//            ArrayList<Habit> habits = new ArrayList<Habit>();
-//
-//            // TODO Build the query
-//            Search query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
-//            Search search = new Search.Builder(query)
-//                    .addIndex("cmput301f17t32_h4bit").addType("habit").build();
-//            try {
-//                // TODO get the results of the query
-//                SearchResult result = client.execute(search);
-//
-//                if (result.isSucceeded()) {
-//                    List<Habit> foundHabit = result.getSourceAsObjectList(Habit.class);
-//                    habits.addAll(foundHabit);
-//                } else {
-//                    Log.i("Error","Something went wrong when we tried to communicate with the server");
-//                }
-//            }
-//            catch (Exception e) {
-//                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-//            }
-//
-//            return habits;
-//        }
-//    }
+    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
+        @Override
+        protected ArrayList<Habit> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Habit> habits = new ArrayList<Habit>();
+
+            // TODO Build the query
+            // sorted by most recent to oldest
+            String query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f17t32_h4bit")
+                    .addType("Habit")
+                    .build();
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+
+                if (result.isSucceeded()) {
+                    List<Habit> foundHabits = result.getSourceAsObjectList(Habit.class);
+                    habits.addAll(foundHabits);
+                } else {
+                    Log.i("Error","Something went wrong when we tried to communicate with the server");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return habits;
+        }
+    }
 
       public static class AddUsersTask extends AsyncTask<User, Void, Void> {
 

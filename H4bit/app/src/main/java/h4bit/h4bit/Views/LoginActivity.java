@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("Register", "Failed to create account");
                     Toast.makeText(LoginActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
                 }
+            // username does exist in database
             } else {
                 Log.i("Register", "User exists");
                 Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();

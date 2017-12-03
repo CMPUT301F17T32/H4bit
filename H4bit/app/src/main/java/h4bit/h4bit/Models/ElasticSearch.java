@@ -2,6 +2,7 @@ package h4bit.h4bit.Models;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
@@ -13,16 +14,18 @@ import h4bit.h4bit.Controllers.ElasticSearchController;
  */
 
 /**
- * Class that uses ElasticSearchController to add classes, and add habits etc in future
+ * Class that uses ElasticSearchController to add/get classes, habits etc
  */
 public class ElasticSearch {
+
+    private ArrayList<Habit> userHabitList = new ArrayList<Habit>();
     public ElasticSearch(){}
 
     /**
      * Add a user to elastic search database
      * return true if user was added, false if not
      * @param user
-     * @return
+     * @return boolean
      */
     public boolean addUser(User user) {
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
@@ -64,7 +67,7 @@ public class ElasticSearch {
     }
 
     /**
-     * This method adds a habit to the database
+     * This function adds a habit to the database
      * returns true if habit is added, false if it failed to add habit
      * @param habit
      * @return
@@ -80,5 +83,19 @@ public class ElasticSearch {
             Log.i("Error", "Failed to add habit");
             return false;
         }
+    }
+
+    /**
+     * This function gets the habits of a user from teh database
+     * @param user
+     * @return userHabitList
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public ArrayList<Habit> getUserHabits(User user) throws ExecutionException, InterruptedException {
+        ElasticSearchController.GetHabitsTask getHabitsTask = new ElasticSearchController.GetHabitsTask();
+        getHabitsTask.execute(user.getUsername());
+        userHabitList = getHabitsTask.get();
+        return userHabitList;
     }
 }
