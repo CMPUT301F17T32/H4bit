@@ -1,8 +1,11 @@
 package h4bit.h4bit.Models;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 /** User class
@@ -17,7 +20,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
     private Date date;
     private Location location;
     private String comment;
-    private Bitmap image;
+    private String image;
 
     /**
      *
@@ -51,12 +54,51 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     }
 
+    //https://stackoverflow.com/questions/15759195/reduce-size-of-bitmap-to-some-specified-pixel-in-android
+    private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    //http://mobile.cs.fsu.edu/converting-images-to-json-objects/
+    private String getStringFromBitmap(Bitmap bitmapPicture) {
+
+        final int COMPRESSION_QUALITY = 100;
+        String encodedImage;
+        ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
+        bitmapPicture.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
+                byteArrayBitmapStream);
+        byte[] b = byteArrayBitmapStream.toByteArray();
+        encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private Bitmap getBitmapFromString(String jsonString) {
+        byte[] decodedString = Base64.decode(jsonString, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedByte;
+    }
+
     public Bitmap getImage() {
-        return image;
+        Bitmap imageBitmap = getBitmapFromString(image);
+        return imageBitmap;
     }
 
     public void setImage(Bitmap image) {
-        this.image = image;
+        Bitmap resizedImage = getResizedBitmap(image, 128);
+        String imageString = getStringFromBitmap(resizedImage);
+        this.image = imageString;
     }
 
     public Habit getHabit() {

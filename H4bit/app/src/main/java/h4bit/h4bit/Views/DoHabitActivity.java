@@ -123,8 +123,8 @@ public class DoHabitActivity extends AppCompatActivity {
                 } else {
                     theHabitEvent = theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
                 }
-                saveLoadController.save(user);
                 theHabitEvent.setImage(eventImage);
+                saveLoadController.save(user);
                 finish();
             }
         });
@@ -174,6 +174,7 @@ public class DoHabitActivity extends AppCompatActivity {
         //Detects request codes
         if(requestCode==1 && resultCode == Activity.RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
+            Log.d("image uri", String.valueOf(selectedImage));
             eventImage = null;
             try {
                 eventImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
@@ -184,6 +185,7 @@ public class DoHabitActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            Log.d("image bitmap", String.valueOf(eventImage));
         }
     }
 
