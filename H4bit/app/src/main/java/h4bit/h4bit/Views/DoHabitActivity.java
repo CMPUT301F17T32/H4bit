@@ -38,6 +38,7 @@ import java.io.OutputStreamWriter;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Manifest;
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
@@ -68,6 +69,7 @@ public class DoHabitActivity extends AppCompatActivity {
     private Activity activity;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback = new LocationCallback();
+    private ElasticSearch elasticSearch = new ElasticSearch();
 
     @Override
     protected void onStart(){
@@ -123,8 +125,11 @@ public class DoHabitActivity extends AppCompatActivity {
                 } else {
                     theHabitEvent = theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
                 }
-                theHabitEvent.setImage(eventImage);
+                if(eventImage != null) {
+                    theHabitEvent.setImage(eventImage);
+                }
                 saveLoadController.save(user);
+                // Also save online if you ha
                 finish();
             }
         });

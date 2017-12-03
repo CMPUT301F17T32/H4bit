@@ -91,8 +91,12 @@ public class HabitEvent implements Comparable<HabitEvent> {
     }
 
     public Bitmap getImage() {
-        Bitmap imageBitmap = getBitmapFromString(image);
-        return imageBitmap;
+        if(this.image != null){
+            Bitmap imageBitmap = getBitmapFromString(image);
+            return imageBitmap;
+        } else {
+            return null;
+        }
     }
 
     public void setImage(Bitmap image) {

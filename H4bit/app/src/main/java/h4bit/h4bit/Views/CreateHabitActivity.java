@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Controllers.HabitController;
 import h4bit.h4bit.Models.HabitList;
@@ -52,6 +53,7 @@ public class CreateHabitActivity extends AppCompatActivity {
     private String mode;
     private int position;
     private SaveLoadController saveLoadController;
+    private ElasticSearch elasticSearch = new ElasticSearch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,25 @@ public class CreateHabitActivity extends AppCompatActivity {
         this.saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
 
         // load the user from the savefile
-        user = saveLoadController.load();
+        // Make sure you use the more recent user object
+        User user1 = saveLoadController.load();
+        try {
+            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+            // Compare recent updated
+            if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
+                user = user1;
+                Toast.makeText(CreateHabitActivity.this, "local save", Toast.LENGTH_SHORT).show();
+            } else {
+                user = user2;
+                Toast.makeText(CreateHabitActivity.this, "online save", Toast.LENGTH_SHORT).show();
+
+            }
+        } catch (Exception e) {
+            Toast.makeText(CreateHabitActivity.this, "ElasticSearch Down", Toast.LENGTH_SHORT).show();
+
+            user = user1;
+        }
+
 
         // init the habit controller
         this.habitController = new HabitController();
@@ -218,10 +238,12 @@ public class CreateHabitActivity extends AppCompatActivity {
         }
 
         // Add the valid habit to the user
+
         this.user.addHabit(habit);
 
         // Save the new user to the user save file
         saveLoadController.save(this.user);
+        elasticSearch.updateUser(user);
 
         // Finish the activity and take us back to the main habit screen
         finish();
@@ -240,6 +262,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         // do nothing if edit returns -1
 
         saveLoadController.save(user);
+        elasticSearch.updateUser(user);
         finish();
     }
 }
