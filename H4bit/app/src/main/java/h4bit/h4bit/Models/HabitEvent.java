@@ -27,6 +27,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
         this.habit = habit;
         this.date = new Date();
         this.location = location;
+        this.comment="";
     }
 
     /**
@@ -39,6 +40,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
         this.date = new Date();
         this.comment = comment;
         this.location = location;
+
     }
 
     public int compareTo(HabitEvent compareHabitEvent) {
