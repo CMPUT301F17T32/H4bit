@@ -2,6 +2,8 @@ package h4bit.h4bit.Models;
 
 import android.util.Log;
 
+import java.util.concurrent.ExecutionException;
+
 import h4bit.h4bit.Controllers.ElasticSearchController;
 
 /** ElasticSearch class
@@ -23,15 +25,28 @@ public class ElasticSearch {
      * @return
      */
     public Boolean addUser(User user) {
-        ElasticSearchController.AddUsersTask addUserTask = new ElasticSearchController.AddUsersTask();
-        addUserTask.execute(user);
+        ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
+        addUsersTask.execute(user);
         try {
-            addUserTask.get();
+            addUsersTask.get();
             return true;
         }
         catch (Exception e) {
             Log.i("Error", "Failed to add");
             return false;
         }
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public User getUser(String username) throws ExecutionException, InterruptedException {
+        ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
+        getUsersTask.execute(username);
+        return getUsersTask.get();
     }
 }
