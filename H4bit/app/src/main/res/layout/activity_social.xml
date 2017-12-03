@@ -93,18 +93,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/mapButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/map" />
-
-            <Button
                 android:id="@+id/followButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/follow" />
+
+            <Button
+                android:id="@+id/mapButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/map" />
         </LinearLayout>
 
     </LinearLayout>

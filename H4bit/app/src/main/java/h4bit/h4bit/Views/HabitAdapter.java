@@ -86,7 +86,7 @@ public class HabitAdapter extends BaseAdapter {
                 Date theDate = new Date();
                 Log.d("lel", String.valueOf(theDate.getYear()));
                 if(theHabit.getNextDate() == 0 && !theHabit.getDoneToday() &&
-                        theHabit.getStartDate().getYear() <= (theDate.getYear() + 1900) &&
+                        theHabit.getStartDate().getYear() <= (theDate.getYear()) &&
                         theHabit.getStartDate().getMonth() <= theDate.getMonth() &&
                         theHabit.getStartDate().getDate() <= theDate.getDate()){
                     Intent intent = new Intent(view.getContext(), DoHabitActivity.class);

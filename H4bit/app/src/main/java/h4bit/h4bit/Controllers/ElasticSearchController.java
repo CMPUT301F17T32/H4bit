@@ -74,7 +74,7 @@ public class ElasticSearchController {
 //            // TODO Build the query
 //            Search query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
 //            Search search = new Search.Builder(query)
-//                    .addIndex("t32_h4bit").addType("Habit").build();
+//                    .addIndex("cmput301f17t32_h4bit").addType("habit").build();
 //            try {
 //                // TODO get the results of the query
 //                SearchResult result = client.execute(search);
@@ -100,7 +100,7 @@ public class ElasticSearchController {
           protected Void doInBackground(User... users) {
             verifySettings();
             for (User user: users) {
-                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("user").build();
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").build();
 
                 try {
                     DocumentResult result = client.execute(index);
@@ -120,23 +120,36 @@ public class ElasticSearchController {
         }
       }
 
-//    public static class getUsersTask extends AsyncTask<String, Void, User> {
-//
-//        protected User doInBackground(String... search_parameters) {
-//            verifySettings();
-//            User user = null;
-//
-//            // need to figure this out
-//            String query = "";
-//
-//            Search search = new Search.Builder(query)
-//                    .addIndex("cmput301f17t32_h4bit")
-//                    .addType("User")
-//                    .build();
-//
-//            return user;
-//        }
-//    }
+    public static class GetUsersTask extends AsyncTask<String, Void, User> {
+        // ... varargs, can pass arbitrary amount of arguments
+        protected User doInBackground(String... search_parameters) {
+            verifySettings();
+            User user = null;
+
+            //String query = "{\"query\":{\"query_string\" :{\"fields\" : [\"username\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
+            String query = "{\"query\": {\"match\": {\"username\":\"" + search_parameters[0] + "\" }}}";
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f17t32_h4bit")
+                    .addType("User")
+                    .build();
+
+            try {
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()) {
+                    user = result.getSourceAsObject(User.class);
+                }
+                else {
+                    Log.i("Error", "The search query failed to find any users that matched");
+                }
+
+
+            } catch (IOException e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+            return user;
+        }
+    }
 
 
     public static void verifySettings() {

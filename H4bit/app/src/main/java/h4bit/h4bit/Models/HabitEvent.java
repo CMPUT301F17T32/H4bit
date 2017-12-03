@@ -1,5 +1,6 @@
 package h4bit.h4bit.Models;
 
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
     private Date date;
     private Location location;
     private String comment;
+    private Bitmap image;
 
     /**
      *
@@ -25,6 +27,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
         this.habit = habit;
         this.date = new Date();
         this.location = location;
+        this.comment="";
     }
 
     /**
@@ -37,6 +40,7 @@ public class HabitEvent implements Comparable<HabitEvent> {
         this.date = new Date();
         this.comment = comment;
         this.location = location;
+
     }
 
     public int compareTo(HabitEvent compareHabitEvent) {
@@ -45,6 +49,14 @@ public class HabitEvent implements Comparable<HabitEvent> {
         //ascending order
         return compareQuantity.compareTo(this.getDate());
 
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public Habit getHabit() {

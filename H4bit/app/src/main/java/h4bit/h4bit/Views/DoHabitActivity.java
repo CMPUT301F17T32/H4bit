@@ -59,6 +59,7 @@ public class DoHabitActivity extends AppCompatActivity {
     private User user;
     private HabitEventList habitEventList;
     private EditText commentText;
+    private Bitmap eventImage;
     private SaveLoadController saveLoadController;
     private FusedLocationProviderClient mFusedLocationClient;
     private Location eventLocation;
@@ -116,13 +117,14 @@ public class DoHabitActivity extends AppCompatActivity {
             public void onClick (View view){
                 user.getHabitList().sortByNextDate();
                 theHabit = user.getHabitList().getHabit(position);
+                HabitEvent theHabitEvent;
                 if(commentText.getText().toString().equals("")){
-                    theHabit.doHabit(eventLocation, habitEventList);
+                    theHabitEvent = theHabit.doHabit(eventLocation, habitEventList);
                 } else {
-                    theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
+                    theHabitEvent = theHabit.doHabit(commentText.getText().toString(), eventLocation, habitEventList);
                 }
-
                 saveLoadController.save(user);
+                theHabitEvent.setImage(eventImage);
                 finish();
             }
         });
@@ -146,7 +148,7 @@ public class DoHabitActivity extends AppCompatActivity {
         //https://stackoverflow.com/questions/9107900/how-to-upload-image-from-gallery-in-android
         uploadImageButton.setOnClickListener(new View.OnClickListener(){
             public void onClick (View view){
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), 1);
+                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI), 1);
 
             }
         });
@@ -170,11 +172,11 @@ public class DoHabitActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Detects request codes
-        if(requestCode==1 && resultCode == Activity.RESULT_OK) {
+        if(requestCode==1 && resultCode == Activity.RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            Bitmap bitmap = null;
+            eventImage = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                eventImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block2
                 e.printStackTrace();

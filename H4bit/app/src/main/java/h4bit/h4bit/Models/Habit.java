@@ -61,8 +61,9 @@ public class Habit implements Comparable<Habit> {
     }
 
     private int dayDifference(Date d1, Date d2){
-        long diff = d2.getTime() - d1.getTime();
-        return (int)TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        float diff = d2.getTime()/86400000 - d1.getTime()/86400000;
+        int result = Math.round(diff);
+        return result;
     }
 
     public void updateStats(HabitEventList habitEventList){
@@ -109,7 +110,7 @@ public class Habit implements Comparable<Habit> {
      * @param location
      * @param habitEventList
      */
-    public void doHabit(String comment, Location location, HabitEventList habitEventList) {
+    public HabitEvent doHabit(String comment, Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
@@ -117,14 +118,16 @@ public class Habit implements Comparable<Habit> {
         Date newDate = new Date();
         newDate.setTime(newDate.getTime() + 86400000);
         this.setUpdatedDate(newDate);
-        habitEventList.addHabitEvent(new HabitEvent(this, comment, location));
+        HabitEvent theEvent = new HabitEvent(this, comment, location);
+        habitEventList.addHabitEvent(theEvent);
+        return theEvent;
     }
 
     /**
      *
      * @param habitEventList
      */
-    public void doHabit(Location location, HabitEventList habitEventList) {
+    public HabitEvent doHabit(Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
         setNextDate();
@@ -132,7 +135,9 @@ public class Habit implements Comparable<Habit> {
         Date newDate = new Date();
         newDate.setTime(newDate.getTime() + 86400000);
         this.setUpdatedDate(newDate);
-        habitEventList.addHabitEvent(new HabitEvent(this, location));
+        HabitEvent theEvent = new HabitEvent(this, location);
+        habitEventList.addHabitEvent(theEvent);
+        return theEvent;
     }
 
     /**
@@ -141,12 +146,15 @@ public class Habit implements Comparable<Habit> {
      */
     public int setNextDate(){
         Date currentDate = new Date();
+        int untilStart = dayDifference(currentDate, this.getStartDate());
+        Log.d("untilStart: ", String.valueOf(this.getStartDate()) + " " + String.valueOf(currentDate) + " " + untilStart);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
         int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         this.nextDate = 0;
 
         if(!getDoneToday() && this.getSchedule()[dayNumber]){
+            this.nextDate = Math.max(this.nextDate, untilStart);
             return this.nextDate;
         }
         this.nextDate++;
@@ -157,6 +165,7 @@ public class Habit implements Comparable<Habit> {
 
         for(int i = 0; i < 7; i++){
             if(this.getSchedule()[dayNumber]) {
+                this.nextDate = Math.max(this.nextDate, untilStart);
                 return this.nextDate;
             }
             dayNumber++;
@@ -166,6 +175,7 @@ public class Habit implements Comparable<Habit> {
             this.nextDate++;
         }
 
+        this.nextDate = Math.max(this.nextDate, untilStart);
         return this.nextDate;
     }
 
@@ -217,16 +227,21 @@ public class Habit implements Comparable<Habit> {
 
     public void setStartDate(Date startDate, HabitEventList habitEventList){
         this.startDate = startDate;
+        Date today = new Date();
         for(int i = 0; i < habitEventList.size(); i++){
-            if(habitEventList.get(i).getDate().getYear() + 1900 < startDate.getYear() ||
+            if(habitEventList.get(i).getDate().getYear() < startDate.getYear() ||
                     habitEventList.get(i).getDate().getMonth() < startDate.getMonth() ||
                     habitEventList.get(i).getDate().getDate() < startDate.getDate() &&
-                    Objects.equals(habitEventList.get(i).getHabit(), this)){
+                    habitEventList.get(i).getHabit().getName().equals(this.getName())){
+
                 habitEventList.deleteHabitEvent(habitEventList.get(i));
+                this.setCompleted(this.getCompleted() - 1);
+
             }
         }
-        this.setCompleted(0);
-        this.setMissed(0);
+        this.setDoneToday(habitEventList.isDoneToday(this));
+        this.updateStats(habitEventList);
+        this.setNextDate();
     }
 
     public String getName() {
