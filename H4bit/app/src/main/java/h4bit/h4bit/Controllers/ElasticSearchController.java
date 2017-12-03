@@ -51,6 +51,7 @@ public class ElasticSearchController {
 
                     if (result.isSucceeded()) {
                         habit.setId(result.getId());
+                        Log.i("Success", "Habit added");
                     } else {
                         Log.i("Error", "Elasticsearch was not able to add the habit");
                     }
@@ -120,13 +121,14 @@ public class ElasticSearchController {
         }
       }
 
+    // This function is used for getting a user object from the database
     public static class GetUsersTask extends AsyncTask<String, Void, User> {
         // ... varargs, can pass arbitrary amount of arguments
+        @Override
         protected User doInBackground(String... search_parameters) {
             verifySettings();
             User user = null;
 
-            //String query = "{\"query\":{\"query_string\" :{\"fields\" : [\"username\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
             String query = "{\"query\": {\"match\": {\"username\":\"" + search_parameters[0] + "\" }}}";
 
             Search search = new Search.Builder(query)
@@ -151,6 +153,31 @@ public class ElasticSearchController {
         }
     }
 
+    public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
+
+        @Override
+        protected Void doInBackground(User... users){
+            verifySettings();
+            for (User user: users) {
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
+
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        Log.i("Success", "Update successful");
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to update the user");
+                    }
+                }
+                catch (Exception e) {
+                    Log.i("Error", "The application failed");
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
 
     public static void verifySettings() {
         if (client == null) {

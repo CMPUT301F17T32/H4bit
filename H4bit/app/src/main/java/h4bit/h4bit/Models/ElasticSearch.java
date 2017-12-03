@@ -24,7 +24,7 @@ public class ElasticSearch {
      * @param user
      * @return
      */
-    public Boolean addUser(User user) {
+    public boolean addUser(User user) {
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
         try {
@@ -32,7 +32,20 @@ public class ElasticSearch {
             return true;
         }
         catch (Exception e) {
-            Log.i("Error", "Failed to add");
+            Log.i("Error", "Failed to add user");
+            return false;
+        }
+    }
+
+    public boolean updateUser(User user) {
+        ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
+        updateUserTask.execute(user);
+        try {
+            updateUserTask.get();
+            return true;
+        }
+        catch (Exception e) {
+            Log.i("Error", "Failed to update user");
             return false;
         }
     }
@@ -48,5 +61,24 @@ public class ElasticSearch {
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute(username);
         return getUsersTask.get();
+    }
+
+    /**
+     * This method adds a habit to the database
+     * returns true if habit is added, false if it failed to add habit
+     * @param habit
+     * @return
+     */
+    public boolean addHabit(Habit habit) {
+        ElasticSearchController.AddHabitsTask addHabitsTask = new ElasticSearchController.AddHabitsTask();
+        addHabitsTask.execute(habit);
+        try {
+            addHabitsTask.get();
+            return true;
+        }
+        catch (Exception e) {
+            Log.i("Error", "Failed to add habit");
+            return false;
+        }
     }
 }
