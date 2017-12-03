@@ -187,7 +187,9 @@ public class DoHabitActivity extends AppCompatActivity {
         }
     }
 
-
+    // This is what actually does the request for the Location feature
+    // It checks the users permissions, requests permissions
+    // Sends toast feedback to the user
     public void getCurrentLocation(ToggleButton locationToggle){
         // this taken directly from the android tutorial
         if (ContextCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -224,6 +226,8 @@ public class DoHabitActivity extends AppCompatActivity {
         }
     }
 
+    // Required for the location request
+    // Taken right from google
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
