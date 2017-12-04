@@ -67,7 +67,7 @@ public class MainHabitActivity extends AppCompatActivity {
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
 
         user = saveLoadController.load();
-        
+
         // list adapter init
         habitList = user.getHabitList();
         habitList.sortByNextDate();

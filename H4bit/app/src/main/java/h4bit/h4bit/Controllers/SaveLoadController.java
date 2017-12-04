@@ -99,10 +99,10 @@ public class SaveLoadController {
         }
         // Compute which user file to return
         if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
-            Log.d("SaveLoadController", user1.getLastModified().toString()+">"+user2.getLastModified().toString()+"using local");
+            Log.d("SaveLoadController", user1.getLastModified().toString()+" > "+user2.getLastModified().toString()+": using local");
             return user1;
         } else {
-            Log.d("SaveLoadController", user1.getLastModified().toString()+"<"+user2.getLastModified().toString()+"using online");
+            Log.d("SaveLoadController", user1.getLastModified().toString()+" < "+user2.getLastModified().toString()+": using online");
             return user2;
 
         }
