@@ -71,7 +71,6 @@ public class CreateHabitActivity extends AppCompatActivity {
         // load the user from the savefile
         // Make sure you use the more recent user object
         user = saveLoadController.load();
-
         // init the habit controller
         this.habitController = new HabitController();
 

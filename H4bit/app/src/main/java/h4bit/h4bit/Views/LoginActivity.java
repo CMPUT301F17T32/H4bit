@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {
             try {
-              user = elasticSearch.getUser(username);
+                user = elasticSearch.getUser(username);
             } catch (Exception e) {
                 Toast.makeText(LoginActivity.this, "Could not fetch", Toast.LENGTH_SHORT).show();
             }
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("Register", "Failed to create account");
                     Toast.makeText(LoginActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
                 }
-            // username does exist in database
+                // username does exist in database
             } else {
                 Log.i("Register", "User exists");
                 Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
@@ -163,4 +163,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-

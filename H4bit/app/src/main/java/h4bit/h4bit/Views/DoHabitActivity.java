@@ -171,7 +171,7 @@ public class DoHabitActivity extends AppCompatActivity {
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-    // Idk what this does @ alex
+    // for image acquisition
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
