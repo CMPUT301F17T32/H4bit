@@ -77,8 +77,10 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
                 }
             }
         }
-        else{
-            // Display the social markers
+        else if(mode.equals("close")){
+            // Display follow and your own social markers within 5km's of current location
+        } else {
+            // Display all friends markers
         }
     }
     // This is to prevent the default back button from crashing the app
