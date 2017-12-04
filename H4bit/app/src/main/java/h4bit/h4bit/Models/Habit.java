@@ -67,14 +67,16 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     * This does something ???
+<<<<<<< HEAD
+     * Determines the number of days between two dates
      * @param d1
      * @param d2
      * @return
      */
     private int dayDifference(Date d1, Date d2){
-        float diff = d2.getTime()/86400000 - d1.getTime()/86400000;
-        int result = Math.round(diff);
+        //float diff = d2.getTime()/86400000 - d1.getTime()/86400000;
+        //int result = (int)diff;
+        int result = d2.getDate() - d1.getDate();
         return result;
     }
 
@@ -83,7 +85,7 @@ public class Habit implements Comparable<Habit> {
      * @param habitEventList This is the habitEventList it uses to check if a date was missed etc.
      */
     public void updateStats(HabitEventList habitEventList){
-        int numDays = dayDifference(new Date(), this.getUpdatedDate());
+        int numDays = dayDifference(this.getUpdatedDate(), new Date());
         Date theDate = this.getUpdatedDate();
         int updatedDay = this.getUpdatedDate().getDay();
         for(int i = 0; i < numDays; i++){
@@ -98,7 +100,7 @@ public class Habit implements Comparable<Habit> {
                     if(habitEventList.get(j).getDate().getYear() == theDate.getYear() &&
                             habitEventList.get(j).getDate().getMonth() == theDate.getMonth() &&
                             habitEventList.get(j).getDate().getDate() == theDate.getDate() &&
-                            Objects.equals(habitEventList.get(j).getHabit(), this)){
+                            habitEventList.get(j).getHabit().getName().equals(this.getName())){
                         this.setMissed(this.getMissed() - 1);
                         this.setCompleted(this.getCompleted() + 1);
                     }
@@ -116,7 +118,11 @@ public class Habit implements Comparable<Habit> {
         if(getCompleted() + getMissed() == 0){
             return -1;
         } else {
-            return (getCompleted() / (getMissed() + getCompleted())) * 100;
+            Log.d("rate", String.valueOf(getCompleted()) + " " + String.valueOf(getMissed()));
+            double result = (double)getCompleted() / ((double)getMissed() + (double)getCompleted());
+            result *= 100;
+            Log.d("rate result", String.valueOf(result));
+            return result;
         }
     }
 
@@ -158,8 +164,8 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     * Sets the next date to be completed
-     * @return Returns the next date to be completed
+     * Determine's how many days until the next time a habit must be completed
+     * @return nextDate
      */
     public int setNextDate(){
         Date currentDate = new Date();
@@ -167,11 +173,33 @@ public class Habit implements Comparable<Habit> {
         Log.d("untilStart: ", String.valueOf(this.getStartDate()) + " " + String.valueOf(currentDate) + " " + untilStart);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
-        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        this.nextDate = 0;
+        int dayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1 + Math.max(untilStart, 0);
+        //int todayNumber = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        this.nextDate = Math.max(untilStart, 0);
+        while(dayNumber >= 7){
+            dayNumber -= 7;
+        }
 
-        if(!getDoneToday() && this.getSchedule()[dayNumber]){
-            this.nextDate = Math.max(this.nextDate, untilStart);
+        for(int i = 0; i < 7; i++){
+            if(this.getSchedule()[dayNumber]){
+                if(this.nextDate == 0){
+                    if(!getDoneToday()){
+                        return this.nextDate;
+                    }
+                } else {
+                    return this.nextDate;
+                }
+            }
+            dayNumber++;
+            if(dayNumber >= 7){
+                dayNumber -= 7;
+            }
+            this.nextDate++;
+        }
+
+        Log.d("NEVER", "plsno");
+        return this.nextDate = -1;
+        /*if(!getDoneToday() && this.getSchedule()[dayNumber] && untilStart < 1){
             return this.nextDate;
         }
         this.nextDate++;
@@ -182,7 +210,9 @@ public class Habit implements Comparable<Habit> {
 
         for(int i = 0; i < 7; i++){
             if(this.getSchedule()[dayNumber]) {
-                this.nextDate = Math.max(this.nextDate, untilStart);
+                if(untilStart > this.nextDate) {
+                    this.nextDate += 7;
+                }
                 return this.nextDate;
             }
             dayNumber++;
@@ -193,12 +223,12 @@ public class Habit implements Comparable<Habit> {
         }
 
         this.nextDate = Math.max(this.nextDate, untilStart);
-        return this.nextDate;
+        return this.nextDate;*/
     }
 
     /**
-     * Gets the next day it should be completed
-     * @return the next day it should be completed
+     * returns a string representation of a day of the week
+     * @return date
      */
     public String getNextDayString(){
         Date currentDate = new Date();
@@ -206,7 +236,9 @@ public class Habit implements Comparable<Habit> {
         calendar.setTime(currentDate);
 
         int theNext = setNextDate();
-        if(theNext == 0){
+        if(theNext == -1){
+            return "N/A";
+        } else if (theNext == 0){
             return "Today";
         } else if (theNext == 1){
             return "Tomorrow";
@@ -217,7 +249,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     * Compares the habit to another habit (by date)
+     * used to implement comparable for sorting purposes
      * @param compareHabit habit you want to compare
      * @return nextDate
      */
@@ -231,6 +263,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
+<<<<<<< HEAD
      * Edits the boolean schedule array
      * @param schedule boolean array to be edited
      */
@@ -247,9 +280,9 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     * Sets the startdate
-     * @param startDate new startdate
-     * @param habitEventList used for checking startDate
+     * removes events prior to the new start date, and updates stats
+     * @param startDate new start date
+     * @param habitEventList list of events
      */
     public void setStartDate(Date startDate, HabitEventList habitEventList){
         this.startDate = startDate;
