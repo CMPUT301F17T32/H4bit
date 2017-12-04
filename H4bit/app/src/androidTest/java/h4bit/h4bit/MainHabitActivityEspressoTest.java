@@ -13,6 +13,7 @@ import android.support.test.rule.ActivityTestRule;
 import org.junit.Rule;
 import org.junit.Test;
 
+import h4bit.h4bit.Views.LoginActivity;
 import h4bit.h4bit.Views.MainHabitActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -31,15 +32,26 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 public class MainHabitActivityEspressoTest {
     @Rule
-    public IntentsTestRule<MainHabitActivity> mActivityRule =
-            new IntentsTestRule<>(MainHabitActivity.class);
+    public IntentsTestRule<LoginActivity> mActivityRule =
+            new IntentsTestRule<>(LoginActivity.class);
 
     @Test
-    public void triggerIntentTest() {
+    public void transferToHistory() {
+        login();
         onView(withId(R.id.historyButton)).perform(click());
         onView(withId(R.id.AutoCompleteName))
-                .perform(typeText("Habit1"), closeSoftKeyboard());
+                .perform(typeText("Habit1345"), closeSoftKeyboard());
+        onView(withId(R.id.searchButton)).perform(click());
 
+
+
+
+    }
+    public void login() {
+        // Type text and then press the button.
+        onView(withId(R.id.usernameText)).perform(typeText("test789"),
+                closeSoftKeyboard());
+        onView(withId(R.id.crealogButton)).perform(click());
     }
 
 }

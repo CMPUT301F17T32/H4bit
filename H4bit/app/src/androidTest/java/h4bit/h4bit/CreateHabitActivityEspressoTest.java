@@ -29,9 +29,9 @@ public class CreateHabitActivityEspressoTest {
     @Test
     public void ensureTextChangesWork() {
         // Type text and then press the button.
-        onView(withId(R.id.usernameText)).perform(typeText("Test3"),
+        onView(withId(R.id.usernameText)).perform(typeText("test3"),
                 closeSoftKeyboard());
-        onView(withId(R.id.signupButton)).perform(click());
+        onView(withId(R.id.crealogButton)).perform(click());
         onView(withId(R.id.addButton)).perform(click());
 
         // Type text and then press the button.
@@ -44,5 +44,24 @@ public class CreateHabitActivityEspressoTest {
         // Check that the text was changed.
         onView(withId(R.id.nameText)).check(matches(withText("Habit1")));
         onView(withId(R.id.commentText)).check(matches(withText("Comment1")));
+    }
+    @Test
+    public void ensureYouAreBackToMain(){
+        onView(withId(R.id.usernameText)).perform(typeText("test3"),
+                closeSoftKeyboard());
+        onView(withId(R.id.crealogButton)).perform(click());
+        onView(withId(R.id.addButton)).perform(click());
+
+        // Type text and then press the button.
+        onView(withId(R.id.nameText))
+                .perform(typeText("Habit2"), closeSoftKeyboard());
+        onView(withId(R.id.commentText))
+                .perform(typeText("Comment2"), closeSoftKeyboard());
+        //onView(withId(R.id.crealogButton)).perform(click());
+
+        // Check that the text was changed.
+        onView(withId(R.id.nameText)).check(matches(withText("Habit1")));
+        onView(withId(R.id.commentText)).check(matches(withText("Comment1")));
+
     }
 }
