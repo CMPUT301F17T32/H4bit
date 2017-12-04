@@ -41,8 +41,10 @@ import h4bit.h4bit.Models.User;
 import h4bit.h4bit.R;
 
 /**
-/*
- * nameText, dateCalendar, reasonText, createButton, sundayButton, mondayButton etc.
+ * EditHabitEventActivity
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class EditHabitEventActivity extends AppCompatActivity {
@@ -84,7 +86,6 @@ public class EditHabitEventActivity extends AppCompatActivity {
                 user.getHabitEventList().get(position).getHabit().setCompleted(user.getHabitEventList().get(position).getHabit().getCompleted() - 1);
                 user.getHabitEventList().deleteHabitEvent(user.getHabitEventList().get(position));
                 saveLoadController.save(user);
-                //saveInFile();
                 finish();
             }
         });
@@ -102,7 +103,6 @@ public class EditHabitEventActivity extends AppCompatActivity {
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         theHabitEvent.setComment(commentText.getText().toString());
         saveLoadController.save(user);
-        //saveInFile();
         finish();
 
     }

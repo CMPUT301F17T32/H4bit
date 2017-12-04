@@ -2,63 +2,92 @@ package h4bit.h4bit.Models;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
 
-/** ElasticSearch class
+/**
+ * ElasticSearch class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ *
+ * Class that uses ElasticSearchController to add, get, and update user objects
+ * @see ElasticSearchController
  */
 
-/**
- * Class that uses ElasticSearchController to add/get classes, habits etc
- */
 public class ElasticSearch {
 
-    private ArrayList<Habit> userHabitList = new ArrayList<Habit>();
     public ElasticSearch(){}
 
     /**
      * Add a user to elastic search database
-     * return true if user was added, false if not
-     * @param user
-     * @return boolean
+     * @param user object to be added to the database
+     * @return user object added to the database
      */
-    public boolean addUser(User user) {
+    public User addUser(User user) {
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
         addUsersTask.execute(user);
         try {
-            addUsersTask.get();
-            return true;
+            return addUsersTask.get();
         }
         catch (Exception e) {
             Log.i("Error", "Failed to add user");
-            return false;
+            return null;
         }
     }
 
-    public boolean updateUser(User user) {
-        ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
-        updateUserTask.execute(user);
-        try {
-            user.setLastModified(new Date());
-            updateUserTask.get();
-            return true;
+    public boolean deleteProfile(User user){
+        if(user != null) {
+            User usr = new User();
+            try {
+                usr = getUser(user.getUsername());
+                ElasticSearchController.DeleteUserTask deleteProfileTask = new ElasticSearchController.DeleteUserTask();
+                deleteProfileTask.execute(usr);
+                try {
+                    deleteProfileTask.get();
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            } catch (Exception e){
+                Log.i("Error","No such profile exists in the database");
+                return false;
+            }
         }
-        catch (Exception e) {
-            Log.i("Error", "Failed to update user");
+        else{
+            Log.i("Error", "Invalid Profile entered");
             return false;
         }
     }
 
     /**
-     *
-     * @param username
-     * @return
+     * This function takes a user object that exists in the database and updates it
+     * @param user The user object to be updated in the database
+     */
+    public void updateUser(User user) {
+        Log.d("ElasticSearch", "Updating online user with: "+new Gson().toJson(user));
+        ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
+        user.setLastModified(new Date());
+        updateUserTask.execute(user);
+        try {
+            user.setLastModified(new Date());
+            updateUserTask.get();
+        }
+        catch (Exception e) {
+            Log.i("Error", "Failed to update user");
+        }
+    }
+
+    /**
+     * This function takes a username string and searches for it in the database and returns
+     * the user being searched for if it exists
+     * @param username string of the username to be searched
+     * @return user object of the user if user exists in database
      * @throws ExecutionException
      * @throws InterruptedException
      */
@@ -66,38 +95,5 @@ public class ElasticSearch {
         ElasticSearchController.GetUsersTask getUsersTask = new ElasticSearchController.GetUsersTask();
         getUsersTask.execute(username);
         return getUsersTask.get();
-    }
-
-    /**
-     * This function adds a habit to the database
-     * returns true if habit is added, false if it failed to add habit
-     * @param habit
-     * @return
-     */
-    public boolean addHabit(Habit habit) {
-        ElasticSearchController.AddHabitsTask addHabitsTask = new ElasticSearchController.AddHabitsTask();
-        addHabitsTask.execute(habit);
-        try {
-            addHabitsTask.get();
-            return true;
-        }
-        catch (Exception e) {
-            Log.i("Error", "Failed to add habit");
-            return false;
-        }
-    }
-
-    /**
-     * This function gets the habits of a user from teh database
-     * @param user
-     * @return userHabitList
-     * @throws ExecutionException
-     * @throws InterruptedException
-     */
-    public ArrayList<Habit> getUserHabits(User user) throws ExecutionException, InterruptedException {
-        ElasticSearchController.GetHabitsTask getHabitsTask = new ElasticSearchController.GetHabitsTask();
-        getHabitsTask.execute(user.getUsername());
-        userHabitList = getHabitsTask.get();
-        return userHabitList;
     }
 }

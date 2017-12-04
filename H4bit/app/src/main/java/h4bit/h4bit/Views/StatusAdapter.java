@@ -32,6 +32,13 @@ public class StatusAdapter extends BaseAdapter{
         this.savefile = savefile;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;

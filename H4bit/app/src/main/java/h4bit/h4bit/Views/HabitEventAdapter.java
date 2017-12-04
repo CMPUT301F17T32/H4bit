@@ -24,7 +24,10 @@ import h4bit.h4bit.Models.HabitList;
 import h4bit.h4bit.R;
 
 /**
- * Created by Vlad Kravchnko on 11/13/2017.
+ * HabitEventAdapter
+ * Version 1.0
+ * November 13th 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class HabitEventAdapter extends BaseAdapter {
