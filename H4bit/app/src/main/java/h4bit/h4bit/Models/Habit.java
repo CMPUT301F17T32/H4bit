@@ -180,7 +180,7 @@ public class Habit implements Comparable<Habit> {
         }
 
         Log.d("NEVER", "plsno");
-        return this.nextDate;
+        return this.nextDate = -1;
         /*if(!getDoneToday() && this.getSchedule()[dayNumber] && untilStart < 1){
             return this.nextDate;
         }
@@ -218,7 +218,9 @@ public class Habit implements Comparable<Habit> {
         calendar.setTime(currentDate);
 
         int theNext = setNextDate();
-        if(theNext == 0){
+        if(theNext == -1){
+            return "N/A";
+        } else if (theNext == 0){
             return "Today";
         } else if (theNext == 1){
             return "Tomorrow";
