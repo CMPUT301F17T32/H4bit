@@ -87,10 +87,17 @@
 
             <Button
                 android:id="@+id/followButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/follow" />
+
+            <Button
+                android:id="@+id/mapButton2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/map_nearby" />
 
             <Button
                 android:id="@+id/mapButton"

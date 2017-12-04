@@ -48,6 +48,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button mapButton = (Button) findViewById(R.id.mapButton);
+        Button mapButton2 = (Button) findViewById(R.id.mapButton2);
         Button followButton = (Button) findViewById(R.id.followButton);
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
@@ -68,6 +69,16 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
                 intent.putExtra("mode", "social");
+                startActivity(intent);
+            }
+        });
+
+        mapButton2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                // Take us into the map activity
+                Intent intent = new Intent(context, HabitEventMapActivity.class);
+                intent.putExtra("savefile", savefile);
+                intent.putExtra("mode", "nearby");
                 startActivity(intent);
             }
         });
