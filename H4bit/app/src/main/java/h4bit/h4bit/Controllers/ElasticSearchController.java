@@ -3,6 +3,8 @@ package h4bit.h4bit.Controllers;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
@@ -11,14 +13,18 @@ import org.w3c.dom.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.User;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 
 /** User class
  * version 1.0
@@ -35,18 +41,23 @@ import io.searchbox.core.SearchResult;
 public class ElasticSearchController {
     private static JestDroidClient client;
 
-    public static class AddUsersTask extends AsyncTask<User, Void, Void> {
+    public static class AddUsersTask extends AsyncTask<User, Void, User> {
 
         @Override
-        protected Void doInBackground(User... users) {
+        protected User doInBackground(User... users) {
             verifySettings();
+            User returnMe = null;
             for (User user: users) {
                 Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").build();
 
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
+                        Log.d("AddUsersTask", result.getId());
                         user.setId(result.getId());
+                        Log.d("AddUsersTask", "User "+ user.getUsername() + " " + user.getId() +" added");
+                        returnMe = user;
+
                     }
                     else {
                         Log.i("Error", "Elastic search was not able to add the user");
@@ -57,7 +68,7 @@ public class ElasticSearchController {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return returnMe;
         }
     }
 
@@ -75,11 +86,15 @@ public class ElasticSearchController {
                     .addIndex("cmput301f17t32_h4bit")
                     .addType("User")
                     .build();
-
             try {
                 SearchResult result = client.execute(search);
+
                 if (result.isSucceeded()) {
-                    user = result.getSourceAsObject(User.class);
+                    user = (result.getSourceAsObject(User.class));
+
+//                    Log.d("ElasticSearchControllerGET", user.getId());
+                    Log.d("ElasticSearchControllerGET", new Gson().toJson(user));
+
                 }
                 else {
                     Log.i("Error", "The search query failed to find any users that matched");
@@ -99,23 +114,56 @@ public class ElasticSearchController {
         protected Void doInBackground(User... users){
             verifySettings();
             for (User user: users) {
-                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
+                Log.d("UpdateUsersTask", user.getId());
+                user.setLastModified(new Date()); //Try this for date?
+                // Delete first??
+                Delete delete = new Delete.Builder(user.getId()).index("cmput301f17t32_h4bi").type("User").build();
+                //Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
 
                 try {
-                    DocumentResult result = client.execute(index);
-                    if (result.isSucceeded()) {
-                        user.setId(result.getId()); // I added this line, maybe this is what was missing?
-                        Log.i("Success", "Update successful");
-                    }
-                    else {
-                        Log.i("Error", "Elastic search was not able to update the user");
-                    }
+                    client.execute(delete);
+                    Log.d("DELETE", "DELETE");
+//                    DocumentResult result = client.execute(index);
+//                    if (result.isSucceeded()) {
+//                        Log.d("Success", user.getId());
+//                        user.setId(result.getId()); // I added this line, maybe this is what was missing?
+//                        Log.i("Success", "Update successful");
+//                        Log.i("Success", new Gson().toJson(user));
+//                        Log.i("Success", result.getId());
+//                    }
+//                    else {
+//                        Log.i("Error", "Elastic search was not able to update the user");
+//                    }
                 }
                 catch (Exception e) {
                     Log.i("Error", "The application failed");
                     e.printStackTrace();
                 }
             }
+            return null;
+        }
+    }
+    public static class DeleteUserTask extends AsyncTask<User, Void, Void> {
+        protected Void doInBackground(User... users) {
+            verifySettings();
+
+            for (User user : users) {
+                try {
+                    DocumentResult result = client.execute(new Delete.Builder(user.getId())
+                            .index("cmput301f17t32_h4bit")
+                            .type("User")
+                            .build());
+                    if (result.isSucceeded()) {
+                        Log.i("ESC.DeleteUserTask", "The user was delete successfully.");
+                    } else {
+                        Log.e("ESC.DeleteUserTask", "Failed to delete user.");
+                    }
+                } catch (Exception e) {
+                    Log.e("ESC.UpdateUserTask", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                }
+
+            }
+
             return null;
         }
     }

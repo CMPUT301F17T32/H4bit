@@ -2,6 +2,7 @@ package h4bit.h4bit.Views;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
@@ -42,12 +44,15 @@ public class LoginActivity extends AppCompatActivity {
     private User user;
     private ArrayList<User> userList;
     private ElasticSearch elasticSearch = new ElasticSearch();
+    private Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        this.context = getApplicationContext();
 
         Button signupButton = (Button) findViewById(R.id.signupButton);
         Button crealogButton = (Button) findViewById(R.id.crealogButton);
@@ -133,11 +138,13 @@ public class LoginActivity extends AppCompatActivity {
             }
             // if username to register does not exist in database
             if (user == null) {
-                boolean userCreated = elasticSearch.addUser(new User(username));
-                if (userCreated) {
+                User newUser = elasticSearch.addUser(new User(username));
+                if (newUser != null) {
                     Log.i("Register", "Successfully registered");
                     Intent intent = new Intent(this, MainHabitActivity.class);
                     intent.putExtra("savefile", username + ".sav");
+                    // Save the newly created user!
+                    new SaveLoadController(username+".sav", context).save(newUser);
                     startActivity(intent);
                     finish();
                 } else {
