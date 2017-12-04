@@ -46,11 +46,6 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     }
 
-    /**
-     * for comparable interface for sorting
-     * @param compareHabitEvent other
-     * @return result
-     */
     public int compareTo(HabitEvent compareHabitEvent) {
 
         Date compareQuantity = compareHabitEvent.getDate();
@@ -60,13 +55,6 @@ public class HabitEvent implements Comparable<HabitEvent> {
     }
 
     //https://stackoverflow.com/questions/15759195/reduce-size-of-bitmap-to-some-specified-pixel-in-android
-
-    /**
-     * reduces size of a bitmap to a specified dimension
-     * @param image
-     * @param maxSize
-     * @return
-     */
     private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -84,12 +72,6 @@ public class HabitEvent implements Comparable<HabitEvent> {
     }
 
     //http://mobile.cs.fsu.edu/converting-images-to-json-objects/
-
-    /**
-     * converts bitmap into a string for json
-     * @param bitmapPicture the image
-     * @return the string
-     */
     private String getStringFromBitmap(Bitmap bitmapPicture) {
 
         final int COMPRESSION_QUALITY = 100;
@@ -102,11 +84,6 @@ public class HabitEvent implements Comparable<HabitEvent> {
         return encodedImage;
     }
 
-    /**
-     * converts string to bitmap of image
-     * @param jsonString the string
-     * @return the image
-     */
     private Bitmap getBitmapFromString(String jsonString) {
         byte[] decodedString = Base64.decode(jsonString, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

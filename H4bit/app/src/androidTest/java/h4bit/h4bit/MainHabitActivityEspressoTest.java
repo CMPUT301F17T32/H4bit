@@ -38,9 +38,11 @@ public class MainHabitActivityEspressoTest {
     @Test
     public void triggerIntentTest() {
         onView(withId(R.id.historyButton)).perform(click());
-        onView(withId(R.id.AutoCompleteName))
-                .perform(typeText("Habit1"), closeSoftKeyboard());
-
+        Intent resultData = new Intent();
+        String savefile = "file";
+        resultData.putExtra("savefile", savefile);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK, resultData);
+        intending(toPackage("h4bit.h4bit.Views;")).respondWith(result);
     }
 
 }

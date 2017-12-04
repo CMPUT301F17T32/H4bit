@@ -1,16 +1,12 @@
 package h4bit.h4bit.Views;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.R;
@@ -23,12 +19,11 @@ import h4bit.h4bit.Models.User;
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
-public class SocialActivity extends FragmentActivity implements FollowUserDialog.OnCompleteListener {
+public class SocialActivity extends AppCompatActivity {
 
     private User user;
     private String savefile;
     private StatusAdapter statusAdapter;
-    private FragmentManager fm = getFragmentManager();
     private SaveLoadController saveLoadController;
 
     @Override
@@ -48,19 +43,11 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button mapButton = (Button) findViewById(R.id.mapButton);
-        Button followButton = (Button) findViewById(R.id.followButton);
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
         statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
         ListView listView = (ListView) findViewById(R.id.habitStatusList);
         listView.setAdapter(statusAdapter);
-
-        followButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                FollowUserDialog fud = new FollowUserDialog();
-                fud.show(fm, "follow");
-            }
-        });
 
         mapButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -84,11 +71,6 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
             }
         });
 
-    }
-
-    public void onComplete(String username){
-        Log.d("here it is", username);
-        Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();
     }
 
     public void habitsTab(){

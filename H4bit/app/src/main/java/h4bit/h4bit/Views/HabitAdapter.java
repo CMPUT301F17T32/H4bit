@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -67,8 +66,6 @@ public class HabitAdapter extends BaseAdapter {
         TextView completed = (TextView) view.findViewById(R.id.completed);
         TextView missed = (TextView) view.findViewById(R.id.missed);
         TextView nextDate = (TextView) view.findViewById(R.id.nextDate);
-        ProgressBar completionBar = (ProgressBar) view.findViewById(R.id.habitProgress);
-
         ImageButton editButton = (ImageButton) view.findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener(){
            public void onClick(View view){
@@ -105,11 +102,8 @@ public class HabitAdapter extends BaseAdapter {
 
         if(theHabit.getCompletionRate() == -1){
             completionRate.setText("N/A");
-            completionBar.setProgress(0);
         } else {
             completionRate.setText(String.valueOf(Math.round(theHabit.getCompletionRate())) + "%");
-            completionBar.setMax(100);
-            completionBar.setProgress((int)Math.round(theHabit.getCompletionRate()));
         }
 
         completed.setText(String.valueOf(theHabit.getCompleted()));

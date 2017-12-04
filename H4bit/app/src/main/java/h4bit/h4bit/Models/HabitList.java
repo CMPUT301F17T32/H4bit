@@ -59,7 +59,7 @@ public class HabitList {
     }
 
     /**
-     * sorts habits by when they are next scheduled to be done
+     * Sorts the habit list chronologically
      */
     public void sortByNextDate(){
         for(int i = 0; i < habitArrayList.size(); i++){
