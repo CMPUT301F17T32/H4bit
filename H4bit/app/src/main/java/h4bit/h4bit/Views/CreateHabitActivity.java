@@ -72,7 +72,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         // load the user from the savefile
         // Make sure you use the more recent user object
         User user1 = saveLoadController.load();
-        try {
+        /*try {
             User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
             // Compare recent updated
             if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
@@ -85,9 +85,9 @@ public class CreateHabitActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             Toast.makeText(CreateHabitActivity.this, "ElasticSearch Down", Toast.LENGTH_SHORT).show();
-
-            user = user1;
-        }
+*/
+        user = user1;
+       // }
 
 
         // init the habit controller
