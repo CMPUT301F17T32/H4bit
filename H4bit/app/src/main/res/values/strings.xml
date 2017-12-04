@@ -44,4 +44,6 @@
     <string name="map">Map</string>
     <string name="follow">Follow</string>
     <string name="image">image</string>
+    <string name="send_request">Send Request</string>
+    <string name="please_enter_the_name_of_the_user_you_would_like_to_follow">Please enter the name of the user you would like to follow.</string>
 </resources>
