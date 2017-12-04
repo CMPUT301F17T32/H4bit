@@ -95,6 +95,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
         // First we need to get all the habitEvents
         // Then we need to iterate through them and add a marker for each event with a location
+        // This is an ugly method ugh
         if (mode.equals("history")) {
             for (int i = 0; i < habitEventList.size(); i++) {
                 HabitEvent habitEvent = habitEventList.get(i);
@@ -104,6 +105,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
                     map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
                 }
             }
+            // this is if nearby is selected
         } else if (mode.equals("nearby") && currentLocation!=null){
             for (int i = 0; i < habitEventList.size(); i++) {
                 HabitEvent habitEvent = habitEventList.get(i);
@@ -129,7 +131,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
                     }
                 }
             }
-            // Display follow and your own social markers within 5km's of current location
+            // this is if just social is selected
         } else {
             for (int i = 0; i < habitEventList.size(); i++) {
                 HabitEvent habitEvent = habitEventList.get(i);
