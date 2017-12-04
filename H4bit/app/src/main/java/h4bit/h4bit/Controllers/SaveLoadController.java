@@ -95,7 +95,7 @@ public class SaveLoadController {
         try{
             user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
         } catch (Exception e) {
-            user2 = user1;
+            return user1;
         }
         // Compute which user file to return
         if (user1.getLastModified().getTime() <= user2.getLastModified().getTime()) {
