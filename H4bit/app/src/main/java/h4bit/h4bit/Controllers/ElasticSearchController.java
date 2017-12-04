@@ -114,26 +114,25 @@ public class ElasticSearchController {
         protected Void doInBackground(User... users){
             verifySettings();
             for (User user: users) {
-                Log.d("UpdateUsersTask", user.getId());
+//                Log.d("UpdateUsersTask", user.getId());
                 user.setLastModified(new Date()); //Try this for date?
                 // Delete first??
-                Delete delete = new Delete.Builder(user.getId()).index("cmput301f17t32_h4bi").type("User").build();
-                //Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
+                //Delete delete = new Delete.Builder(user.getId()).index("cmput301f17t32_h4bi").type("User").build();
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
 
                 try {
-                    client.execute(delete);
-                    Log.d("DELETE", "DELETE");
-//                    DocumentResult result = client.execute(index);
-//                    if (result.isSucceeded()) {
-//                        Log.d("Success", user.getId());
-//                        user.setId(result.getId()); // I added this line, maybe this is what was missing?
-//                        Log.i("Success", "Update successful");
-//                        Log.i("Success", new Gson().toJson(user));
-//                        Log.i("Success", result.getId());
-//                    }
-//                    else {
-//                        Log.i("Error", "Elastic search was not able to update the user");
-//                    }
+                    client.execute(index);
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        Log.d("Success", user.getId());
+                        user.setId(result.getId()); // I added this line, maybe this is what was missing?
+                        Log.i("Success", "Update successful");
+                        Log.i("Success", new Gson().toJson(user));
+                        Log.i("Success", result.getId());
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to update the user");
+                    }
                 }
                 catch (Exception e) {
                     Log.i("Error", "The application failed");
