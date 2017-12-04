@@ -65,7 +65,7 @@ public class SaveLoadController {
             throw new RuntimeException();
         }
         // also save online
-//        elasticSearch.updateUser(user);
+        elasticSearch.updateUser(user);
 
     }
 
@@ -91,25 +91,28 @@ public class SaveLoadController {
         } catch (FileNotFoundException e) {
             return new User(savefile.substring(0, savefile.length() - 4));
         }
-         return user1;   // this is the older save locally thing
-//        try{
-//            user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
-//        } catch (Exception e) {
-//            return user1;
-//        }
-//        // Check on registration for null user
-//        if (user2 == null) {
-//            Log.d("SaveLoadController", "Online user is null");
-//            return user1;
-//        }
-//        // Compute which user file to return
-//        if (user1.getLastModified().getTime() <= user2.getLastModified().getTime()) {
-//            Log.d("SaveLoadController", user1.getLastModified().toString() + " <= " + user2.getLastModified().toString() + ": using online");
-//            return user2;
-//        } else {
-//            Log.d("SaveLoadController", user1.getLastModified().toString()+" > "+user2.getLastModified().toString()+": using local");
-//            return user1;
-//        }
+        // return user1   // this is the older save locally thing
+
+        // This tries to pull the user object stored in the database
+        try{
+            user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+        } catch (Exception e) {
+            // If it fails it just uses the locally stored user
+            return user1;
+        }
+        // Check on registration for null user, ie a user stored incorrectly on the database
+        if (user2 == null) {
+            Log.d("SaveLoadController", "Online user is null");
+            return user1;
+        }
+        // Compute which user file to return based on their last modified date
+        if (user1.getLastModified().getTime() <= user2.getLastModified().getTime()) {
+            Log.d("SaveLoadController", user1.getLastModified().toString() + " <= " + user2.getLastModified().toString() + ": using online");
+            return user2;
+        } else {
+            Log.d("SaveLoadController", user1.getLastModified().toString()+" > "+user2.getLastModified().toString()+": using local");
+            return user1;
+        }
 
     }
 

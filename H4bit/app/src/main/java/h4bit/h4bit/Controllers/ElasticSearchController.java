@@ -104,6 +104,7 @@ public class ElasticSearchController {
                 try {
                     DocumentResult result = client.execute(index);
                     if (result.isSucceeded()) {
+                        user.setId(result.getId()); // I added this line, maybe this is what was missing?
                         Log.i("Success", "Update successful");
                     }
                     else {
