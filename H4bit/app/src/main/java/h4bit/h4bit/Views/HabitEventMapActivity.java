@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -50,6 +51,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Init local variables
+        Log.d("HabitEventMapActivity", "onCreate ran successfully");
         String savefile;
         FragmentManager fragmentManager;
         SaveLoadController saveLoadController;
@@ -61,6 +63,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
 
         // Load the mode
         mode = getIntent().getStringExtra("mode");
+        Log.d("HabitEventMapActivity", mode + " mode");
 
         // Load save
         savefile = getIntent().getStringExtra("savefile");
@@ -97,6 +100,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         // Then we need to iterate through them and add a marker for each event with a location
         // This is an ugly method ugh
         if (mode.equals("history")) {
+            Log.d("HabitEventMapActivity", "History map async");
+
             for (int i = 0; i < habitEventList.size(); i++) {
                 HabitEvent habitEvent = habitEventList.get(i);
                 if (habitEvent.getLocation() != null) {
@@ -107,6 +112,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
             }
             // this is if nearby is selected
         } else if (mode.equals("nearby") && currentLocation!=null){
+            Log.d("HabitEventMapActivity", "Nearby map async");
+
             for (int i = 0; i < habitEventList.size(); i++) {
                 HabitEvent habitEvent = habitEventList.get(i);
                 if (habitEvent.getLocation() != null) {
@@ -132,9 +139,11 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
                 }
             }
             // this is if just social is selected
-        } else {
-            for (int i = 0; i < habitEventList.size(); i++) {
-                HabitEvent habitEvent = habitEventList.get(i);
+        } else if (mode.equals("social")){
+            Log.d("HabitEventMapActivity", "Social map async");
+
+            for (int i = 0; i < socialEventList.size(); i++) {
+                HabitEvent habitEvent = socialEventList.get(i);
                 if (habitEvent.getLocation() != null) {
                     Location location = habitEvent.getLocation();
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
