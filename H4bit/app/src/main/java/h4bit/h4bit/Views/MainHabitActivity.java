@@ -46,7 +46,6 @@ public class MainHabitActivity extends AppCompatActivity {
     private User user;
     private String savefile;
     private SaveLoadController saveLoadController;
-    private ElasticSearch elasticSearch = new ElasticSearch();
 
     // This is just a placeholder to see if I can figure out how to list everything again
     //private ArrayAdapter<Habit> adapter;

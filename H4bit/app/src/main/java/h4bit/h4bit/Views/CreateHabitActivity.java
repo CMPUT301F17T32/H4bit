@@ -53,7 +53,6 @@ public class CreateHabitActivity extends AppCompatActivity {
     private String mode;
     private int position;
     private SaveLoadController saveLoadController;
-    private ElasticSearch elasticSearch = new ElasticSearch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
