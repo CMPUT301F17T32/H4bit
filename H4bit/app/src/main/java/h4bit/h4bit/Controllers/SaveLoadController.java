@@ -1,6 +1,7 @@
 package h4bit.h4bit.Controllers;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -29,6 +30,11 @@ public class SaveLoadController {
     private Context context;
     private ElasticSearch elasticSearch = new ElasticSearch();
 
+    /**
+     * This initializes the SaveLoadController object
+     * @param savefile This is the String username that it will save/load to
+     * @param context This is the context of the current activity
+     */
     public SaveLoadController(String savefile, Context context){
         this.savefile = savefile;
         this.context = context;
@@ -37,9 +43,13 @@ public class SaveLoadController {
         // Solution: Make load return a user object
     }
 
+    /**
+     * This will save the user object locally, with the file being the name of the username
+     * @param user This should be a user object
+     */
     public void save(User user){
+        user.setLastModified(new Date());
         try {
-            user.setLastModified(new Date());
             FileOutputStream fos = context.openFileOutput(savefile, Context.MODE_PRIVATE);
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
@@ -54,11 +64,18 @@ public class SaveLoadController {
         } catch (IOException e) {
             throw new RuntimeException();
         }
+        // also save online
+        elasticSearch.updateUser(user);
 
     }
 
-    public User load(){
-        User user;
+    /**
+     * This will return a user object with the savefile name passed in on initialization
+     * @return will return a user object
+     */
+    public User load() {
+        User user1;
+        User user2;
 
         try {
             FileInputStream fis = context.openFileInput(savefile);
@@ -69,11 +86,34 @@ public class SaveLoadController {
             //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2017-09-19
 //            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
-            user = gson.fromJson(in, User.class);
+            user1 = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
-            user = new User("test!");
+            return new User(savefile.substring(0, savefile.length() - 4));
         }
-        return user;
+        // return user1   // this is the older save locally thing
+
+        // This tries to pull the user object stored in the database
+        try{
+            user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
+        } catch (Exception e) {
+            // If it fails it just uses the locally stored user
+            return user1;
+        }
+        // Check on registration for null user, ie a user stored incorrectly on the database
+        if (user2 == null) {
+            Log.d("SaveLoadController", "Online user is null");
+            return user1;
+        }
+        // Compute which user file to return based on their last modified date
+        if (user1.getLastModified().getTime() <= user2.getLastModified().getTime()) {
+            Log.d("SaveLoadController", user1.getLastModified().toString() + " <= " + user2.getLastModified().toString() + ": using online");
+            return user2;
+        } else {
+            Log.d("SaveLoadController", user1.getLastModified().toString()+" > "+user2.getLastModified().toString()+": using local");
+            return user1;
+        }
+
     }
+
 }
