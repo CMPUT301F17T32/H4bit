@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
+import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 
@@ -30,6 +31,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
     private StatusAdapter statusAdapter;
     private FragmentManager fm = getFragmentManager();
     private SaveLoadController saveLoadController;
+    private ElasticSearch elasticSearch = new ElasticSearch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,14 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
      */
     public void onComplete(String username){
         Log.d("here it is", username);
-        Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();
+        try {
+            User followRecipient = elasticSearch.getUser(username);
+            if (followRecipient.getUsername().equals(username)) {
+                Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(SocialActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void habitsTab(){
