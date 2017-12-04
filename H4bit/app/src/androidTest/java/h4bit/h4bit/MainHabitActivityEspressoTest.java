@@ -33,6 +33,13 @@ import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
 import static org.hamcrest.CoreMatchers.anything;
 
+/**
+ * MainHabitActivityEspressoTest
+ * Version 1.0
+ * december 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
+
 public class MainHabitActivityEspressoTest {
     @Rule
     public IntentsTestRule<LoginActivity> mActivityRule =

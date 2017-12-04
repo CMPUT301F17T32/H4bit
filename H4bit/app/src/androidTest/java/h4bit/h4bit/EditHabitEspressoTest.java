@@ -20,7 +20,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.anything;
 
-
+/**
+ * EditHabitActivityEspressoTest
+ * Version 1.0
+ * december 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
+ */
 @RunWith(AndroidJUnit4.class)
 public class EditHabitEspressoTest {
 
