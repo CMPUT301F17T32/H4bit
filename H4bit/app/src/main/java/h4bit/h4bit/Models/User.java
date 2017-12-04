@@ -6,6 +6,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.searchbox.annotations.JestId;
+
 /** User class
  * version 1.0
  * 2017-10-20.
@@ -14,7 +16,9 @@ import java.util.Date;
 
 public class User {
 
+    @JestId
     private String id;
+
     private String username;
     private Image profilePicture;
     private HabitList habitList;
