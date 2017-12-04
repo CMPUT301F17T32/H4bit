@@ -89,7 +89,7 @@ public class SaveLoadController {
             user1 = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
-            user1 = new User("test");
+            return new User(savefile.substring(0, savefile.length() - 4));
         }
         // return user1   // this is the older save locally thing
         try{

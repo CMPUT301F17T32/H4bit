@@ -165,7 +165,7 @@ public class ElasticSearchController {
             //for (User user: users) {
                 // try this to modify last thing
             users[0].setLastModified(new Date());
-            Index index = new Index.Builder(users[0]).index("cmput301f17t32_h4bit").type("User").id(users[0].getId()).build();
+            Index index = new Index.Builder(users[0]).index("cmput301f17t32_h4bit").type("User").id(users[0].getUsername()).build();
 
             try {
                 DocumentResult result = client.execute(index);
