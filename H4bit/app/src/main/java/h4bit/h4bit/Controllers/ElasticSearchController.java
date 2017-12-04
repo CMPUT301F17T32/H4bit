@@ -36,73 +36,10 @@ import io.searchbox.core.SearchResult;
 public class ElasticSearchController {
     private static JestDroidClient client;
 
-    // TODO we need a function which adds tweets to elastic search
-    public static class AddHabitsTask extends AsyncTask<Habit, Void, Void> {
+    public static class AddUsersTask extends AsyncTask<User, Void, Void> {
 
         @Override
-        protected Void doInBackground(Habit... habits) {
-            verifySettings();
-
-            for (Habit habit : habits) {
-                Index index = new Index.Builder(habit).index("cmput301f17t32_h4bit").type("Habit").build();
-
-                try {
-                    // where is the client?
-                    DocumentResult result = client.execute(index);
-
-                    if (result.isSucceeded()) {
-                        habit.setId(result.getId());
-                        Log.i("Success", "Habit added");
-                    } else {
-                        Log.i("Error", "Elasticsearch was not able to add the habit");
-                    }
-
-                } catch (Exception e) {
-                    Log.i("Error", "The application failed to build and send the habits");
-                }
-            }
-        return null;
-        }
-    }
-
-    public static class GetHabitsTask extends AsyncTask<String, Void, ArrayList<Habit>> {
-        @Override
-        protected ArrayList<Habit> doInBackground(String... search_parameters) {
-            verifySettings();
-
-            ArrayList<Habit> habits = new ArrayList<Habit>();
-
-            // TODO Build the query
-            // sorted by most recent to oldest
-            String query = "{\"sort\" : [{\"date\" : {\"order\" : \"desc\"}}],\"query\":{\"query_string\" :{\"fields\" : [\"user.userName\"],\"query\" :\""+ search_parameters[0]+"\"}}}";
-
-            Search search = new Search.Builder(query)
-                    .addIndex("cmput301f17t32_h4bit")
-                    .addType("Habit")
-                    .build();
-            try {
-                // TODO get the results of the query
-                SearchResult result = client.execute(search);
-
-                if (result.isSucceeded()) {
-                    List<Habit> foundHabits = result.getSourceAsObjectList(Habit.class);
-                    habits.addAll(foundHabits);
-                } else {
-                    Log.i("Error","Something went wrong when we tried to communicate with the server");
-                }
-            }
-            catch (Exception e) {
-                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
-            }
-
-            return habits;
-        }
-    }
-
-      public static class AddUsersTask extends AsyncTask<User, Void, Void> {
-
-        @Override
-          protected Void doInBackground(User... users) {
+        protected Void doInBackground(User... users) {
             verifySettings();
             for (User user: users) {
                 Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").build();
@@ -123,7 +60,7 @@ public class ElasticSearchController {
             }
             return null;
         }
-      }
+    }
 
     // This function is used for getting a user object from the database
     public static class GetUsersTask extends AsyncTask<String, Void, User> {
@@ -163,7 +100,7 @@ public class ElasticSearchController {
         protected Void doInBackground(User... users){
             verifySettings();
             //for (User user: users) {
-                // try this to modify last thing
+            // try this to modify last thing
             users[0].setLastModified(new Date());
             Index index = new Index.Builder(users[0]).index("cmput301f17t32_h4bit").type("User").id(users[0].getUsername()).build();
 

@@ -68,37 +68,4 @@ public class ElasticSearch {
         getUsersTask.execute(username);
         return getUsersTask.get();
     }
-
-    /**
-     * This function adds a habit to the database
-     * returns true if habit is added, false if it failed to add habit
-     * @param habit
-     * @return
-     */
-    public boolean addHabit(Habit habit) {
-        ElasticSearchController.AddHabitsTask addHabitsTask = new ElasticSearchController.AddHabitsTask();
-        addHabitsTask.execute(habit);
-        try {
-            addHabitsTask.get();
-            return true;
-        }
-        catch (Exception e) {
-            Log.i("Error", "Failed to add habit");
-            return false;
-        }
-    }
-
-    /**
-     * This function gets the habits of a user from teh database
-     * @param user
-     * @return userHabitList
-     * @throws ExecutionException
-     * @throws InterruptedException
-     */
-    public ArrayList<Habit> getUserHabits(User user) throws ExecutionException, InterruptedException {
-        ElasticSearchController.GetHabitsTask getHabitsTask = new ElasticSearchController.GetHabitsTask();
-        getHabitsTask.execute(user.getUsername());
-        userHabitList = getHabitsTask.get();
-        return userHabitList;
-    }
 }

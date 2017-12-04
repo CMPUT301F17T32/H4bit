@@ -116,5 +116,10 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
+
+    // For testing purposes
+    public String toString(){
+        return this.getHabitList().getHabit(0).getName();
+    }
 }
 
