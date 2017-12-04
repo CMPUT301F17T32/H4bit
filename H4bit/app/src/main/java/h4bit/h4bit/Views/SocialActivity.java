@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.R;
@@ -87,6 +88,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
 
     public void onComplete(String username){
         Log.d("here it is", username);
+        Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();
     }
 
     public void habitsTab(){

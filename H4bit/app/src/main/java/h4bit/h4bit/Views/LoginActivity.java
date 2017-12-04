@@ -3,6 +3,8 @@ package h4bit.h4bit.Views;
 
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
+import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.ElasticSearch;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
@@ -42,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     private User user;
     private ArrayList<User> userList;
     private ElasticSearch elasticSearch = new ElasticSearch();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,29 +86,43 @@ public class LoginActivity extends AppCompatActivity {
     public void login() throws ExecutionException, InterruptedException {
 
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        //EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
         String username = usernameText.getText().toString();
-        String password = passwordText.getText().toString();
+        //String password = passwordText.getText().toString();
 
         if (username.isEmpty()) {
             //Log.i("Login", "Please enter a username");
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {  // need + so it doesn't only compare 1 letter
-            try {
-                User user = elasticSearch.getUser(username);
-                if (user.getUsername().equals(username)) {
-                    Log.i("Login", "Username exists");
+            Log.d("network12", String.valueOf(isNetworkAvailable()));
+            if(isNetworkAvailable()){
+                try {
+                    User user = elasticSearch.getUser(username);
+                    if (user.getUsername().equals(username)) {
+                        Log.i("Login", "Username exists");
+                        Intent intent = new Intent(this, MainHabitActivity.class);
+                        intent.putExtra("savefile", username + ".sav");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Log.i("Login", "Can't find");
+                    }
+                } catch (Exception e) {
+                    Log.i("Login", "Error Getting Profile");
+                    Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                SaveLoadController slc = new SaveLoadController(username + ".sav", this);
+                user = slc.load();
+                if(user.getUsername().equals("test!")){
+                    Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent intent = new Intent(this, MainHabitActivity.class);
                     intent.putExtra("savefile", username + ".sav");
                     startActivity(intent);
                     finish();
-                } else {
-                    Log.i("Login", "Can't find");
                 }
-            } catch (Exception e) {
-                Log.i("Login", "Error Getting Profile");
-                Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(LoginActivity.this, "Invalid username. Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
@@ -120,38 +136,60 @@ public class LoginActivity extends AppCompatActivity {
 
         User user = new User();
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
+        //EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
         String username = usernameText.getText().toString();
         if (username.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {
-            try {
-              user = elasticSearch.getUser(username);
-            } catch (Exception e) {
-                Toast.makeText(LoginActivity.this, "Could not fetch", Toast.LENGTH_SHORT).show();
-            }
-            // if username to register does not exist in database
-            if (user == null) {
-                boolean userCreated = elasticSearch.addUser(new User(username));
-                if (userCreated == true) {
-                    Log.i("Register", "Successfully registered");
+            if(isNetworkAvailable()){
+                try {
+                  user = elasticSearch.getUser(username);
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, "Could not fetch", Toast.LENGTH_SHORT).show();
+                }
+                // if username to register does not exist in database
+                if (user == null) {
+                    boolean userCreated = elasticSearch.addUser(new User(username));
+                    if (userCreated == true) {
+                        Log.i("Register", "Successfully registered");
+                        Intent intent = new Intent(this, MainHabitActivity.class);
+                        intent.putExtra("savefile", username + ".sav");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Log.i("Register", "Failed to create account");
+                        Toast.makeText(LoginActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
+                    }
+                    // username does exist in database
+                } else {
+                    Log.i("Register", "User exists");
+                    Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                SaveLoadController slc = new SaveLoadController(username + ".sav", this);
+                user = slc.load();
+                if(user.getUsername().equals("test!")){
+                    slc = new SaveLoadController(username + ".sav", this);
+                    slc.save(new User(username));
                     Intent intent = new Intent(this, MainHabitActivity.class);
                     intent.putExtra("savefile", username + ".sav");
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.i("Register", "Failed to create account");
-                    Toast.makeText(LoginActivity.this, "Failed to create account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
                 }
-            // username does exist in database
-            } else {
-                Log.i("Register", "User exists");
-                Toast.makeText(LoginActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(LoginActivity.this, "Invalid username. Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
 

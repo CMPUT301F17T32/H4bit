@@ -30,9 +30,9 @@ public class Habit implements Comparable<Habit> {
 
     /**
      *
-     * @param name
-     * @param comment
-     * @param schedule
+     * @param name of habit
+     * @param comment for habit
+     * @param schedule which days of the week
      */
     public Habit(String name, String comment, boolean[] schedule) {
 
@@ -60,6 +60,10 @@ public class Habit implements Comparable<Habit> {
 
     }
 
+    /**
+    *
+    * Determines the number of days between two dates
+     */
     private int dayDifference(Date d1, Date d2){
         //float diff = d2.getTime()/86400000 - d1.getTime()/86400000;
         //int result = (int)diff;
@@ -67,6 +71,10 @@ public class Habit implements Comparable<Habit> {
         return result;
     }
 
+    /**
+    *
+    * Calculates the values for completed and missed based on event list
+     */
     public void updateStats(HabitEventList habitEventList){
         int numDays = dayDifference(this.getUpdatedDate(), new Date());
         Date theDate = this.getUpdatedDate();
@@ -94,7 +102,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     *
+     * calculates percent of completed habits
      * @return completionRate
      */
     public double getCompletionRate() {
@@ -110,10 +118,10 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     *
-     * @param comment
-     * @param location
-     * @param habitEventList
+     * creates a new habit event for this type of habit
+     * @param comment comment for habit event
+     * @param location location of habit event
+     * @param habitEventList list to be added to
      */
     public HabitEvent doHabit(String comment, Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
@@ -128,10 +136,6 @@ public class Habit implements Comparable<Habit> {
         return theEvent;
     }
 
-    /**
-     *
-     * @param habitEventList
-     */
     public HabitEvent doHabit(Location location, HabitEventList habitEventList) {
         setCompleted(getCompleted() + 1);
         setDoneToday(true);
@@ -146,7 +150,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     *
+     * Determine's how many days until the next time a habit must be completed
      * @return nextDate
      */
     public int setNextDate(){
@@ -209,7 +213,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     *
+     * returns a string representation of a day of the week
      * @return date
      */
     public String getNextDayString(){
@@ -231,7 +235,7 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     *
+     * used to implement comparable for sorting purposes
      * @param compareHabit habit you want to compare
      * @return nextDate
      */
@@ -246,7 +250,7 @@ public class Habit implements Comparable<Habit> {
 
     /**
      *
-     * @param schedule
+     * @param schedule boolean for each day of the week
      */
     public void editSchedule(boolean[] schedule){
         setSchedule(schedule);
@@ -256,6 +260,11 @@ public class Habit implements Comparable<Habit> {
         return startDate;
     }
 
+    /**
+     * removes events prior to the new start date, and updates stats
+     * @param startDate new start date
+     * @param habitEventList list of events
+     */
     public void setStartDate(Date startDate, HabitEventList habitEventList){
         this.startDate = startDate;
         //Date today = new Date();

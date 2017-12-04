@@ -28,6 +28,11 @@ public class HabitEventList {
         Collections.sort(habitEventList);
     }
 
+    /**
+     * determines whether a habit has been completed today based on events
+     * @param habit the type
+     * @return true or false
+     */
     public boolean isDoneToday(Habit habit){
         Date date = new Date();
         this.sortByDate();
@@ -54,5 +59,6 @@ public class HabitEventList {
     public void deleteHabitEvent(HabitEvent habitEvent){
         this.habitEventList.remove(habitEvent);
     }
+
     public void clearList(){  habitEventList.clear();}
 }

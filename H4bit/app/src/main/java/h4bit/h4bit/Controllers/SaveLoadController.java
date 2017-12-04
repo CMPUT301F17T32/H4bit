@@ -72,7 +72,7 @@ public class SaveLoadController {
             user = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
-            user = new User("test");
+            user = new User("test!");
         }
         return user;
     }
