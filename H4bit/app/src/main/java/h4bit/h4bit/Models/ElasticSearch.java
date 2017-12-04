@@ -41,6 +41,30 @@ public class ElasticSearch {
         }
     }
 
+    public boolean deleteProfile(User user){
+        if(user != null) {
+            User usr = new User();
+            try {
+                usr = getUser(user.getUsername());
+                ElasticSearchController.DeleteUserTask deleteProfileTask = new ElasticSearchController.DeleteUserTask();
+                deleteProfileTask.execute(usr);
+                try {
+                    deleteProfileTask.get();
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            } catch (Exception e){
+                Log.i("Error","No such profile exists in the database");
+                return false;
+            }
+        }
+        else{
+            Log.i("Error", "Invalid Profile entered");
+            return false;
+        }
+    }
+
     public void updateUser(User user) {
         Log.d("ElasticSearch", "Updating online user with: "+new Gson().toJson(user));
         ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
