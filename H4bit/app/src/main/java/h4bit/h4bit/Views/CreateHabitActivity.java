@@ -71,24 +71,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // load the user from the savefile
         // Make sure you use the more recent user object
-        User user1 = saveLoadController.load();
-        try {
-//            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
-            User user2 = elasticSearch.getUser("ben3");
-            // Compare recent updated
-            if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
-                user = user1;
-                Log.d("LOADERROR", "LOCAL SAVE LOADED");
-            } else {
-                user = user2;
-                Log.d("LOADERROR", "ONLINE SAVE LOADED");
-
-            }
-        } catch (Exception e) {
-            Log.d("LOADERROR", "LOCAL SAVE LOADED NO ELASTIC SEARCH");
-            user = user1;
-        }
-
+        user = saveLoadController.load();
 
         // init the habit controller
         this.habitController = new HabitController();
@@ -243,7 +226,6 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // Save the new user to the user save file
         saveLoadController.save(this.user);
-        elasticSearch.updateUser(user);
 
         // Finish the activity and take us back to the main habit screen
         finish();
@@ -252,17 +234,12 @@ public class CreateHabitActivity extends AppCompatActivity {
     public void editHabit(int year, int month, int day) {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
-//        HabitList habitList = user.getHabitList();
-//        Habit habit = habitList.getHabit(this.position);
         if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date(year - 1900, month, day)) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;
         }
         // do nothing if edit returns -1
-
         saveLoadController.save(user);
-        elasticSearch.updateUser(user);
         finish();
     }
 }

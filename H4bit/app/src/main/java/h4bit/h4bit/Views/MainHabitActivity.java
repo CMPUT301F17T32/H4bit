@@ -65,30 +65,9 @@ public class MainHabitActivity extends AppCompatActivity {
 
         // Loads the user
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
-        // load the user from the savefile
-        // Make sure you use the more recent user object
-        User user1 = saveLoadController.load();
-        try {
-//            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
-            User user2 = elasticSearch.getUser("ben3");
-            // Compare recent updated
-            if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
-                user = user1;
-                Log.d("LOADERROR", "LOCAL SAVE LOADED");
-            } else {
-                user = user2;
-                Log.d("LOADERROR", "ONLINE SAVE LOADED");
 
-            }
-        } catch (Exception e) {
-            Log.d("LOADERROR", "LOCAL SAVE LOADED NO ELASTIC SEARCH");
-            user = user1;
-        }
-//        loadFromFile();
-
-        // Again, clumsy but serving a basic purpose mostly right now
-        // This will display all the users habits, not the ones due today
-
+        user = saveLoadController.load();
+        
         // list adapter init
         habitList = user.getHabitList();
         habitList.sortByNextDate();
@@ -140,21 +119,6 @@ public class MainHabitActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-    /*protected void onResume(){
-
-        super.onResume();
-        loadFromFile();
-        habitList = user.getHabitList();
-        habitList.sortByNextDate();
-        habitAdapter = new HabitAdapter(this, habitList, savefile);
-        listView = (ListView)findViewById(R.id.habitsList);
-        listView.setAdapter(habitAdapter);
-        user.getHabitList().sortByNextDate();
-        habitAdapter.notifyDataSetChanged();
-        saveInFile();
-    }*/
-
     /* This takes us to the history tab */
     public void historyTab(){
         // This should start an activity
@@ -183,10 +147,8 @@ public class MainHabitActivity extends AppCompatActivity {
         // So when we get to here a new habit was added to the users list and saved
         // do we have to reload the user from the save file then notify the adapter?
         // or will we have to reload the listview as well?
-        user = saveLoadController.load();
-//        loadFromFile();
-        habitAdapter.notifyDataSetChanged();
+//        user = saveLoadController.load();
+//        habitAdapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
-        // TODO add backbutton to xml
     }
 }

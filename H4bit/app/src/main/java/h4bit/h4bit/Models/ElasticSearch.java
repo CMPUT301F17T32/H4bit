@@ -41,7 +41,9 @@ public class ElasticSearch {
     }
 
     public boolean updateUser(User user) {
+        user.setLastModified(new Date());
         ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
+        user.setLastModified(new Date());
         updateUserTask.execute(user);
         try {
             user.setLastModified(new Date());

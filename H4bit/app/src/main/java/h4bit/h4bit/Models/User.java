@@ -31,6 +31,7 @@ public class User {
         requests = new ArrayList<>();
         followers = new ArrayList<>();
         following = new ArrayList<>();
+        lastModified = new Date();
 
     }
     public User (String username){
@@ -40,6 +41,7 @@ public class User {
         requests = new ArrayList<>();
         followers = new ArrayList<>();
         following = new ArrayList<>();
+        lastModified = new Date();
 
     }
 
@@ -105,9 +107,7 @@ public class User {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
+    public void setLastModified(Date newLastModified) {this.lastModified = newLastModified;}
 
     public String getId() {
         return id;
