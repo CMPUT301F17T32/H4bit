@@ -11,6 +11,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.HabitEvent;
@@ -51,8 +52,12 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
 
-        // Get habitEventList
         habitEventList = user.getHabitEventList();
+        // Get habitEventList
+        if (mode.equals("history")){
+            Gson gson = new Gson();
+            habitEventList = gson.fromJson(getIntent().getStringExtra("list"), HabitEventList.class);
+        }
 
         // Init the map
         fragmentManager = getFragmentManager();

@@ -11,7 +11,6 @@ import org.w3c.dom.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import h4bit.h4bit.Models.Habit;
@@ -99,26 +98,23 @@ public class ElasticSearchController {
         @Override
         protected Void doInBackground(User... users){
             verifySettings();
-            //for (User user: users) {
-            // try this to modify last thing
-            users[0].setLastModified(new Date());
-            Index index = new Index.Builder(users[0]).index("cmput301f17t32_h4bit").type("User").id(users[0].getUsername()).build();
+            for (User user: users) {
+                Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
 
-            try {
-                DocumentResult result = client.execute(index);
-                if (result.isSucceeded()) {
-                    //user.setLastModified(new Date());
-                    Log.i("Success", "Update successful");
+                try {
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()) {
+                        Log.i("Success", "Update successful");
+                    }
+                    else {
+                        Log.i("Error", "Elastic search was not able to update the user");
+                    }
                 }
-                else {
-                    Log.i("Error", "Elastic search was not able to update the user");
+                catch (Exception e) {
+                    Log.i("Error", "The application failed");
+                    e.printStackTrace();
                 }
             }
-            catch (Exception e) {
-                Log.i("Error", "The application failed");
-                e.printStackTrace();
-            }
-//            }
             return null;
         }
     }

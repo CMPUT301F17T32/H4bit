@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.MapFragment;
+import com.google.gson.Gson;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -108,6 +109,8 @@ public class HabitHistoryActivity extends FragmentActivity{
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
                 intent.putExtra("mode", "history");
+                // put in the custom habitEventList
+                intent.putExtra("list", new Gson().toJson(habitEventList));
                 startActivity(intent);
             }});
 
