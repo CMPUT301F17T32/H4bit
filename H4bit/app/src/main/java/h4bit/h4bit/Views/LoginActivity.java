@@ -104,6 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("Login", "Username exists");
                     Intent intent = new Intent(this, MainHabitActivity.class);
                     intent.putExtra("savefile", username + ".sav");
+                    // Test this
+                    new SaveLoadController(username+".sav", context).save(user);
                     startActivity(intent);
                     finish();
                 } else {
