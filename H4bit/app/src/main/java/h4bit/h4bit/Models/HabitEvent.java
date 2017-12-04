@@ -63,8 +63,8 @@ public class HabitEvent implements Comparable<HabitEvent> {
 
     /**
      * reduces size of a bitmap to a specified dimension
-     * @param image
-     * @param maxSize
+     * @param image Bitmap
+     * @param maxSize integer maximum size
      * @return
      */
     private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
