@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.anything;
 
 
 @RunWith(AndroidJUnit4.class)
-public class EditHabitEspressoTest {
+public class HabitHistoryEspressoTest {
 
 
     @Rule
@@ -30,7 +30,7 @@ public class EditHabitEspressoTest {
             new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void ensureTextChangesWork() {
+    public void ensureHabitHistoryWorks() {
         // Type text and then press the button.
         onView(withId(R.id.usernameText)).perform(typeText("test3"),
                 closeSoftKeyboard());
@@ -46,10 +46,19 @@ public class EditHabitEspressoTest {
         onView(withId(R.id.tuesdayToggle)).perform(click());
         //onView(withId(R.id.crealogButton)).perform(click());
         onView(withId(R.id.createButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0).perform(click());
+        onView(withId(R.id.doHabitButton)).perform(click());
+        onView(withId(R.id.historyButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0);
-
-        // Check that the text was changed.
-        //onView(withId(R.id.nameText)).check(matches(withText("Habit1")));
-        //onView(withId(R.id.commentText)).check(matches(withText("Comment1")));
     }
+    @Test
+    public void transferToSocial() {
+        onView(withId(R.id.usernameText)).perform(typeText("test3"),
+                closeSoftKeyboard());
+        onView(withId(R.id.crealogButton)).perform(click());
+        onView(withId(R.id.historyButton)).perform(click());
+        onView(withId(R.id.socialButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.habitStatusList)).atPosition(0);
+    }
+
 }

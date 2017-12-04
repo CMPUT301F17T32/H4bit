@@ -16,6 +16,7 @@ import org.junit.Test;
 import h4bit.h4bit.Views.LoginActivity;
 import h4bit.h4bit.Views.MainHabitActivity;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -30,6 +31,8 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.toPackage;
+import static org.hamcrest.CoreMatchers.anything;
+
 public class MainHabitActivityEspressoTest {
     @Rule
     public IntentsTestRule<LoginActivity> mActivityRule =
@@ -39,12 +42,17 @@ public class MainHabitActivityEspressoTest {
     public void transferToHistory() {
         login();
         onView(withId(R.id.historyButton)).perform(click());
-        onView(withId(R.id.AutoCompleteName))
-                .perform(typeText("Habit1345"), closeSoftKeyboard());
-        onView(withId(R.id.searchButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.habitStatusList)).atPosition(0);
+        //onView(withId(R.id.AutoCompleteName))
+          //      .perform(typeText("Habit1345"), closeSoftKeyboard());
+        //onView(withId(R.id.searchButton)).perform(click());
 
-
-
+    }
+    @Test
+    public void transferToSocial(){
+        login();
+        onView(withId(R.id.socialButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.eventsList)).atPosition(0);
 
     }
     public void login() {
