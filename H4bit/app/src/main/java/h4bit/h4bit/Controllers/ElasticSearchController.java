@@ -26,21 +26,22 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.Update;
 
-/** User class
+/** ElasticSearchController
  * version 1.0
  * 2017-11-06.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
- * shelved for now
  */
 
 
 /*
- * Taken from lab 5
+ * Taken from lab 5 lonelyTwitter
  * Changed to fit our Habit App
  */
 public class ElasticSearchController {
     private static JestDroidClient client;
 
+    // This function is used to add a new user to the elastic search database
+    // returns a user object
     public static class AddUsersTask extends AsyncTask<User, Void, User> {
 
         @Override
@@ -57,7 +58,6 @@ public class ElasticSearchController {
                         user.setId(result.getId());
                         Log.d("AddUsersTask", "User "+ user.getUsername() + " " + user.getId() +" added");
                         returnMe = user;
-
                     }
                     else {
                         Log.i("Error", "Elastic search was not able to add the user");
@@ -91,8 +91,6 @@ public class ElasticSearchController {
 
                 if (result.isSucceeded()) {
                     user = (result.getSourceAsObject(User.class));
-
-//                    Log.d("ElasticSearchControllerGET", user.getId());
                     Log.d("ElasticSearchControllerGET", new Gson().toJson(user));
 
                 }
@@ -108,6 +106,7 @@ public class ElasticSearchController {
         }
     }
 
+    //Function used for updating a user that exists in the database
     public static class UpdateUserTask extends AsyncTask<User, Void, Void> {
 
         @Override
@@ -116,8 +115,6 @@ public class ElasticSearchController {
             for (User user: users) {
 //                Log.d("UpdateUsersTask", user.getId());
                 user.setLastModified(new Date()); //Try this for date?
-                // Delete first??
-                //Delete delete = new Delete.Builder(user.getId()).index("cmput301f17t32_h4bi").type("User").build();
                 Index index = new Index.Builder(user).index("cmput301f17t32_h4bit").type("User").id(user.getId()).build();
 
                 try {
@@ -142,6 +139,7 @@ public class ElasticSearchController {
             return null;
         }
     }
+
     public static class DeleteUserTask extends AsyncTask<User, Void, Void> {
         protected Void doInBackground(User... users) {
             verifySettings();

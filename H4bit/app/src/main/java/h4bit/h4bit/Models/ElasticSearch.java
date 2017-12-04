@@ -10,24 +10,24 @@ import java.util.concurrent.ExecutionException;
 
 import h4bit.h4bit.Controllers.ElasticSearchController;
 
-/** ElasticSearch class
+/**
+ * ElasticSearch class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  *
- * Class that uses ElasticSearchController to add/get classes, habits etc
+ * Class that uses ElasticSearchController to add, get, and update user objects
+ * @see ElasticSearchController
  */
 
 public class ElasticSearch {
 
-    private ArrayList<Habit> userHabitList = new ArrayList<Habit>();
     public ElasticSearch(){}
 
     /**
      * Add a user to elastic search database
-     * return true if user was added, false if not
-     * @param user The user object
-     * @return boolean
+     * @param user object to be added to the database
+     * @return user object added to the database
      */
     public User addUser(User user) {
         ElasticSearchController.AddUsersTask addUsersTask = new ElasticSearchController.AddUsersTask();
@@ -65,6 +65,10 @@ public class ElasticSearch {
         }
     }
 
+    /**
+     * This function takes a user object that exists in the database and updates it
+     * @param user The user object to be updated in the database
+     */
     public void updateUser(User user) {
         Log.d("ElasticSearch", "Updating online user with: "+new Gson().toJson(user));
         ElasticSearchController.UpdateUserTask updateUserTask = new ElasticSearchController.UpdateUserTask();
@@ -80,9 +84,10 @@ public class ElasticSearch {
     }
 
     /**
-     *
-     * @param username
-     * @return
+     * This function takes a username string and searches for it in the database and returns
+     * the user being searched for if it exists
+     * @param username string of the username to be searched
+     * @return user object of the user if user exists in database
      * @throws ExecutionException
      * @throws InterruptedException
      */

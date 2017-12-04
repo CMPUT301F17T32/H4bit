@@ -71,23 +71,9 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         // load the user from the savefile
         // Make sure you use the more recent user object
-        User user1 = saveLoadController.load();
-        /*try {
-            User user2 = elasticSearch.getUser(savefile.substring(0, savefile.length() - 4));
-            // Compare recent updated
-            if (user1.getLastModified().getTime() > user2.getLastModified().getTime()){
-                user = user1;
-                Toast.makeText(CreateHabitActivity.this, "local save", Toast.LENGTH_SHORT).show();
-            } else {
-                user = user2;
-                Toast.makeText(CreateHabitActivity.this, "online save", Toast.LENGTH_SHORT).show();
+        // database object vs .sav object
+        user = saveLoadController.load();
 
-            }
-        } catch (Exception e) {
-            Toast.makeText(CreateHabitActivity.this, "ElasticSearch Down", Toast.LENGTH_SHORT).show();
-*/
-        user = user1;
-       // }
 
 
         // init the habit controller
@@ -156,9 +142,8 @@ public class CreateHabitActivity extends AppCompatActivity {
             if (habit.getSchedule()[6]) {
                 saturdayToggle.setChecked(true);
                 schedule[6] = true;
-            }   //please don't view this code
+            }
 
-            //dateText.setText(String.valueOf(habit.getDate()));
         }
 
 
@@ -210,7 +195,6 @@ public class CreateHabitActivity extends AppCompatActivity {
         });
     }
 
-    // This looks ugly af but don't worry because it still deletes the habit
     public void deleteHabit() {
         for(int i = 0; i < user.getHabitEventList().size(); i++){
             if(user.getHabitEventList().get(i).getHabit().getName().equals(user.getHabitList().getHabit(this.position).getName())){
@@ -225,7 +209,6 @@ public class CreateHabitActivity extends AppCompatActivity {
     public void createHabit(int year, int month, int day) {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
 
         // This will create the habit object using the controller
         Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
@@ -241,7 +224,7 @@ public class CreateHabitActivity extends AppCompatActivity {
 
         this.user.addHabit(habit);
 
-        // Save the new user to the user save file
+        // Save the new user to the user save file and online if possible
         saveLoadController.save(this.user);
         elasticSearch.updateUser(user);
 
@@ -249,12 +232,16 @@ public class CreateHabitActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     *
+     * @param year
+     * @param month
+     * @param day
+     */
     public void editHabit(int year, int month, int day) {
         EditText nameText = (EditText) findViewById(R.id.nameText);
         EditText commentText = (EditText) findViewById(R.id.commentText);
-        //EditText dateCalendar = (EditText) findViewById(R.id.dateCalendar);
-//        HabitList habitList = user.getHabitList();
-//        Habit habit = habitList.getHabit(this.position);
+
         if (habitController.editHabit(user, user.getHabitList().getHabit(this.position), nameText.getText().toString(), commentText.getText().toString(), this.schedule, new Date(year - 1900, month, day)) == -1) {
             Toast.makeText(CreateHabitActivity.this, "Habit name is max 20 characters and comment max 30 characters", Toast.LENGTH_SHORT).show();
             return;

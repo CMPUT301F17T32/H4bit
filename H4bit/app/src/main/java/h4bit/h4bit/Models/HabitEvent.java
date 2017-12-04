@@ -8,7 +8,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
-/** User class
+/** HabitEvent class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.

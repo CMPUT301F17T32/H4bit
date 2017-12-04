@@ -5,7 +5,7 @@ import java.util.Date;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.User;
 
-/** User class
+/** HabitController
  * version 1.0
  * 2017-11-09.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.

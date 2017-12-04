@@ -85,13 +85,12 @@ public class SaveLoadController {
 
             //Taken from https://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
             // 2017-09-19
-//            Type listType = new TypeToken<ArrayList<Counter>>(){}.getType();
             user1 = gson.fromJson(in, User.class);
 
         } catch (FileNotFoundException e) {
+            // returns User(String username), username without .sav extension
             return new User(savefile.substring(0, savefile.length() - 4));
         }
-        // return user1   // this is the older save locally thing
 
         // This tries to pull the user object stored in the database
         try{

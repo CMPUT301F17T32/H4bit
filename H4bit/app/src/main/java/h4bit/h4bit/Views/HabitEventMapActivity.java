@@ -81,15 +81,4 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
             // Display the social markers
         }
     }
-    // This is to prevent the default back button from crashing the app
-    // I don't know why it crashes with the default behaviour so this feels like a bandaid fix but it works soooo...
-    // Taken from https://stackoverflow.com/questions/32296923/crashing-when-back-to-parent-activity-jsonexception-no-value-for-response
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            onBackPressed();
-//            return true;
-//        }
-//        return false;
-//    }
 }

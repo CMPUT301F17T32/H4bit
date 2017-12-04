@@ -3,7 +3,7 @@ package h4bit.h4bit.Models;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/** User class
+/** HabitList class
  * version 1.0
  * 2017-10-20.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
@@ -17,17 +17,17 @@ public class HabitList {
     }
 
     /**
-     *
-     * @param theHabit
+     * Add a habit to the list
+     * @param theHabit habit object to be added to list
      */
     public void addHabit(Habit theHabit){
         habitArrayList.add(theHabit);
     }
 
     /**
-     *
-     * @param theHabit
-     * @return
+     * Checks if the habit list has a habit
+     * @param theHabit habit object to be searched for in list
+     * @return boolean true if the list has the habit, false otherwise
      */
     public boolean hasHabit(Habit theHabit){
         if(habitArrayList.contains(theHabit)){
@@ -37,6 +37,10 @@ public class HabitList {
         }
     }
 
+    /**
+     * Deletes a habit from the list
+     * @param theHabit
+     */
     public void deleteHabit(Habit theHabit){
         habitArrayList.remove(theHabit);
     }
@@ -50,7 +54,7 @@ public class HabitList {
     }
 
     /**
-     * sorts habits by when they are next scheduled to be done
+     * Sorts habits by when they are next scheduled to be done
      */
     public void sortByNextDate(){
         for(int i = 0; i < habitArrayList.size(); i++){

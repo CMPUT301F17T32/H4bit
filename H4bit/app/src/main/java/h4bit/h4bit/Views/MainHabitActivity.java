@@ -45,9 +45,6 @@ public class MainHabitActivity extends AppCompatActivity {
     private User user;
     private String savefile;
     private SaveLoadController saveLoadController;
-
-    // This is just a placeholder to see if I can figure out how to list everything again
-    //private ArrayAdapter<Habit> adapter;
     private HabitList habitList;
     private HabitAdapter habitAdapter;
     private ListView listView;
@@ -64,11 +61,8 @@ public class MainHabitActivity extends AppCompatActivity {
         // Loads the user
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
-//        loadFromFile();
 
-        // Again, clumsy but serving a basic purpose mostly right now
         // This will display all the users habits, not the ones due today
-
         // list adapter init
         habitList = user.getHabitList();
         habitList.sortByNextDate();
@@ -82,13 +76,8 @@ public class MainHabitActivity extends AppCompatActivity {
         user.getHabitList().sortByNextDate();
         habitAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
-//        saveInFile();
 
-        /* adapter = new ArrayAdapter<Habit>(this, android.R.layout.simple_list_item_1, user.getHabitList().getRawList());
-        habitListView = (ListView) findViewById(R.id.habitsList);
-        habitListView.setAdapter(adapter); */
-
-        // Initializing the buttons and shit
+        // Initialize buttons
         Button historyButton = (Button) findViewById(R.id.historyButton);
         Button socialButton = (Button) findViewById(R.id.socialButton);
         Button habitsButton = (Button) findViewById(R.id.habitsButton);
@@ -120,21 +109,6 @@ public class MainHabitActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-    /*protected void onResume(){
-
-        super.onResume();
-        loadFromFile();
-        habitList = user.getHabitList();
-        habitList.sortByNextDate();
-        habitAdapter = new HabitAdapter(this, habitList, savefile);
-        listView = (ListView)findViewById(R.id.habitsList);
-        listView.setAdapter(habitAdapter);
-        user.getHabitList().sortByNextDate();
-        habitAdapter.notifyDataSetChanged();
-        saveInFile();
-    }*/
-
     /* This takes us to the history tab */
     public void historyTab(){
         // This should start an activity
@@ -145,6 +119,7 @@ public class MainHabitActivity extends AppCompatActivity {
         finish();
     }
 
+    // Takes us to the social tab
     public void socialTab(){
         Intent intent = new Intent(this, SocialActivity.class);
         intent.putExtra("savefile", savefile);
@@ -160,13 +135,8 @@ public class MainHabitActivity extends AppCompatActivity {
         intent.putExtra("mode", "create");
         startActivity(intent);
 
-        // So when we get to here a new habit was added to the users list and saved
-        // do we have to reload the user from the save file then notify the adapter?
-        // or will we have to reload the listview as well?
         user = saveLoadController.load();
-//        loadFromFile();
         habitAdapter.notifyDataSetChanged();
         // Do not finish, as the user is allowed to back out of creating a habit
-        // TODO add backbutton to xml
     }
 }

@@ -86,6 +86,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // This should log in the user and take us to the main todays habits screen screen
+
+    /**
+     * Attempts to login with username
+     * checks if username exists in the database, if not, notifies that user does not exist
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public void login() throws ExecutionException, InterruptedException {
 
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
@@ -95,11 +102,10 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (username.isEmpty()) {
-            //Log.i("Login", "Please enter a username");
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (username.matches("[a-zA-Z0-9]+")) {  // need + so it doesn't only compare 1 letter
             try {
-                User user = elasticSearch.getUser(username);
+                user = elasticSearch.getUser(username);
                 if (user.getUsername().equals(username)) {
                     Log.i("Login", "Username exists");
                     Intent intent = new Intent(this, MainHabitActivity.class);
@@ -120,8 +126,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
     // This adds a user to the elastic search database only if the user doesn't already exist
     public void signup(){
 
@@ -138,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(LoginActivity.this, "Could not fetch", Toast.LENGTH_SHORT).show();
             }
-            // if username to register does not exist in database
+            // if username to register does not exist in database, create new user
             if (user == null) {
                 User newUser = elasticSearch.addUser(new User(username));
                 if (newUser != null) {

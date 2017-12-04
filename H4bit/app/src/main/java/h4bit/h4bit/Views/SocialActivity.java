@@ -86,6 +86,10 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
 
     }
 
+    /**
+     *
+     * @param username
+     */
     public void onComplete(String username){
         Log.d("here it is", username);
         Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();

@@ -13,7 +13,10 @@ import android.widget.EditText;
 import h4bit.h4bit.R;
 
 /**
- * Created by Alex on 2017-12-03.
+ * FollowUserDialog
+ * Version 1.0
+ * November 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class FollowUserDialog extends DialogFragment {

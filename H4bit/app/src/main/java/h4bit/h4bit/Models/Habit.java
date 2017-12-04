@@ -72,8 +72,8 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-    *
-    * Calculates the values for completed and missed based on event list
+     * Calculates the values for completed and missed habit events based on event list
+     * @param habitEventList is a list of habit events
      */
     public void updateStats(HabitEventList habitEventList){
         int numDays = dayDifference(this.getUpdatedDate(), new Date());
@@ -102,8 +102,8 @@ public class Habit implements Comparable<Habit> {
     }
 
     /**
-     * calculates percent of completed habits
-     * @return completionRate
+     * Calculates percent of completed habits
+     * @return completionRate the percentage of how many times the habit was completed on time
      */
     public double getCompletionRate() {
         if(getCompleted() + getMissed() == 0){

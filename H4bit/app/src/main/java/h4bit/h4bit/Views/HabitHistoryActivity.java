@@ -35,7 +35,7 @@ import h4bit.h4bit.Models.User;
 
 /*
  * habitsButton, socialButton, historyButton, searchNameText, searchCommentText, searchButton, eventsList
- * We should create a tab interface maybe??
+ *
  */
 
 public class HabitHistoryActivity extends FragmentActivity{
@@ -68,24 +68,13 @@ public class HabitHistoryActivity extends FragmentActivity{
 //        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 
-        // Init the map fragment manager and the map fragment
-//        callback = this;
-//        // Does this need to be reinitialized in onResume?? I assume so
-//        fragmentManager = getFragmentManager();
-//        mapFragment = (MapFragment) fragmentManager.findFragmentById(R.id.mapFragment);
-//        mapFragment.getMapAsync(callback);
-//        fragmentManager.beginTransaction().hide(mapFragment).commit();
-
-
-
-
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
 //        loadFromFile();
 
-        //autocompletetextview
+        // auto complete text view
         final HabitEventList habitEventAutoList = user.getHabitEventList();
         final HabitList HabitAutoList = user.getHabitList();
         String[] Comments1 = new String[habitEventAutoList.size()];
@@ -178,27 +167,13 @@ public class HabitHistoryActivity extends FragmentActivity{
 
             }
         });
-
-
     }
 
-
-//    @Override
-//    public void onMapReady(GoogleMap map) {
-//        // We need to use this addMarker to add all the habits with locations
-//        //map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
-//        // First we need to get all the habitEvents
-//        // Then we need to iterate through them and add a marker for each event with a location
-//        for (int i = 0; i < habitEventList.size(); i++) {
-//            HabitEvent habitEvent = habitEventList.get(i);
-//            if (habitEvent.getLocation() != null){
-//                Location location = habitEvent.getLocation();
-//                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                map.addMarker(new MarkerOptions().position(latLng).title(habitEvent.getHabit().getName()));
-//            }
-//        }
-//    }
-
+    /**
+     *
+     * @param habitEventList
+     * @return savedHabitEventList
+     */
     public HabitEventList saveOriginalList(HabitEventList habitEventList){
         HabitEventList savedHabitEventList = new HabitEventList();
         for (int i=0;i<habitEventList.size();i++) {
@@ -207,43 +182,49 @@ public class HabitHistoryActivity extends FragmentActivity{
         return savedHabitEventList;
     }
 
+    /**
+     * Searches for a given habit event in habit history via name
+     * @param name of habit event
+     * @param FullHabitEventList list
+     */
     public void searchHistoryName(String name, HabitEventList FullHabitEventList){
-
 
         for (int i=0; i<habitEventList.size();i++){
             if (name.equals(habitEventList.get(i).getHabit().getName())){
                 FullHabitEventList.addHabitEvent(habitEventList.get(i));
             }
-
-
         }
         habitEventList.clearList();
         for (int i=0;i<FullHabitEventList.size();i++){
             habitEventList.addHabitEvent(FullHabitEventList.get(i));
         }
-        // This function will query the user's habit history
-        // Doesn't elastic search do this? Does this mean elasticsearch
-        // should store a user object AND that users history seperately so it can
-        // be easily queried?
-        // AutoCompleteTextView AutoCompleteTextView = (AutoCompleteTextView)
-
     }
-    public void searchHistoryComment(String comment, HabitEventList FullHabitEventList) {
 
+    /**
+     *  Searches for a given habit event in habit history via comment
+     * @param comment string of the habit event
+     * @param FullHabitEventList list
+     */
+    public void searchHistoryComment(String comment, HabitEventList FullHabitEventList) {
 
         for (int i = 0; i < habitEventList.size(); i++) {
             if (comment.equals(habitEventList.get(i).getComment())) {
                 FullHabitEventList.addHabitEvent(habitEventList.get(i));
             }
-
         }
         habitEventList.clearList();
         for (int i = 0; i < FullHabitEventList.size(); i++) {
             habitEventList.addHabitEvent(FullHabitEventList.get(i));
         }
     }
-    public void searchHistoryFull(String name, String comment, HabitEventList FullHabitEventList) {
 
+    /**
+     *
+     * @param name of habit event
+     * @param comment of habit event
+     * @param FullHabitEventList list
+     */
+    public void searchHistoryFull(String name, String comment, HabitEventList FullHabitEventList) {
 
         for (int i = 0; i < habitEventList.size(); i++) {
             if (comment.equals(habitEventList.get(i).getComment())&&name.equals(habitEventList.get(i).getHabit().getName())) {
@@ -256,12 +237,6 @@ public class HabitHistoryActivity extends FragmentActivity{
             habitEventList.addHabitEvent(FullHabitEventList.get(i));
         }
     }
-        // This function will query the user's habit history
-        // Doesn't elastic search do this? Does this mean elasticsearch
-        // should store a user object AND that users history seperately so it can
-        // be easily queried?
-        // AutoCompleteTextView AutoCompleteTextView = (AutoCompleteTextView)
-
 
     // This takes us back to the habitsTab activity, should finish the current activity as
     // to not create a huge stacking stack of tab activites
