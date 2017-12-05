@@ -113,7 +113,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 Log.i("Login", "Error Getting Profile");
-                Toast.makeText(LoginActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Error getting profile, entering offline mode", Toast.LENGTH_SHORT).show();
+                // login offline
+                Intent intent = new Intent(this, MainHabitActivity.class);
+                intent.putExtra("savefile", username + ".sav");
+                // Test this
+                //new SaveLoadController(username+".sav", context).save(user);
+                startActivity(intent);
+                finish();
             }
         } else {
             Toast.makeText(LoginActivity.this, "Invalid username. Username can only contain letters and numbers", Toast.LENGTH_SHORT).show();
