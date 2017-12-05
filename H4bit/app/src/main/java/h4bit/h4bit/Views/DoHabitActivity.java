@@ -69,7 +69,6 @@ public class DoHabitActivity extends AppCompatActivity {
     private Activity activity;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback = new LocationCallback();
-    private ElasticSearch elasticSearch = new ElasticSearch();
 
     @Override
     protected void onStart(){
