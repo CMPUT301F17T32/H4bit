@@ -94,9 +94,7 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         // Get habits from social screen
         if (!mode.equals("history")) {
             // Get the social habitEventList from intent
-//            socialEventList = new Gson().fromJson(getIntent().getStringExtra("socialEventList"), HabitEventList.class);
-            // just pretend habit list is the social event list
-            socialEventList = habitEventList;
+            socialEventList = new Gson().fromJson(getIntent().getStringExtra("socialEventList"), HabitEventList.class);
             // We also need the current location for nearby
             if (mode.equals("nearby")){
                 // Call twice just in case they activate location the first time
@@ -234,6 +232,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
             }
             // Now loop through the social events
             // Note that this will just mark with the event title, and not whodunit
+            if(socialEventList.size() == 0)
+                return;
             for (int i = 0; i < socialEventList.size(); i++) {
                 HabitEvent habitEvent = socialEventList.get(i);
                 if (habitEvent.getLocation() != null) {
@@ -249,6 +249,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         } else if (mode.equals("social")){
             Log.d("HabitEventMapActivity", "Social map async");
 
+            if (socialEventList.size() == 0)
+                return;
             for (int i = 0; i < socialEventList.size(); i++) {
                 HabitEvent habitEvent = socialEventList.get(i);
                 if (habitEvent.getLocation() != null) {

@@ -12,10 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.ElasticSearch;
+import h4bit.h4bit.Models.HabitEvent;
+import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 import io.searchbox.core.Index;
@@ -36,6 +43,8 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
     private SaveLoadController saveLoadController;
     private ElasticSearch elasticSearch = new ElasticSearch();
     private Button requestButton;
+    private TextView followingText;
+    private TextView followerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +66,31 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         Button mapButton2 = (Button) findViewById(R.id.mapButton2);
         Button followButton = (Button) findViewById(R.id.followButton);
         requestButton = (Button) findViewById(R.id.requestsButton);
+
+        // Set the text view counts of followers
+        followingText = (TextView) findViewById(R.id.followingText);
+        followerText = (TextView) findViewById(R.id.followerText);
+
+        String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
+        String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
+        followingText.setText(f1);
+        followerText.setText(f2);
+
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
-        statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
+
+        final ArrayList<HabitEvent> theList = new ArrayList<>();
+        for(int i = 0; i < user.getFollowing().size(); i++){
+            try{
+                User theFollowed = elasticSearch.getUser(user.getFollowing().get(i));
+                theList.addAll(theFollowed.getHabitEventList().getMostRecentForEachHabit());
+
+            } catch (Exception e){
+                Log.d("oh no", "thats bad");
+            }
+        }
+
+        statusAdapter = new StatusAdapter(this, theList, savefile);//eee
         ListView listView = (ListView) findViewById(R.id.habitStatusList);
         listView.setAdapter(statusAdapter);
 
@@ -75,9 +106,10 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 try{
                     HandleRequestDialog hrd = new HandleRequestDialog().newInstance(user.getRequests().get(0));
                     hrd.show(fm, "request");
-                } catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     Log.d("no requests", "none");
                 }
+
             }
         });
 
@@ -93,6 +125,13 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 // Take us into the map activity
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
+                Log.d("SocialActivity", theList.toString());
+                HabitEventList socialEventList = new HabitEventList();
+                for(int i = 0; i < theList.size(); i++){
+                    socialEventList.addHabitEvent(theList.get(i));
+                }
+                String socialEventListString = new Gson().toJson(socialEventList);
+                intent.putExtra("socialEventList", socialEventListString);
                 intent.putExtra("mode", "social");
                 startActivity(intent);
             }
@@ -103,6 +142,15 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 // Take us into the map activity
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
+                // add all of the objects in theList to socialEventList
+                // what is theList
+                Log.d("SocialActivity", theList.toString());
+                HabitEventList socialEventList = new HabitEventList();
+                for(int i = 0; i < theList.size(); i++){
+                    socialEventList.addHabitEvent(theList.get(i));
+                }
+                String socialEventListString = new Gson().toJson(socialEventList);
+                intent.putExtra("socialEventList", socialEventListString);
                 intent.putExtra("mode", "nearby");
                 startActivity(intent);
             }
@@ -163,6 +211,10 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                     user.removeRequests(acceptRecipient.getUsername());
                     elasticSearch.updateUser(user);
                     elasticSearch.updateUser(acceptRecipient);
+                    String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
+                    String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
+                    followingText.setText(f1);
+                    followerText.setText(f2);
                 } else {
                     Toast.makeText(SocialActivity.this, username + "'s request has been ignored", Toast.LENGTH_SHORT).show();
                     user.removeRequests(acceptRecipient.getUsername());

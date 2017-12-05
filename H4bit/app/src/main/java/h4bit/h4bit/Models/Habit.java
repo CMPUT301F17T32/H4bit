@@ -27,6 +27,7 @@ public class Habit implements Comparable<Habit> {
     private boolean doneToday;
     private int missed, completed, nextDate;
     private String id;
+    private String username;
 
     /**
      *
@@ -34,7 +35,7 @@ public class Habit implements Comparable<Habit> {
      * @param comment for habit
      * @param schedule which days of the week
      */
-    public Habit(String name, String comment, boolean[] schedule) {
+    public Habit(String name, String comment, boolean[] schedule, String username) {
 
         this.startDate = new Date();
         this.updatedDate = this.startDate;
@@ -44,10 +45,11 @@ public class Habit implements Comparable<Habit> {
         this.missed = 0;
         this.completed = 0;
         this.doneToday = false;
+        this.username = username;
 
     }
 
-    public Habit(String name, String comment, boolean[] schedule, Date startDate) {
+    public Habit(String name, String comment, boolean[] schedule, Date startDate, String username) {
 
         this.startDate = startDate;
         this.updatedDate = startDate;
@@ -57,6 +59,7 @@ public class Habit implements Comparable<Habit> {
         this.missed = 0;
         this.completed = 0;
         this.doneToday = false;
+        this.username = username;
 
     }
 
@@ -354,5 +357,13 @@ public class Habit implements Comparable<Habit> {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
