@@ -1,9 +1,12 @@
 package h4bit.h4bit;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.Arrays;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
@@ -16,6 +19,24 @@ import static org.junit.Assert.*;
  */
 
 public class HabitEventTest{
+
+    @Test
+    public void testNoImage(){
+
+        String comment = "test comment for event";
+        boolean[] sched = new boolean[7];
+        Arrays.fill(sched, true);
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        String habitsComment = "this is comment of test habit";
+        Habit habit1 = new Habit("habit1",habitsComment,sched,"user1");
+        HabitEvent event1 = new HabitEvent(habit1,comment,location);
+        boolean test = false;
+        if (event1.getImage()==null){
+            test=true;
+        }
+        assertTrue(test);
+
+    }
 
     @Test
     public void testLocation(){
