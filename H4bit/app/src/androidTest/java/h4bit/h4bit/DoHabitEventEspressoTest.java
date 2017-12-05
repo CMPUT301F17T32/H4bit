@@ -41,10 +41,9 @@ public class DoHabitEventEspressoTest {
                 closeSoftKeyboard());
         onView(withId(R.id.crealogButton)).perform(click());
         onView(withId(R.id.addButton)).perform(click());
-
         // Type text and then press the button.
         onView(withId(R.id.nameText))
-                .perform(typeText("Habit1"), closeSoftKeyboard());
+                .perform(typeText("Habit14"), closeSoftKeyboard());
         onView(withId(R.id.commentText))
                 .perform(typeText("Comment1"), closeSoftKeyboard());
         onView(withId(R.id.mondayToggle)).perform(click());
