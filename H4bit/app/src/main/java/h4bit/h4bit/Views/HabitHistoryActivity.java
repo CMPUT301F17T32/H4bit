@@ -72,12 +72,12 @@ public class HabitHistoryActivity extends FragmentActivity{
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
 
-        // auto complete text view
+        // auto complete text view arrays initialization
         final HabitEventList habitEventAutoList = user.getHabitEventList();
         final HabitList HabitAutoList = user.getHabitList();
         String[] Comments1 = new String[habitEventAutoList.size()];
         final String[] Names = new String[HabitAutoList.getSize()];
-
+        // get rid of same comments using a set
         for (int i = 0; i<habitEventAutoList.size();i++){
           Comments1[i]= habitEventAutoList.get(i).getComment();
         }
@@ -87,12 +87,11 @@ public class HabitHistoryActivity extends FragmentActivity{
         }
         final String[] Comments = setOfComments.toArray(new String[setOfComments.size()]);
 
-
-
+        //populate habit names list
         for (int i =0;i<HabitAutoList.getSize();i++){
           Names[i] = HabitAutoList.getHabit(i).getName();
         }
-
+        //Set up autocompleteText views for search
         final AutoCompleteTextView autoCompleteTextView =(AutoCompleteTextView) findViewById(R.id.AutoCompleteName);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, Names);
         autoCompleteTextView.setAdapter(adapter);
@@ -109,7 +108,7 @@ public class HabitHistoryActivity extends FragmentActivity{
         final HabitEventList savedHabitEventList = saveOriginalList(habitEventList);
         habitEventAdapter.notifyDataSetChanged();
         saveLoadController.save(user);
-
+        // move to corresponding activities upon a click
         mapButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
@@ -133,6 +132,7 @@ public class HabitHistoryActivity extends FragmentActivity{
         searchButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick (final View view){
+                // reset habit event list to restart the search for new queries
                 habitEventList.clearList();
                 for (int i = 0; i < savedHabitEventList.size(); i++) {
                     habitEventList.addHabitEvent(savedHabitEventList.get(i));
@@ -142,6 +142,7 @@ public class HabitHistoryActivity extends FragmentActivity{
                 String comment = autoCompleteTextView2.getEditableText().toString();
 
                 HabitEventList FullHabitEventList = new HabitEventList();
+                //different versions of sort for different types of queries
                 if ((name.length()>0)&&(comment.length()>0)){
                     searchHistoryFull(name,comment,FullHabitEventList);
                 }
@@ -237,7 +238,7 @@ public class HabitHistoryActivity extends FragmentActivity{
         startActivity(intent);
         finish();
     }
-
+    // Takes to socialActivity
     public void socialTab(){
         Intent intent = new Intent(this, SocialActivity.class);
         intent.putExtra("savefile", savefile);

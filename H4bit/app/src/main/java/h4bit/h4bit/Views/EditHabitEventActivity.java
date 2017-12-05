@@ -59,6 +59,7 @@ public class EditHabitEventActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //get intent from previous activity
         setContentView(R.layout.activity_edit_habit_event);
         this.savefile = getIntent().getStringExtra("savefile");
         this.position = getIntent().getIntExtra("position",position);
@@ -67,7 +68,7 @@ public class EditHabitEventActivity extends AppCompatActivity {
         saveLoadController = new SaveLoadController(this.savefile, this.getApplicationContext());
         user = saveLoadController.load();
         //loadFromFile();
-
+        //Initialize the buttons and user
         this.theHabitEvent = user.getHabitEventList().get(position);
         this.habitEventList = user.getHabitEventList();
 
@@ -76,11 +77,11 @@ public class EditHabitEventActivity extends AppCompatActivity {
         TextView nameText = (TextView) findViewById(R.id.habitEventNameText);
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         TextView dateTextView = (TextView) findViewById(R.id.habitEventDate);
-
+        // Set up the views
         nameText.setText(theHabitEvent.getHabit().getName());
         commentText.setText(theHabitEvent.getComment());
         dateTextView.setText(theHabitEvent.getDate().toString());
-
+        //delete habit event
         deleteButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 user.getHabitEventList().get(position).getHabit().setCompleted(user.getHabitEventList().get(position).getHabit().getCompleted() - 1);
@@ -102,6 +103,7 @@ public class EditHabitEventActivity extends AppCompatActivity {
 
         EditText commentText = (EditText) findViewById(R.id.reasonText);
         theHabitEvent.setComment(commentText.getText().toString());
+        //save the edited habit
         saveLoadController.save(user);
         finish();
 

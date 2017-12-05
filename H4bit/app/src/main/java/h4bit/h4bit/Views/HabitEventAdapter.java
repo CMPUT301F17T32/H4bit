@@ -67,7 +67,7 @@ public class HabitEventAdapter extends BaseAdapter {
         Log.d("bitmap 2", String.valueOf(theHabitEvent.getImage()));
 
         eventImageView.setImageBitmap(theHabitEvent.getImage());
-
+        // move to edithabiteventactivity on click
         editButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
