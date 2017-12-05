@@ -182,7 +182,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                     String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
                     String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
                     followingText.setText(f1);
-                    followerText.setText(f1);
+                    followerText.setText(f2);
                 } else {
                     Toast.makeText(SocialActivity.this, username + "'s request has been ignored", Toast.LENGTH_SHORT).show();
                     user.removeRequests(acceptRecipient.getUsername());
