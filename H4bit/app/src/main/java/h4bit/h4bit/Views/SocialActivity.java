@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
@@ -36,6 +37,8 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
     private SaveLoadController saveLoadController;
     private ElasticSearch elasticSearch = new ElasticSearch();
     private Button requestButton;
+    private TextView followingText;
+    private TextView followerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,16 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         Button mapButton2 = (Button) findViewById(R.id.mapButton2);
         Button followButton = (Button) findViewById(R.id.followButton);
         requestButton = (Button) findViewById(R.id.requestsButton);
+
+        // Set the text view counts of followers
+        followingText = (TextView) findViewById(R.id.followingText);
+        followerText = (TextView) findViewById(R.id.followerText);
+
+        String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
+        String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
+        followingText.setText(f1);
+        followerText.setText(f2);
+
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
         statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
@@ -75,9 +88,10 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 try{
                     HandleRequestDialog hrd = new HandleRequestDialog().newInstance(user.getRequests().get(0));
                     hrd.show(fm, "request");
-                } catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     Log.d("no requests", "none");
                 }
+
             }
         });
 
@@ -160,6 +174,10 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
             if (acceptRecipient.getUsername().equals(username)) {
                 if(b){
                     Toast.makeText(SocialActivity.this, username + " has been allowed to follow you", Toast.LENGTH_SHORT).show();
+                    String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
+                    String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
+                    followingText.setText(f1);
+                    followerText.setText(f1);
                     acceptRecipient.addFollowing(user.getUsername());
                     user.addFollower(acceptRecipient.getUsername());
                     user.removeRequests(acceptRecipient.getUsername());
