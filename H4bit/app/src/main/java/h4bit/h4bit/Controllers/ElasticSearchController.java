@@ -101,6 +101,8 @@ public class ElasticSearchController {
 
             } catch (IOException e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+                Log.i("Error", "Logging you in offline instead");
+                //return new SaveLoadController().load()
             }
             return user;
         }
