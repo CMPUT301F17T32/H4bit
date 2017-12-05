@@ -69,6 +69,9 @@ public class CreateHabitActivityEspressoTest {
                 .perform(typeText("Habit2"), closeSoftKeyboard());
         onView(withId(R.id.commentText))
                 .perform(typeText("Comment2"), closeSoftKeyboard());
+        onView(withId(R.id.mondayToggle)).perform(click());
+        onView(withId(R.id.tuesdayToggle)).perform(click());
+        onView(withId(R.id.wednesdayToggle)).perform(click());
 
         // Check that the text was changed.
 
