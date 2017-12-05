@@ -103,6 +103,8 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 // Take us into the map activity
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
+                //String socialEventList = new Gson().toJson(socialEventList);
+                //intent.putExtra("socialEventList", socialEventList);
                 intent.putExtra("mode", "nearby");
                 startActivity(intent);
             }
