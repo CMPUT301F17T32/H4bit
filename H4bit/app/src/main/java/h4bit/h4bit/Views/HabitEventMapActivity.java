@@ -233,6 +233,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
             }
             // Now loop through the social events
             // Note that this will just mark with the event title, and not whodunit
+            if(socialEventList.size() == 0)
+                return;
             for (int i = 0; i < socialEventList.size(); i++) {
                 HabitEvent habitEvent = socialEventList.get(i);
                 if (habitEvent.getLocation() != null) {
@@ -248,6 +250,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         } else if (mode.equals("social")){
             Log.d("HabitEventMapActivity", "Social map async");
 
+            if (socialEventList.size() == 0)
+                return;
             for (int i = 0; i < socialEventList.size(); i++) {
                 HabitEvent habitEvent = socialEventList.get(i);
                 if (habitEvent.getLocation() != null) {
