@@ -130,7 +130,19 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         Log.d("here it is", username);
         try {
             User followRecipient = elasticSearch.getUser(username);
-            if (followRecipient.getUsername().equals(username)) {
+            if (followRecipient.getUsername().equals(username)){
+                // Check if request already sent
+                if(followRecipient.getRequests().contains(user.getUsername())){
+                    Log.d("SocialActivity", "Request already sent to that user!");
+                    Toast.makeText(SocialActivity.this, "Request already sent to: " + username, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(followRecipient.getFollowers().contains(user.getUsername())){
+                    Log.d("SocialActivity", "You are already following that person!");
+                    Toast.makeText(SocialActivity.this, "Already following: " + username, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Check if already following
                 Toast.makeText(SocialActivity.this, "Follow Request Sent to " + username, Toast.LENGTH_SHORT).show();
                 followRecipient.addRequests(user.getUsername());
                 elasticSearch.updateUser(followRecipient);
