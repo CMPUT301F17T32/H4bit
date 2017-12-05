@@ -17,13 +17,13 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/statusUsernameText"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Username"
@@ -32,48 +32,52 @@
             <TextView
                 android:id="@+id/habitStatusDateText"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Date"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="8sp" />
 
-            <TextView
-                android:id="@+id/habitStatusCommentText"
+            <ImageView
+                android:id="@+id/habitStatusEventImage"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Comment"
-                android:textAlignment="center" />
+                app:srcCompat="@drawable/background" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/habitStatusNameText"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Habit Name"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/habitStatusCommentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comment"
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/habitStatusPercent"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50%"
                 android:textAlignment="center" />
 
-            <ImageView
-                android:id="@+id/habitStatusEventImage"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                app:srcCompat="@drawable/background" />
         </LinearLayout>
 
     </LinearLayout>
