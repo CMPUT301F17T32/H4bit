@@ -117,7 +117,7 @@ public class CreateHabitActivityEspressoTest {
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     public static String randomAN() {
         StringBuilder builder = new StringBuilder();
-        int i = 5;
+        int i = 8;
         while (i-- != 0) {
             int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
             builder.append(ALPHA_NUMERIC_STRING.charAt(character));

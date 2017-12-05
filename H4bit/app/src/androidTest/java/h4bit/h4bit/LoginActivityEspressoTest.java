@@ -43,12 +43,12 @@ public class LoginActivityEspressoTest {
     }
     @Test
     public void failedLoginMainActivity() {
-        onView(withId(R.id.usernameText)).perform(typeText("te"),
+        onView(withId(R.id.usernameText)).perform(typeText("tesrtyre"),
                 closeSoftKeyboard());
         onView(withId(R.id.crealogButton)).perform(click());
-        onView(withId(R.id.usernameText)).check(matches(withText("te")));
-        onView(withId(R.id.usernameText)).perform(typeText("st3"));
-        onView(withId(R.id.signupButton)).perform(click());
+        onView(withId(R.id.usernameText)).check(matches(withText("tesrtyre")));
+        //onView(withId(R.id.usernameText)).perform(typeText("st3"));
+        //onView(withId(R.id.signupButton)).perform(click());
 
 
     }

@@ -49,7 +49,7 @@ public class MainHabitActivityEspressoTest {
     public void transferToHistory() {
         login();
         onView(withId(R.id.historyButton)).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.habitStatusList)).atPosition(0);
+        onData(anything()).inAdapterView(withId(R.id.eventsList)).atPosition(0);
         //onView(withId(R.id.AutoCompleteName))
         //      .perform(typeText("Habit1345"), closeSoftKeyboard());
         //onView(withId(R.id.searchButton)).perform(click());
@@ -60,7 +60,7 @@ public class MainHabitActivityEspressoTest {
         login();
         onView(withId(R.id.socialButton)).perform(click());
 
-        onData(anything()).inAdapterView(withId(R.id.eventsList)).atPosition(0);
+        onData(anything()).inAdapterView(withId(R.id.habitStatusList)).atPosition(0);
 
     }
     public void login() {
