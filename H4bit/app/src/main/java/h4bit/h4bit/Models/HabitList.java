@@ -37,6 +37,13 @@ public class HabitList {
         }
     }
 
+    public ArrayList<HabitEvent> getMostRecentForEachHabit(){
+        //some1
+        ArrayList<HabitEvent> theList = new ArrayList<>();
+
+        return theList;
+    }
+
     /**
      * Deletes a habit from the list
      * @param theHabit

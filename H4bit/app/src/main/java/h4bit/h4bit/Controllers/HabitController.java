@@ -30,7 +30,7 @@ public class HabitController {
      * @param schedule
      * @return habit
      */
-    public Habit createHabit(String name, String comment, boolean[] schedule){
+    public Habit createHabit(String name, String comment, boolean[] schedule, String username){
         // One constraint should be to not create a habit with an all false boolean array
 
         // Return null habit if constraints not met
@@ -38,7 +38,7 @@ public class HabitController {
         if(comment.length() > 30 || name.length() > 20)
             return habit;
 
-        return new Habit(name, comment, schedule);
+        return new Habit(name, comment, schedule, username);
     }
 
     /**

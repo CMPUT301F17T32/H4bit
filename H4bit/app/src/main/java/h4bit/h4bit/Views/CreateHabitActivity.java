@@ -211,7 +211,7 @@ public class CreateHabitActivity extends AppCompatActivity {
         EditText commentText = (EditText) findViewById(R.id.commentText);
 
         // This will create the habit object using the controller
-        Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule);
+        Habit habit = habitController.createHabit(nameText.getText().toString(), commentText.getText().toString(), this.schedule, user.getUsername());
         habit.setStartDate(new Date(year - 1900, month, day), user.getHabitEventList());
         // If the habit constraints aren't met we could throw a toast notification here
         // We also won't finish the activity

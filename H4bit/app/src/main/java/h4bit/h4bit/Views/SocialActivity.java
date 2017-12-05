@@ -15,8 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import h4bit.h4bit.Controllers.SaveLoadController;
 import h4bit.h4bit.Models.ElasticSearch;
+import h4bit.h4bit.Models.HabitEvent;
+import h4bit.h4bit.Models.HabitEventList;
 import h4bit.h4bit.R;
 import h4bit.h4bit.Models.User;
 import io.searchbox.core.Index;
@@ -72,7 +76,19 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
 
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
-        statusAdapter = new StatusAdapter(this, user.getFollowing(),savefile);
+
+        ArrayList<HabitEvent> theList = new ArrayList<>();
+        for(int i = 0; i < user.getFollowing().size(); i++){
+            try{
+                User theFollowed = elasticSearch.getUser(user.getFollowing().get(i));
+                theList.addAll(theFollowed.getHabitList().getMostRecentForEachHabit());
+
+            } catch (Exception e){
+                Log.d("oh no", "thats bad");
+            }
+        }
+
+        statusAdapter = new StatusAdapter(this, theList, savefile);//eee
         ListView listView = (ListView) findViewById(R.id.habitStatusList);
         listView.setAdapter(statusAdapter);
 
