@@ -69,6 +69,14 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="Followers\n0" />
+
+            <Button
+                android:id="@+id/requestsButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="Follow Requests" />
+
         </LinearLayout>
 
         <ListView

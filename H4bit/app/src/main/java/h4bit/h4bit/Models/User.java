@@ -20,7 +20,6 @@ public class User {
     private String id;
 
     private String username;
-    private Image profilePicture;
     private HabitList habitList;
     private HabitEventList habitEventList;
     private ArrayList<String> followers;
