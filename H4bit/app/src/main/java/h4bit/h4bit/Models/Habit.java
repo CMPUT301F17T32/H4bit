@@ -238,6 +238,7 @@ public class Habit implements Comparable<Habit> {
     public Date getStartDate() {
         return startDate;
     }
+    public void setStartDateTest(){this.startDate=Calendar.getInstance().getTime();}
 
     /**
      * removes events prior to the new start date, and updates stats

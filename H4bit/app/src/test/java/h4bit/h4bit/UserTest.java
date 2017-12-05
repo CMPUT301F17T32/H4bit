@@ -21,21 +21,12 @@ public class UserTest {
         assertEquals(user1.getUsername(), "user1");
 
     }
-    @Test
-    public void testSendFollowRequest(){
-        User user1 = new User("user1");
-        User user2 = new User ("user2");
-        user1.sendFollowRequest("user2");
-        boolean request = false;
-//        if (user2.getRequests() == "user1"){
-//            request = true;
-//        }
-        assertTrue(request);
-    }
+
     @Test
     public void testAddHabit(){
         boolean[] sched = new boolean[7];
-        Habit habit = new Habit("name", "comment", sched);
+        User user1 = new User("user1");
+        Habit habit = new Habit("name", "comment", sched, user1.getUsername());
         User user = new User("Name");
         user.addHabit(habit);
         assertTrue(user.getHabitList().hasHabit(habit));
