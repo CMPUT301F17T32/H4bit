@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitList;
+import h4bit.h4bit.Models.User;
 import h4bit.h4bit.Views.MainHabitActivity;
 
 import static junit.framework.Assert.assertEquals;
@@ -25,7 +26,8 @@ public class HabitListTest{
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit1 = new Habit("name1", "comment1", sched);
+        User user1 = new User();
+        Habit habit1 = new Habit("name1", "comment1", sched,user1.getUsername());
         habits.addHabit(habit1);
         assertTrue(habits.hasHabit(habit1));
     }
@@ -34,7 +36,8 @@ public class HabitListTest{
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit1 = new Habit("name1", "comment1", sched);
+        User user1 = new User();
+        Habit habit1 = new Habit("name1", "comment1", sched,user1.getUsername());
         assertFalse(habits.hasHabit(habit1));
         habits.addHabit(habit1);
         assertTrue(habits.hasHabit(habit1));
@@ -44,7 +47,8 @@ public class HabitListTest{
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit1 = new Habit("name1", "comment1", sched);
+        User user1 = new User();
+        Habit habit1 = new Habit("name1", "comment1", sched,user1.getUsername());
         habits.addHabit(habit1);
         habits.deleteHabit(habit1);
         assertFalse(habits.hasHabit(habit1));
@@ -54,7 +58,8 @@ public class HabitListTest{
         HabitList habits = new HabitList();
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit1 = new Habit("name1", "comment1", sched);
+        User user1 = new User();
+        Habit habit1 = new Habit("name1", "comment1", sched, user1.getUsername());
         habits.addHabit(habit1);
         Habit ReturnedHabit = habits.getHabit(0);
         assertEquals(habit1, ReturnedHabit);

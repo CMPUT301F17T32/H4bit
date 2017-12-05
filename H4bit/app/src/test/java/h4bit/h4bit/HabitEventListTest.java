@@ -1,5 +1,6 @@
 package h4bit.h4bit;
 
+import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import h4bit.h4bit.Models.Habit;
 import h4bit.h4bit.Models.HabitEvent;
 import h4bit.h4bit.Models.HabitEventList;
+import h4bit.h4bit.Models.User;
 import h4bit.h4bit.Views.MainHabitActivity;
 
 import static junit.framework.Assert.assertEquals;
@@ -22,8 +24,10 @@ public class HabitEventListTest{
     public void testAddHabitEvent(){
         HabitEventList habitEventList = new HabitEventList();
         boolean[] sched = new boolean[7];
-        Habit habit = new Habit("name", "comment", sched);
-        HabitEvent habitEvent = new HabitEvent(habit,"comment");
+        User user1 = new User("user1");
+        Habit habit = new Habit("name", "comment", sched,user1.getUsername());
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        HabitEvent habitEvent = new HabitEvent(habit,"comment",location);
         habitEventList.addHabitEvent(habitEvent);
         assertEquals(habitEvent, habitEventList.get(0));
     }
@@ -32,8 +36,10 @@ public class HabitEventListTest{
     public void testIsDoneToday(){
         HabitEventList habitEventList = new HabitEventList();
         boolean[] sched = new boolean[7];
-        Habit habit = new Habit("name", "comment", sched);
-        HabitEvent habitEvent = new HabitEvent(habit,"comment");
+        User user1 = new User("user1");
+        Habit habit = new Habit("name", "comment", sched,user1.getUsername());
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        HabitEvent habitEvent = new HabitEvent(habit,"comment",location);
         habitEventList.addHabitEvent(habitEvent);
         assertFalse(habitEventList.isDoneToday(habit));
     }
@@ -41,8 +47,10 @@ public class HabitEventListTest{
     public void testSize(){
         HabitEventList habitEventList = new HabitEventList();
         boolean[] sched = new boolean[7];
-        Habit habit = new Habit("name", "comment", sched);
-        HabitEvent habitEvent = new HabitEvent(habit,"comment");
+        User user1 = new User("user1");
+        Habit habit = new Habit("name", "comment", sched,user1.getUsername());
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        HabitEvent habitEvent = new HabitEvent(habit,"comment",location);
         habitEventList.addHabitEvent(habitEvent);
         assertEquals(habitEventList.size(), 1);
     }
@@ -52,10 +60,21 @@ public class HabitEventListTest{
     public void testDeleteHabitEvent(){
         HabitEventList habitEventList = new HabitEventList();
         boolean[] sched = new boolean[7];
-        Habit habit = new Habit("name", "comment", sched);
-        HabitEvent habitEvent = new HabitEvent(habit,"comment");
+        User user1 = new User("user1");
+        Habit habit = new Habit("name", "comment", sched,user1.getUsername());
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        HabitEvent habitEvent = new HabitEvent(habit,"comment",location);
         habitEventList.addHabitEvent(habitEvent);
         habitEventList.deleteHabitEvent(habitEvent);
         assertEquals(habitEventList.size(), 0);
     }
+    public Location createLocation(double lat, double lng, float accuracy) {
+        // Create a new Location
+        Location newLocation = new Location("PROVIDER");
+        newLocation.setLatitude(lat);
+        newLocation.setLongitude(lng);
+        newLocation.setAccuracy(accuracy);
+        return newLocation;
+    }
 }
+

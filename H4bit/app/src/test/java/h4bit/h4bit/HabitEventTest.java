@@ -1,4 +1,5 @@
 package h4bit.h4bit;
+import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.Arrays;
@@ -21,9 +22,10 @@ public class HabitEventTest{
         String comment = "test comment for event";
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
+        Location location =  createLocation(22.35, 65.679, 5.0f);
         String habitsComment = "this is comment of test habit";
-        Habit habit1 = new Habit("habit1",habitsComment,sched);
-        HabitEvent event1 = new HabitEvent(habit1,comment);
+        Habit habit1 = new Habit("habit1",habitsComment,sched,"user1");
+        HabitEvent event1 = new HabitEvent(habit1,comment,location);
         assertEquals(event1.getHabit(),habit1);
         assertEquals(event1.getComment(),comment);
     }
@@ -31,17 +33,29 @@ public class HabitEventTest{
     public void testGetHabitEvent(){
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit = new Habit("test", "test", sched);
-        HabitEvent habitEvent = new HabitEvent(habit);
-        assertEquals(habitEvent.getHabit(), habit);
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        String habitsComment = "this is comment of test habit";
+        Habit habit1 = new Habit("habit1",habitsComment,sched,"user1");
+        HabitEvent habitEvent = new HabitEvent(habit1,"comment",location);
+        assertEquals(habitEvent.getHabit(), habit1);
     }
     @Test
     public void testGetComment(){
         boolean[] sched = new boolean[7];
         Arrays.fill(sched, true);
-        Habit habit = new Habit("test1", "test2", sched);
-        HabitEvent habitEvent = new HabitEvent(habit, "test3");
+        Location location =  createLocation(22.35, 65.679, 5.0f);
+        String habitsComment = "this is comment of test habit";
+        Habit habit1 = new Habit("habit1",habitsComment,sched,"user1");
+        HabitEvent habitEvent = new HabitEvent(habit1,"test3",location);
         assertEquals(habitEvent.getComment(), "test3");
+    }
+    public Location createLocation(double lat, double lng, float accuracy) {
+        // Create a new Location
+        Location newLocation = new Location("PROVIDER");
+        newLocation.setLatitude(lat);
+        newLocation.setLongitude(lng);
+        newLocation.setAccuracy(accuracy);
+        return newLocation;
     }
     // compareto does not testing as its another built in method with expected behaviour
 }
