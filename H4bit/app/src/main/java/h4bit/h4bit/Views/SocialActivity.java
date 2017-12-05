@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import h4bit.h4bit.Controllers.SaveLoadController;
@@ -77,7 +79,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         socialButton.setPressed(true);
         socialButton.setEnabled(false);
 
-        ArrayList<HabitEvent> theList = new ArrayList<>();
+        final ArrayList<HabitEvent> theList = new ArrayList<>();
         for(int i = 0; i < user.getFollowing().size(); i++){
             try{
                 User theFollowed = elasticSearch.getUser(user.getFollowing().get(i));
@@ -123,6 +125,13 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 // Take us into the map activity
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
+                Log.d("SocialActivity", theList.toString());
+                HabitEventList socialEventList = new HabitEventList();
+                for(int i = 0; i < theList.size(); i++){
+                    socialEventList.addHabitEvent(theList.get(i));
+                }
+                String socialEventListString = new Gson().toJson(socialEventList);
+                intent.putExtra("socialEventList", socialEventListString);
                 intent.putExtra("mode", "social");
                 startActivity(intent);
             }
@@ -133,8 +142,15 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
                 // Take us into the map activity
                 Intent intent = new Intent(context, HabitEventMapActivity.class);
                 intent.putExtra("savefile", savefile);
-                //String socialEventList = new Gson().toJson(socialEventList);
-                //intent.putExtra("socialEventList", socialEventList);
+                // add all of the objects in theList to socialEventList
+                // what is theList
+                Log.d("SocialActivity", theList.toString());
+                HabitEventList socialEventList = new HabitEventList();
+                for(int i = 0; i < theList.size(); i++){
+                    socialEventList.addHabitEvent(theList.get(i));
+                }
+                String socialEventListString = new Gson().toJson(socialEventList);
+                intent.putExtra("socialEventList", socialEventListString);
                 intent.putExtra("mode", "nearby");
                 startActivity(intent);
             }

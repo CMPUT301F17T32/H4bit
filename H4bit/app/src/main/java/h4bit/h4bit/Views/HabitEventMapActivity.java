@@ -94,9 +94,8 @@ public class HabitEventMapActivity extends AppCompatActivity implements OnMapRea
         // Get habits from social screen
         if (!mode.equals("history")) {
             // Get the social habitEventList from intent
-//            socialEventList = new Gson().fromJson(getIntent().getStringExtra("socialEventList"), HabitEventList.class);
-            // just pretend habit list is the social event list
-            socialEventList = habitEventList;
+            socialEventList = new Gson().fromJson(getIntent().getStringExtra("socialEventList"), HabitEventList.class);
+            Log.d("HabitEventMapActivity", "Got the social event list? "+ socialEventList.get(0).getComment());
             // We also need the current location for nearby
             if (mode.equals("nearby")){
                 // Call twice just in case they activate location the first time
