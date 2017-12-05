@@ -174,15 +174,15 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
             if (acceptRecipient.getUsername().equals(username)) {
                 if(b){
                     Toast.makeText(SocialActivity.this, username + " has been allowed to follow you", Toast.LENGTH_SHORT).show();
-                    String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
-                    String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
-                    followingText.setText(f1);
-                    followerText.setText(f1);
                     acceptRecipient.addFollowing(user.getUsername());
                     user.addFollower(acceptRecipient.getUsername());
                     user.removeRequests(acceptRecipient.getUsername());
                     elasticSearch.updateUser(user);
                     elasticSearch.updateUser(acceptRecipient);
+                    String f1 = "Following\n"+String.valueOf(user.getFollowing().size());
+                    String f2 = "Followers\n"+String.valueOf(user.getFollowers().size());
+                    followingText.setText(f1);
+                    followerText.setText(f1);
                 } else {
                     Toast.makeText(SocialActivity.this, username + "'s request has been ignored", Toast.LENGTH_SHORT).show();
                     user.removeRequests(acceptRecipient.getUsername());
