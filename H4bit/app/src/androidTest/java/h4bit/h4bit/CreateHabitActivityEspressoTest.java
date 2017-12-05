@@ -1,4 +1,5 @@
 package h4bit.h4bit;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -36,6 +37,7 @@ public class CreateHabitActivityEspressoTest {
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule =
             new ActivityTestRule<>(LoginActivity.class);
+
 
     @Test
 
