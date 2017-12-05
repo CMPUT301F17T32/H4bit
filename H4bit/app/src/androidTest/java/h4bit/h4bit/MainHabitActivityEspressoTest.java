@@ -51,7 +51,7 @@ public class MainHabitActivityEspressoTest {
         onView(withId(R.id.historyButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.habitStatusList)).atPosition(0);
         //onView(withId(R.id.AutoCompleteName))
-          //      .perform(typeText("Habit1345"), closeSoftKeyboard());
+        //      .perform(typeText("Habit1345"), closeSoftKeyboard());
         //onView(withId(R.id.searchButton)).perform(click());
 
     }
@@ -59,16 +59,28 @@ public class MainHabitActivityEspressoTest {
     public void transferToSocial(){
         login();
         onView(withId(R.id.socialButton)).perform(click());
+
         onData(anything()).inAdapterView(withId(R.id.eventsList)).atPosition(0);
 
     }
     public void login() {
         // Type text and then press the button.
-        onView(withId(R.id.usernameText)).perform(typeText("test789"),
+        String user = randomAN();
+        onView(withId(R.id.usernameText)).perform(typeText(user),
                 closeSoftKeyboard());
-        onView(withId(R.id.crealogButton)).perform(click());
+        onView(withId(R.id.signupButton)).perform(click());
+    }
+
+    private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    public static String randomAN() {
+        StringBuilder builder = new StringBuilder();
+        int i = 5;
+        while (i-- != 0) {
+            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
     }
 
 }
-
 
