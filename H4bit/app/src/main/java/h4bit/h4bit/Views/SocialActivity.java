@@ -81,7 +81,7 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         for(int i = 0; i < user.getFollowing().size(); i++){
             try{
                 User theFollowed = elasticSearch.getUser(user.getFollowing().get(i));
-                theList.addAll(theFollowed.getHabitList().getMostRecentForEachHabit());
+                theList.addAll(theFollowed.getHabitEventList().getMostRecentForEachHabit());
 
             } catch (Exception e){
                 Log.d("oh no", "thats bad");
