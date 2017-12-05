@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
 
-/** User class
+/** HabitEventList class
  * version 1.0
  * 2017-11-03.
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.

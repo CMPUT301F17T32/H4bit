@@ -200,6 +200,11 @@ public class SocialActivity extends FragmentActivity implements FollowUserDialog
         }
     }
 
+    /**
+     *
+     * @param b boolean
+     * @param username
+     */
     public void onDismiss(boolean b, String username){
         try {
             User acceptRecipient = elasticSearch.getUser(username);

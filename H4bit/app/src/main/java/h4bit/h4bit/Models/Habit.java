@@ -188,31 +188,7 @@ public class Habit implements Comparable<Habit> {
 
         Log.d("NEVER", "plsno");
         return this.nextDate = -1;
-        /*if(!getDoneToday() && this.getSchedule()[dayNumber] && untilStart < 1){
-            return this.nextDate;
-        }
-        this.nextDate++;
-        dayNumber++;
-        if(dayNumber > 6){
-            dayNumber -= 7;
-        }
 
-        for(int i = 0; i < 7; i++){
-            if(this.getSchedule()[dayNumber]) {
-                if(untilStart > this.nextDate) {
-                    this.nextDate += 7;
-                }
-                return this.nextDate;
-            }
-            dayNumber++;
-            if(dayNumber > 6){
-                dayNumber -= 7;
-            }
-            this.nextDate++;
-        }
-
-        this.nextDate = Math.max(this.nextDate, untilStart);
-        return this.nextDate;*/
     }
 
     /**

@@ -50,7 +50,7 @@ public class MainHabitActivity extends AppCompatActivity {
     private ListView listView;
 
     @Override
-    protected void onStart(){//Bundle savedInstanceState) {
+    protected void onStart(){
         super.onStart();//savedInstanceState);
         setContentView(R.layout.activity_main_habit);
 

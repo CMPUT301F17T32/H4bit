@@ -221,10 +221,7 @@ public class DoHabitActivity extends AppCompatActivity {
                     if (location != null) {
                         eventLocation = location;
                         Toast.makeText(context, "Location received", Toast.LENGTH_LONG).show();
-
-
                     } else {
-                        // Maybe a toast saying cannot get location
                         Toast.makeText(context, "Could not get location", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -243,9 +240,6 @@ public class DoHabitActivity extends AppCompatActivity {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    // Get the location here I guess
-//                    getCurrentLocation();
-
                 } else {
                     eventLocation = null;
                     // permission denied, boo! Disable the
@@ -253,7 +247,6 @@ public class DoHabitActivity extends AppCompatActivity {
                 }
                 return;
             }
-
             // other 'case' lines to check for other
             // permissions this app might request
         }

@@ -65,14 +65,12 @@ public class HabitHistoryActivity extends FragmentActivity{
         historyButton.setEnabled(false);
         Button searchButton = (Button) findViewById(R.id.searchButton);
         Button mapButton = (Button) findViewById(R.id.mapButton);
-//        ToggleButton mapToggle = (ToggleButton) findViewById(R.id.mapToggle);
         ListView eventsList = (ListView) findViewById(R.id.eventsList);
 
         // get savefile
         this.savefile = getIntent().getStringExtra("savefile");
         saveLoadController = new SaveLoadController(savefile, this.getApplicationContext());
         user = saveLoadController.load();
-//        loadFromFile();
 
         // auto complete text view
         final HabitEventList habitEventAutoList = user.getHabitEventList();
@@ -159,12 +157,6 @@ public class HabitHistoryActivity extends FragmentActivity{
                       Toast.LENGTH_LONG).show();
                 }
                 habitEventAdapter.notifyDataSetChanged();
-                // so at thiss point it displays the search results, and this wehre i need to get my initial habitEventList. the stuff that crashes the app is commented out
-                //habitEventList.clearList();
-                //habitEventList = saveOriginalList(SavedHabitEventList);
-                //Toast.makeText(getApplicationContext(), habitEventList.get(0).getHabit().getName(),
-                //  Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -230,7 +222,6 @@ public class HabitHistoryActivity extends FragmentActivity{
             if (comment.equals(habitEventList.get(i).getComment())&&name.equals(habitEventList.get(i).getHabit().getName())) {
                 FullHabitEventList.addHabitEvent(habitEventList.get(i));
             }
-
         }
         habitEventList.clearList();
         for (int i = 0; i < FullHabitEventList.size(); i++) {
