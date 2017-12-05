@@ -29,7 +29,7 @@ import h4bit.h4bit.Models.User;
  */
 
 /*
- * usernameText, passwordText, signupButton, crealogButton
+ * usernameText, signupButton, crealogButton
  * These are the respective textboxes required to handle the information
  * we plan for this screen to have dual functionality, so the crealog button should
  * either show create or login depending on whether they are
@@ -78,11 +78,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // These aren't functional yet so they will be hidden
-        //signupButton.setVisibility(View.GONE);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
-        passwordText.setVisibility(View.GONE);
-
     }
 
     // This should log in the user and take us to the main todays habits screen screen
@@ -96,10 +91,9 @@ public class LoginActivity extends AppCompatActivity {
     public void login() throws ExecutionException, InterruptedException {
 
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
         String username = usernameText.getText().toString();
-        String password = passwordText.getText().toString();
+
 
         if (username.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
@@ -131,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
 
         User user = new User();
         EditText usernameText = (EditText) findViewById(R.id.usernameText);
-        EditText passwordText = (EditText) findViewById(R.id.passwordText);
 
         String username = usernameText.getText().toString();
         if (username.isEmpty()) {
