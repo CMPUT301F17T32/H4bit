@@ -48,6 +48,8 @@ public class DoHabitEventEspressoTest {
                 .perform(typeText("Comment1"), closeSoftKeyboard());
         onView(withId(R.id.mondayToggle)).perform(click());
         onView(withId(R.id.tuesdayToggle)).perform(click());
+        onView(withId(R.id.wednesdayToggle)).perform(click());
+        onView(withId(R.id.thursdayToggle)).perform(click());
         //onView(withId(R.id.crealogButton)).perform(click());
         onView(withId(R.id.createButton)).perform(click());
         onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0).perform(click());

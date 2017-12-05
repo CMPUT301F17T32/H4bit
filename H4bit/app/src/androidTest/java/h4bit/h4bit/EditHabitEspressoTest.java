@@ -63,6 +63,7 @@ public class EditHabitEspressoTest {
         //onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0);
 
         // Check that the text was changed.
+
         onView(withId(R.id.nameText))
                 .perform(typeText("45"), closeSoftKeyboard());
         onView(withId(R.id.commentText))
