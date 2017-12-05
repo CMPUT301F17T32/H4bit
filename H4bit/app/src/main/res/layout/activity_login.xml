@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/h4bit">
 
     <Button
         android:id="@+id/signupButton"
@@ -13,19 +13,20 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="28dp"
         android:text="@string/signupButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+        app:layout_constraintTop_toBottomOf="@+id/crealogButton" />
 
     <EditText
         android:id="@+id/usernameText"
-        android:layout_width="231dp"
+
+        android:layout_width="235dp"
         android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="216dp"
         android:alpha="0.6"
         android:background="#e6e6e6"
         android:ems="10"
@@ -34,6 +35,7 @@
         android:textColor="#020202"
         android:textColorHint="#999999"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         android:text="@string/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameText" />
 </android.support.constraint.ConstraintLayout>

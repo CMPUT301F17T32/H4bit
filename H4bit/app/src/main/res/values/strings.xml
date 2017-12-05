@@ -5,8 +5,8 @@
     <string name="historyTab">history</string>
     <string name="newHabitButton">New Habit</string>
     <string name="searchHistoryButton">Search</string>
-    <string name="signupButton">Signup</string>
-    <string name="loginButton">Login</string>
+    <string name="signupButton">Sign up</string>
+    <string name="loginButton">Log in</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
     <string name="searchNameHint">Habit Name</string>

@@ -75,11 +75,6 @@ public class HabitController {
 
         return 1;
 
-//        return habit;
-    }
-
-    public void doHabit(){
-
     }
 
 }
