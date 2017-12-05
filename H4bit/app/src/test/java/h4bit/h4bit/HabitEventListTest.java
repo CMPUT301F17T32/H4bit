@@ -13,6 +13,7 @@ import h4bit.h4bit.Views.MainHabitActivity;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by benhl on 2017-11-13.
@@ -41,7 +42,7 @@ public class HabitEventListTest{
         Location location =  createLocation(22.35, 65.679, 5.0f);
         HabitEvent habitEvent = new HabitEvent(habit,"comment",location);
         habitEventList.addHabitEvent(habitEvent);
-        assertFalse(habitEventList.isDoneToday(habit));
+        assertTrue(habitEventList.isDoneToday(habit));
     }
     @Test
     public void testSize(){
