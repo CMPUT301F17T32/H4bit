@@ -14,11 +14,12 @@ import h4bit.h4bit.Views.MainHabitActivity;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-
 /**
- * Created by benhl on 2017-11-13.
+ * HabitEventListTest
+ * Version 1.0
+ * december 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
-
 public class HabitEventListTest{
 
     @Test

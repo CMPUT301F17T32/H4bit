@@ -10,7 +10,10 @@ import h4bit.h4bit.Views.MainHabitActivity;
 
 import static org.junit.Assert.*;
 /**
- * Created by Vlad Kravchnko on 10/22/2017.
+ * UserTest
+ * Version 1.0
+ * december 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
 
 public class UserTest {

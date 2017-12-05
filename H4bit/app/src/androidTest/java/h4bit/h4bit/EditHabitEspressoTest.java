@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.EasyMock2Matchers.equalTo;
 
 /**
- * EditHabitActivityEspressoTest
+ * EditHabitEspressoTest
  * Version 1.0
  * december 1st 2017
  * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.

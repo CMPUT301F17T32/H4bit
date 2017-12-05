@@ -16,9 +16,11 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * Created by Vlad Kravchnko on 10/21/2017.
+ * HabitListTest
+ * Version 1.0
+ * december 1st 2017
+ * Copyright 2017 Team 32, CMPUT 301, University of Alberta - All Rights Reserved.
  */
-
 public class HabitListTest{
 
     @Test
