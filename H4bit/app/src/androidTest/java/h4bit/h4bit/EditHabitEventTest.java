@@ -64,6 +64,38 @@ public class EditHabitEventTest {
         //onView(withId(R.id.nameText)).check(matches(withText("Habit1424")));
         onView(withId(R.id.reasonText)).check(matches(withText("CommentModified")));
     }
+    @Test
+
+    public void ensureEditEventPassedToHistory() {
+        // Type text and then press the button.
+        String user = randomAN();
+        onView(withId(R.id.usernameText)).perform(typeText(user),
+                closeSoftKeyboard());
+        onView(withId(R.id.signupButton)).perform(click());
+        onView(withId(R.id.addButton)).perform(click());
+        // Type text and then press the button.
+        onView(withId(R.id.nameText))
+                .perform(typeText("Habit14"), closeSoftKeyboard());
+        onView(withId(R.id.commentText))
+                .perform(typeText("Comment1"), closeSoftKeyboard());
+        onView(withId(R.id.mondayToggle)).perform(click());
+        onView(withId(R.id.tuesdayToggle)).perform(click());
+        onView(withId(R.id.wednesdayToggle)).perform(click());
+        onView(withId(R.id.thursdayToggle)).perform(click());
+        //onView(withId(R.id.crealogButton)).perform(click());
+        onView(withId(R.id.createButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0).perform(click());
+        onView(withId(R.id.doHabitButton)).perform(click());
+        onView(withId(R.id.historyButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.eventsList)).atPosition(0).onChildView(withId(R.id.editButton)).perform(click());
+        onView(withId(R.id.reasonText))
+                .perform(typeText("CommentModified"), closeSoftKeyboard());
+        // Check that the text was changed.
+        //onView(withId(R.id.nameText)).check(matches(withText("Habit1424")));
+        onView(withId(R.id.reasonText)).check(matches(withText("CommentModified")));
+        onView(withId(R.id.saveEventButton)).perform(click());
+        onData(anything()).inAdapterView(withId(R.id.habitsList)).atPosition(0);
+    }
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
